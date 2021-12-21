@@ -4,7 +4,7 @@ import com.example.email.Server.User;
 
 public class Email {
     private User user;
-    private User to;
+    private User to;    //string
     private String subject;
     private String body;
 

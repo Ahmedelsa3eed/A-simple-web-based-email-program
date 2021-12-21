@@ -1,5 +1,7 @@
 package com.example.email.Server;
 
+import com.example.email.Server.emailContent.Email;
+import com.example.email.Server.emailContent.SendingEmail;
 import com.example.email.Server.registeriation.UserRegisteriation;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -24,6 +26,13 @@ public class ServerController {
     public boolean signIn(@RequestBody User user){
         SignIn signIn = new SignIn();
         return signIn.signIn(user);
+    }
+
+    @PostMapping("/send")
+    @ResponseBody
+    public void send(@RequestBody Email email){
+        SendingEmail s = new SendingEmail();
+        s.send(email);
     }
 
     @PostMapping("/addContact")
