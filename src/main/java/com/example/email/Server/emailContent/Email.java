@@ -29,7 +29,11 @@ public class Email {
         return body;
     }
 
-    public void setBody(String body) {
-        this.body = body;
+    public boolean isEqual(Email email1 ,Email email2){
+        return email1.from.equals(email2.from) &&
+                email1.to.equals(email2.to) &&
+                email1.body.equals(email2.body) &&
+                email1.subject.equals(email2.subject);
     }
+
 }

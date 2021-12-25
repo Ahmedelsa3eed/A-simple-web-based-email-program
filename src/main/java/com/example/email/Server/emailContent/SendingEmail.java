@@ -42,6 +42,8 @@ public class SendingEmail {
             System.out.println("error during sending");
         }
     }
+
+    // create mail in receiver json
     public void createMail(User user, String path, Email email) throws IOException{
         path+="\\"+user.getFirstName()+".json";
         File mail = new File(path);
@@ -55,6 +57,7 @@ public class SendingEmail {
         ObjectMapper objectMapper = new ObjectMapper();
         return (objectMapper.readerFor(User.class).readValue(new File(path)));
     }
+
     public void updateUserInfo( User user) throws IOException {
         String path = "data\\"+user.getEmail()+"\\info.json";
         File infoFile = new File(path);

@@ -1,5 +1,7 @@
 package com.example.email.Server.network;
 
+import com.example.email.Server.editFolders.Delete;
+import com.example.email.Server.editFolders.Search;
 import com.example.email.Server.emailContent.Email;
 import com.example.email.Server.user.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
