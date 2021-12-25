@@ -1,37 +1,30 @@
 package com.example.email.Server.emailContent;
 
-import com.example.email.Server.User;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
+/*
+* immutable Design pattern
+* */
 public class Email {
-    private User user;
-    private User to;    //string
+    private String from;
+    private String to;
     private String subject;
     private String body;
+    //public List<MultipartFile> multipartFiles;
 
-    public User getUser() {
-        return user;
+    public String getFrom() {
+        return from;
     }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public User getTo() {
+    public String getTo() {
         return to;
     }
-
-    public void setTo(User to) {
-        this.to = to;
-    }
-
     public String getSubject() {
         return subject;
     }
-
-    public void setSubject(String subject) {
-        this.subject = subject;
-    }
-
     public String getBody() {
         return body;
     }

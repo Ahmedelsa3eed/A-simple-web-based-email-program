@@ -8,10 +8,9 @@ public class FolderFactory {
         fileCreated = false;
     }
 
-    public boolean getFileCreated(){return fileCreated;}
-
     public void createFolder(String path){
         File f = new File(path);
         fileCreated = f.mkdirs();
     }
+    public boolean getFileCreated(){return fileCreated;}
 }
