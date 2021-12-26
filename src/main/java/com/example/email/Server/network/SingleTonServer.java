@@ -18,7 +18,6 @@ public class SingleTonServer {
     public ArrayList<Email> inbox;
     public ArrayList<Email> trash;
     public ArrayList<Email> draft;
-    public List<MultipartFile> multipartFiles;
 
     public User getUser() {
         return user;
@@ -64,10 +63,10 @@ public class SingleTonServer {
             }
         }
         catch (IOException e){
-            System.out.println("Error while loading the json file");
+            e.printStackTrace();
         }
         catch (NullPointerException nullPointerException){
-            System.out.println("wrong path name while loading");
+            nullPointerException.printStackTrace();
         }
 
     }
@@ -91,6 +90,14 @@ public class SingleTonServer {
 
     public void addEmail(Email email){
         sent.add(email);
+    }
+
+    public void resetServer(){
+        user = new User();
+        sent = new ArrayList<>();
+        inbox = new ArrayList<>();
+        trash = new ArrayList<>();
+        draft = new ArrayList<>();
     }
 
 

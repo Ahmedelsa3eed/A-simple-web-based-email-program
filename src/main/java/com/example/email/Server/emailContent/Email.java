@@ -14,7 +14,6 @@ public class Email {
     private String to;
     private String subject;
     private String body;
-    //public List<MultipartFile> multipartFiles;
 
     public String getFrom() {
         return from;
@@ -29,7 +28,23 @@ public class Email {
         return body;
     }
 
-    public boolean isEqual(Email email1 ,Email email2){
+    public void setFrom(String from) {
+        this.from = from;
+    }
+
+    public void setTo(String to) {
+        this.to = to;
+    }
+
+    public void setSubject(String subject) {
+        this.subject = subject;
+    }
+
+    public void setBody(String body) {
+        this.body = body;
+    }
+
+    public boolean isEqual(Email email1 , Email email2){
         return email1.from.equals(email2.from) &&
                 email1.to.equals(email2.to) &&
                 email1.body.equals(email2.body) &&

@@ -22,34 +22,26 @@ public class Delete {
     //lets do it
 
     public void deleteEmail(Email email, String position){
-
-        ArrayList<Email> list = server.inbox;
+ArrayList<Email> list =  whereToDelete(position);
         for (int i =0 ;i<list.size();i++) {
             if (email.isEqual(list.get(i), email))  {
                  list.set(i, email);
-
             }
-
         }
         list.remove(email);
         server.trash.add(email);
-        server.inbox = list;
-
+        whereToDelete(position).equals(list);
     }
 
     public void delete(User user, int id, String folderName) {
             Path trashFile= Paths.get("data\\"+user.getEmail()+"\\"+folderName+"\\"+ id);
             Path x=Paths.get("data\\"+user.getEmail()+"\\trash\\"+user.getIdTrash());
             user.setIdTrash(user.getIdTrash()+1);
-
         try {
             Files.move(trashFile,x);
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
     }
-
 
 }

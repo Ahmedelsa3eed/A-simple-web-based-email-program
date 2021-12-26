@@ -10,17 +10,21 @@ import java.io.IOException;
 
 public class SendingEmail {
     SingleTonServer server;
+    String pathSender;
+    String pathReceiver;
+    Email email;
     /*
      * first, update the userinfo file of the receiver
      * second, update the data at the singleton server
      * don't forgot to update the userinfo before logout
      * */
     public void send(Email email){
+        this.email = email;
         try {
             server = SingleTonServer.getInstance();
             User receiver = getUserInfo(email.getTo());
-            //String pathSender = "data\\"+server.getUser().getEmail()+"\\sent\\"+server.getUser().getIdSend();
-            String pathReceiver = "data/"+receiver.getEmail()+"/inbox/"+receiver.getIdReceive();
+           // pathSender = "data\\"+server.getUser().getEmail()+"\\sent\\"+server.getUser().getIdSend();
+            pathReceiver = "data/"+receiver.getEmail()+"/inbox/"+receiver.getIdReceive();
 
             FolderFactory factory = new FolderFactory();
             //factory.createFolder(pathSender);
@@ -32,20 +36,17 @@ public class SendingEmail {
             createMail(server.getUser(), pathReceiver, email);
             //createMail(receiver, pathSender, email);
 
-//            FileResource fileResource = new FileResource();
-//            fileResource.uploadFiles(server.multipartFiles, pathReceiver);
             updateUserInfo(receiver);
-
             server.sent.add(email);
         }
         catch (IOException e){
-            System.out.println("error during sending");
+            e.printStackTrace();
         }
     }
 
     // create mail in receiver json
     public void createMail(User user, String path, Email email) throws IOException{
-        path+="\\"+user.getFirstName()+".json";
+        path+="/"+user.getEmail()+".json";
         File mail = new File(path);
         mail.createNewFile();
         ObjectMapper mapper = new ObjectMapper();

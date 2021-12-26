@@ -25,7 +25,7 @@ import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 @Controller
 /*Server controller is the facade of this system*/
 public class ServerController {
-
+//    SendingEmail s;
     @PostMapping("/register")
     @ResponseBody
     public boolean signUp(@RequestBody User user) throws IOException {
@@ -58,14 +58,6 @@ public class ServerController {
 //        SingleTonServer server = SingleTonServer.getInstance();
 //        server.multipartFiles = multipartFiles;
 //    }
-
-    @PostMapping("/upload")
-    @ResponseBody
-    public void uploadFiles(@RequestParam("files")List<MultipartFile> multipartFiles) throws IOException {
-        String DIRECTORY = "data/";
-        FileResource fileResource = new FileResource();
-        fileResource.uploadFiles(multipartFiles, DIRECTORY);
-    }
 
     @GetMapping("/search")
     public void search(@RequestParam String searchBar, String searchPosition, String searchBy){
