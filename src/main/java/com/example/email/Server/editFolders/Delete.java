@@ -33,6 +33,18 @@ ArrayList<Email> list =  whereToDelete(position);
         whereToDelete(position).equals(list);
     }
 
+    public ArrayList<Email> whereToDelete(String position){
+        switch (position){
+            case "inbox":
+                return server.inbox;
+            case "sent":
+                return server.sent;
+
+            default:
+                return server.draft;
+        }
+    }
+
     public void delete(User user, int id, String folderName) {
             Path trashFile= Paths.get("data\\"+user.getEmail()+"\\"+folderName+"\\"+ id);
             Path x=Paths.get("data\\"+user.getEmail()+"\\trash\\"+user.getIdTrash());

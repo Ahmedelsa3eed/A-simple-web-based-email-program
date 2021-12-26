@@ -3,6 +3,7 @@ package com.example.email.Server.network;
 import com.example.email.Server.editFolders.Delete;
 import com.example.email.Server.editFolders.Search;
 import com.example.email.Server.emailContent.Email;
+import com.example.email.Server.logOut.LogOut;
 import com.example.email.Server.user.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.boot.SpringApplication;
@@ -16,7 +17,7 @@ import java.io.IOException;
 public class EmailServerApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(EmailServerApplication.class, args);
+	//	SpringApplication.run(EmailServerApplication.class, args);
 
 		User user= new User();
 		User user2=new User();

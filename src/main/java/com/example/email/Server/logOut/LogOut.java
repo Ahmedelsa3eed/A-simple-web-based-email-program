@@ -18,11 +18,10 @@ import static java.nio.file.Paths.get;
 public class LogOut {
     SingleTonServer server = SingleTonServer.getInstance();
 
-    public void saveSent(String whatToSave){
+    public void save(){
         //this function will be used to save from server to hdd all the updates on user server.
         //we have arraylist of inbox each has in an email object json file
         //we update and replace all files
-
         //this we be edited by me
         try {
             String[] files={"sent","trash","draft"};
@@ -47,7 +46,7 @@ public class LogOut {
         } catch (IOException e) {
             System.out.println(e);
         }
-
+        server.resetServer();
     }
     public static void removeDirectory(File dir) {
         if (dir.isDirectory()) {
@@ -66,6 +65,8 @@ public class LogOut {
         switch (whatToSave){
             case "sent":
                 return server.sent;
+            case "draft":
+                return server.draft;
             default:
                 return server.trash;
 
