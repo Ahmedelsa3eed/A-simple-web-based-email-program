@@ -4,9 +4,11 @@ import com.example.email.Server.network.SingleTonServer;
 import com.example.email.Server.user.User;
 import com.example.email.Server.folders.FolderFactory;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 public class SendingEmail {
     SingleTonServer server;
@@ -52,6 +54,15 @@ public class SendingEmail {
         ObjectMapper mapper = new ObjectMapper();
         mapper.writeValue(mail, email);
     }
+
+//    public void uploadFiles(List<MultipartFile> multipartFiles) throws IOException {
+//        FileResource fileResource = new FileResource();
+//        fileResource.uploadFiles(multipartFiles, pathReceiver);
+////        fileResource.uploadFiles(multipartFiles, pathSender);
+//        email.multipartFiles = multipartFiles;
+//        server.sent.add(email);
+//        createMail(server.getUser(), pathReceiver, email);
+//    }
 
     public User getUserInfo(String mail) throws IOException{
         String path = "data\\"+mail+"\\info.json";
