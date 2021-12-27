@@ -1,17 +1,23 @@
 package com.example.email.Server.Contact;
 
 import com.example.email.Server.controller.SingleTonServer;
-import com.example.email.Server.emailContent.Email;
 
 import java.util.ArrayList;
 
 public class EditContact {
     SingleTonServer server = SingleTonServer.getInstance();
-    //handle rename
-    //handle delete
-    //sorting
 
-    public void sort(String whatToSort,String sortBy){
+    public void deleteContactUser(String oldContactName){
+        server.contacts.removeIf(user -> user.getName().equals(oldContactName));
+    }
+
+    public void editContactUser(ContactUser newContactUser, ContactUser oldContactUser){
+        int index = server.contacts.indexOf(oldContactUser);
+        server.contacts.set(index, newContactUser);
+    }
+
+    //sorting
+    public void sort(String whatToSort, String sortBy){
         for (int i=0 ; i<server.contacts.size()-1 ; i++){
 
             for (int j=i+1 ; j < server.contacts.size() ; j++){
@@ -27,7 +33,7 @@ public class EditContact {
 
 
     }
-    public String sortBy(ContactUser user ,String sortBy){
+    private String sortBy(ContactUser user ,String sortBy){
         switch (sortBy){
             case "name":
                 return user.getName();
@@ -35,25 +41,34 @@ public class EditContact {
                 return user.getName();
         }
     }
-    //searcin
-//    public ArrayList<Email> search(String searchBar, String searchPosition, String searchBy){
-//
-//        ArrayList<Email> searchedMails = new ArrayList<>();
-//        ArrayList<Email> whereToSearch = getSearchingPosition(searchPosition);
-//
-//        for (Email email : whereToSearch) {
-//            if (toBeSearched(email, searchBy).contains(searchBar)) {
-//                searchedMails.add(email);
-//            }
-//        }
-//        return searchedMails;
-//    }
 
+    //search by name till now
+    public ArrayList<ContactUser> search(String searchBar, String searchBy){
 
+        ArrayList<ContactUser> searchedContacts = new ArrayList<>();
+
+        for (ContactUser user : server.contacts) {
+            if (toBeSearched(user, searchBy).contains(searchBar)) {
+                searchedContacts.add(user);
+            }
+        }
+        return searchedContacts;
+    }
+    //take the search_by then returns the string to be searched
+    private String toBeSearched(ContactUser user, String searchBy){
+        switch (searchBy){
+            case "name":
+                return user.getName();
+            default:
+                return user.getName();
+        }
+    }
 }
 
 
 /**
+ * Search and sort by Date
+ *
  * 1.contact
  *   rename , delete , search , sort
  *

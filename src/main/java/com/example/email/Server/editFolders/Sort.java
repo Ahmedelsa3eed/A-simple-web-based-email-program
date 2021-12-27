@@ -17,7 +17,7 @@ public class Sort {
 
     SingleTonServer server=SingleTonServer.getInstance();
 
-    public void sort(String whatToSort,String sortBy){
+    public void sort(String whatToSort, String sortBy){
         ArrayList<Email> listOfMails=sortFile(whatToSort);
         for (int i=0 ; i<listOfMails.size()-1 ; i++){
 

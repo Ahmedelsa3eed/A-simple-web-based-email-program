@@ -7,10 +7,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class SendingEmail {
     SingleTonServer server;
-    String pathSender;
     String pathReceiver;
     Email email;
     /*
@@ -22,6 +23,7 @@ public class SendingEmail {
         this.email = email;
         try {
             server = SingleTonServer.getInstance();
+            email.setDate(LocalDateTime.now().toString());
             User receiver = getUserInfo(email.getTo());
            // pathSender = "data\\"+server.getUser().getEmail()+"\\sent\\"+server.getUser().getIdSend();
             pathReceiver = "data/"+receiver.getEmail()+"/inbox/"+receiver.getIdReceive();
@@ -45,7 +47,7 @@ public class SendingEmail {
     }
 
     // create mail in receiver json
-    public void createMail(User user, String path, Email email) throws IOException{
+    private void createMail(User user, String path, Email email) throws IOException{
         path+="/"+user.getEmail()+".json";
         File mail = new File(path);
         mail.createNewFile();
@@ -62,13 +64,13 @@ public class SendingEmail {
 //        createMail(server.getUser(), pathReceiver, email);
 //    }
 
-    public User getUserInfo(String mail) throws IOException{
+    private User getUserInfo(String mail) throws IOException{
         String path = "data\\"+mail+"\\info.json";
         ObjectMapper objectMapper = new ObjectMapper();
         return (objectMapper.readerFor(User.class).readValue(new File(path)));
     }
 
-    public void updateUserInfo( User user) throws IOException {
+    private void updateUserInfo( User user) throws IOException {
         String path = "data\\"+user.getEmail()+"\\info.json";
         File infoFile = new File(path);
         infoFile.createNewFile();

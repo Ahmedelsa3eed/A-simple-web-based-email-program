@@ -4,35 +4,20 @@ import com.example.email.Server.controller.SingleTonServer;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class AddContact {
     SingleTonServer server = SingleTonServer.getInstance();
 
-    public ContactUser addContact( ContactUser contactUser) {
-        String path ="data\\" + server.getUser().getEmail() + "\\contacts\\" + contactUser.getName() + ".json";
+    public ArrayList<ContactUser> addContact(ContactUser contactUser) {
         for (String email: contactUser.getEmails()){
             if (!checkEmail(email)){
                 System.out.println("there is no account with that mailAddress");
-                return contactUser;
-            }
-
-//            if (checkContact(email)){
-//                System.out.println("there is already a contact with that email");
-//                    ahmed ...am@mail.com
-//                // saeed...am@mail.com
-//                //team...am@mail.com ,nnv
-//                return contactUser;
-//            }
-            try{
-                ObjectMapper mapper = new ObjectMapper();
-                File infoFile = createJsonFile(path);
-                mapper.writeValue(infoFile , contactUser);
-            }
-            catch (IOException e){
-                System.out.println("error at creating json file");
+                return server.contacts;
             }
         }
-        return contactUser;
+        server.contacts.add(contactUser);
+        return server.contacts;
     }
 
     //find if there exist usere with that mail
@@ -59,7 +44,7 @@ public class AddContact {
 //        return false;
 //    }
 
-    public Boolean checkEmail(String email){
+    private boolean checkEmail(String email){
         File data = new File("data");
         String []files = data.list();
         if (files.length==0){
@@ -73,10 +58,9 @@ public class AddContact {
             }
         }
         return false;
-
     }
 
-    public File createJsonFile(String path) throws IOException {
+    private File createJsonFile(String path) throws IOException {
         System.out.println(path);
         File infoFile = new File(path);
         infoFile.createNewFile();

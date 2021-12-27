@@ -10,10 +10,40 @@ import java.util.List;
 * immutable Design pattern
 * */
 public class Email {
+    private int priority;
+    private String date;
     private String from;
     private String to;
     private String subject;
     private String body;
+
+    public Email() {
+    }
+
+    public Email(int priority, String date, String from, String to, String subject, String body) {
+        this.priority = priority;
+        this.date = date;
+        this.from = from;
+        this.to = to;
+        this.subject = subject;
+        this.body = body;
+    }
+
+    public int getPriority() {
+        return priority;
+    }
+
+    public void setPriority(int priority) {
+        this.priority = priority;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
 
     public String getFrom() {
         return from;

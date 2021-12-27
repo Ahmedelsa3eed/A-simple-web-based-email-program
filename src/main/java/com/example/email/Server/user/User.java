@@ -9,6 +9,19 @@ public class User {
     private int idReceive;
     private int idTrash;
 
+    public User(String firstName, String secondName, String email, String password){
+        this.firstName  = firstName;
+        this.secondName = secondName;
+        this.email = email;
+        this.password = password;
+    }
+
+    public User (){
+        this.idReceive = 0;
+        this.idSend = 0;
+        this.idTrash = 0;
+    }
+
     public int getIdTrash() {
         return idTrash;
     }
@@ -34,7 +47,7 @@ public class User {
     }
 
     public String getEmail() {
-        return email;
+        return this.email;
     }
 
     public void setEmail(String email) {
@@ -42,7 +55,7 @@ public class User {
     }
 
     public String getFirstName() {
-        return firstName;
+        return this.firstName;
     }
 
     public void setFirstName(String firstName) {

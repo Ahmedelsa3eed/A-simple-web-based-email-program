@@ -8,24 +8,30 @@ import java.io.File;
 import java.io.IOException;
 
 
-public class UserRegisteriation {
+public class Register {
 
-    public Boolean signUp(User user) throws IOException {
-        File file = new File("data" + "\\"+user.getEmail());
-        if(checkMailAddress(user.getEmail())){
-            System.out.println("Error there exist user with that name");
+    public Boolean signUp(User user) {
+        try {
+            File file = new File("data" + "\\"+user.getEmail());
+            if(checkMailAddress(user.getEmail())){
+                //System.out.println("There exist user with that email");
+                return false;
+            }
+
+            file.mkdirs();
+            File infoFile = createJsonFile(file.getPath());
+            ObjectMapper mapper = new ObjectMapper();
+            mapper.writeValue(infoFile, user);
+            createDirectories(file);
+            return true;
+        }
+        catch (IOException e){
             return false;
         }
 
-        file.mkdirs();
-        File infoFile = createJsonFile(file.getPath());
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.writeValue(infoFile, user);
-        createDirectories(file);
-        return true;
     }
 
-    public void createDirectories(File file){
+    private void createDirectories(File file){
         FolderFactory factory = new FolderFactory();
         String path = file.getPath()+"\\";
         factory.createFolder(path+"inbox");
@@ -35,17 +41,14 @@ public class UserRegisteriation {
         factory.createFolder(path+"draft");
     }
 
-    public File createJsonFile(String path) throws IOException {
+    private File createJsonFile(String path) throws IOException {
         path+="\\"+"info.json";
-        System.out.println(path);
         File infoFile = new File(path);
         infoFile.createNewFile();
         return infoFile;
-
     }
 
     private boolean checkMailAddress(String mailAddress) {
-
         File data = new File("data");
         String []files = data.list();
         if (files.length == 0)return false;
@@ -58,9 +61,4 @@ public class UserRegisteriation {
         }
         return false;
     }
-
-
-
-
-
 }

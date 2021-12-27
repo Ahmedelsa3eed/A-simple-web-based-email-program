@@ -5,10 +5,10 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 
 import java.io.File;
-@Configuration
-@EnableScheduling
+//@Configuration
+//@EnableScheduling
 public class FileListFilter {
-
+/*
     @Scheduled(fixedDelay = 24 * 60 * 60 * 1000)
     public void recursiveDelete(File file) {
         if (file != null && file.exists()) {
@@ -27,4 +27,6 @@ public class FileListFilter {
             }
         }
     }
+
+ */
 }

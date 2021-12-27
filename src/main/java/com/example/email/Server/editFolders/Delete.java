@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class Delete {
     //decrement id
 
-    SingleTonServer server=SingleTonServer.getInstance();
+    SingleTonServer server = SingleTonServer.getInstance();
     //we get the email that should be removed
     //we should remove it from the linked list of sent or inbox or .... let work for  inbox now
     //so we have array[] inbox of mail and tha mail to be canceled

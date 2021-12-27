@@ -8,43 +8,39 @@ import java.io.File;
 import java.io.IOException;
 
 public class SignIn {
+    SingleTonServer server;
 
     public boolean signIn(User user){
-        SingleTonServer server = SingleTonServer.getInstance();
-        User currentUser = new User();
+        server = SingleTonServer.getInstance();
         String path ="data\\%s\\info.json";
         path = String.format(path, user.getEmail());
-        //System.out.println(path);
-
         File data = new File("data");
         String []files = data.list();
-        if (files.length==0){
-            System.out.println("Email doesn't exist");
-            return false;
-        }
-        else {
+        try {
+            if ( files == null || files.length == 0){
+                System.out.println("Email doesn't exist");
+                return false;
+            }
             for (String file:files){
                 if (file.equals(user.getEmail())){
-                    try {
-                        final ObjectMapper objectMapper = new ObjectMapper();
-                         currentUser = objectMapper.readerFor(User.class).readValue(new File(path));
-                         if(currentUser.getPassword().equals(user.getPassword())){
-                             System.out.println("sign in successfully");
-                             server.loadUser(currentUser);
-                             return true;
-                         }
-                         else{
-                             System.out.println("password wrong");
-                             return false;
-                         }
-                    } catch( IOException e) {
-                        e.printStackTrace();
+                    final ObjectMapper objectMapper = new ObjectMapper();
+                    User currentUser = objectMapper.readerFor(User.class).readValue(new File(path));
+                    if(currentUser.getPassword().equals(user.getPassword())){
+                        System.out.println("sign in successfully");
+                        server.loadUser(currentUser);
+                        return true;
+                    }
+                    else{
+                        System.out.println("password wrong");
+                        return false;
                     }
                 }
             }
             System.out.println("wrong email address");
             return false;
         }
-
+        catch (IOException e){
+            return false;
+        }
     }
 }

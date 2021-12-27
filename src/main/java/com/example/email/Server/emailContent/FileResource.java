@@ -16,7 +16,7 @@ public class FileResource {
     * we're trying to create some resource on the server
     * we return a list of those file names so that we can download them again
     * */
-    public void uploadFiles(List<MultipartFile> multipartFiles, String DIRECTORY) throws IOException {
+    public void uploadFiles(List<MultipartFile> multipartFiles, String DIRECTORY){
         try {
             for(MultipartFile file : multipartFiles) {
                 String filename = StringUtils.cleanPath(file.getOriginalFilename());
