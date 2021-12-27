@@ -1,7 +1,7 @@
 package com.example.email.Server.editFolders;
 
 import com.example.email.Server.emailContent.Email;
-import com.example.email.Server.network.SingleTonServer;
+import com.example.email.Server.controller.SingleTonServer;
 import com.example.email.Server.user.User;
 
 import java.io.*;

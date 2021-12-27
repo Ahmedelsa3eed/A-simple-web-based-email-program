@@ -3,14 +3,10 @@ package com.example.email.Server.logOut;
 import com.example.email.Server.emailContent.Email;
 import com.example.email.Server.folders.FolderFactory;
 import com.example.email.Server.folders.JsonFactory;
-import com.example.email.Server.network.SingleTonServer;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.boot.logging.java.JavaLoggingSystem;
+import com.example.email.Server.controller.SingleTonServer;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.ArrayList;
 
 import static java.nio.file.Paths.get;

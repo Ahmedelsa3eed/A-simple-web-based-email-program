@@ -1,14 +1,12 @@
 package com.example.email.Server.emailContent;
 
-import com.example.email.Server.network.SingleTonServer;
+import com.example.email.Server.controller.SingleTonServer;
 import com.example.email.Server.user.User;
 import com.example.email.Server.folders.FolderFactory;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 
 public class SendingEmail {
     SingleTonServer server;
