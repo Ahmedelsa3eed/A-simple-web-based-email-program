@@ -23,7 +23,7 @@ public class SendingEmail {
         this.email = email;
         try {
             server = SingleTonServer.getInstance();
-            email.setDate(LocalDateTime.now().toString());
+           // email.setDate(LocalDateTime.now().toString());
             User receiver = getUserInfo(email.getTo());
            // pathSender = "data\\"+server.getUser().getEmail()+"\\sent\\"+server.getUser().getIdSend();
             pathReceiver = "data/"+receiver.getEmail()+"/inbox/"+receiver.getIdReceive();

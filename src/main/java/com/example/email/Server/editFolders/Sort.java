@@ -23,7 +23,8 @@ public class Sort {
 
             for (int j=i+1 ; j < listOfMails.size() ; j++){
 
-                if ( sortBy(listOfMails.get(i),sortBy).compareTo(sortBy(listOfMails.get(j),sortBy)) > 0 ){
+                if ( sortBy(listOfMails.get(i),sortBy).compareTo(sortBy(listOfMails.get(j),sortBy)) > 0 && !sortBy.equals("date")||
+                        ( sortBy(listOfMails.get(i),sortBy).compareTo(sortBy(listOfMails.get(j),sortBy)) < 0 ) ){
 
                     Email temp = listOfMails.get(i);
                     listOfMails.set(i, listOfMails.get(j)) ;

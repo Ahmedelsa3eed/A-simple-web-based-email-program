@@ -63,4 +63,13 @@ class SortTest {
         sort.sort("sent","date");
         assertThat(server.sent.get(0).getDate()).isEqualTo(date3);
     }
+
+    @Test
+    void sortByBody() {
+        sort.sort("sent","date");
+        assertThat(server.sent.get(0).getDate()).isEqualTo(date3);
+    }
+
+
+
 }
