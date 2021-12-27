@@ -1,5 +1,6 @@
 package com.example.email.Server.SignIn;
 
+import com.example.email.Server.controller.SingleTonServer;
 import com.example.email.Server.user.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -9,6 +10,7 @@ import java.io.IOException;
 public class SignIn {
 
     public boolean signIn(User user){
+        SingleTonServer server = SingleTonServer.getInstance();
         User currentUser = new User();
         String path ="data\\%s\\info.json";
         path = String.format(path, user.getEmail());
@@ -17,6 +19,7 @@ public class SignIn {
         File data = new File("data");
         String []files = data.list();
         if (files.length==0){
+            System.out.println("Email doesn't exist");
             return false;
         }
         else {
@@ -27,6 +30,7 @@ public class SignIn {
                          currentUser = objectMapper.readerFor(User.class).readValue(new File(path));
                          if(currentUser.getPassword().equals(user.getPassword())){
                              System.out.println("sign in successfully");
+                             server.loadUser(currentUser);
                              return true;
                          }
                          else{

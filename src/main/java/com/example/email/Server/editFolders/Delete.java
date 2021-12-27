@@ -22,7 +22,7 @@ public class Delete {
     //lets do it
 
     public void deleteEmail(Email email, String position){
-ArrayList<Email> list =  whereToDelete(position);
+    ArrayList<Email> list =  whereToDelete(position);
         for (int i =0 ;i<list.size();i++) {
             if (email.isEqual(list.get(i), email))  {
                  list.set(i, email);

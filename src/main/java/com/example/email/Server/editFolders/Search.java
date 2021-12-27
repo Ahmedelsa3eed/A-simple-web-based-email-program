@@ -9,11 +9,12 @@ public class Search {
     SingleTonServer server = SingleTonServer.getInstance();
 
    public ArrayList<Email> search(String searchBar, String searchPosition, String searchBy){
+
        ArrayList<Email> searchedMails = new ArrayList<>();
        ArrayList<Email> whereToSearch = getSearchingPosition(searchPosition);
 
        for (Email email : whereToSearch) {
-           if (toBeSearched(email, searchBy).contains(searchBar)) {
+           if ( toBeSearched(email, searchBy).contains(searchBar) ) {
                searchedMails.add(email);
            }
        }

@@ -63,6 +63,8 @@ public class LogOut {
                 return server.sent;
             case "draft":
                 return server.draft;
+//            case "inbox":
+//                return server.inbox;
             default:
                 return server.trash;
 

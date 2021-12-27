@@ -19,7 +19,8 @@ import static java.nio.file.Paths.get;
 @Controller
 /*Server controller is the facade of this system*/
 public class ServerController {
-//    SendingEmail s;
+
+    //    SendingEmail s;
     @PostMapping("/register")
     @ResponseBody
     public boolean signUp(@RequestBody User user) throws IOException {
@@ -34,8 +35,7 @@ public class ServerController {
     @ResponseBody
     public boolean signIn(@RequestBody User user){
         SignIn signIn = new SignIn();
-        SingleTonServer server = SingleTonServer.getInstance();
-        server.loadUser(user);
+
         return signIn.signIn(user);
     }
 
@@ -61,9 +61,9 @@ public class ServerController {
 
     @PostMapping("/addContact")
     @ResponseBody
-    public ContactUser addContact(@RequestBody User user, ContactUser contactUser){
-        ContactUser c = new ContactUser();
-        return c.addContact(user, contactUser);
+    public ContactUser addContact(@RequestBody ContactUser contactUser){
+        AddContact c = new AddContact();
+        return c.addContact(contactUser);
     }
 
     @GetMapping("/logOut")
