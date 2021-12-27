@@ -5,6 +5,7 @@ import com.example.email.Server.Contact.ContactUser;
 import com.example.email.Server.Contact.EditContact;
 import com.example.email.Server.DraftEmail;
 import com.example.email.Server.SignIn.SignIn;
+import com.example.email.Server.editFolders.Delete;
 import com.example.email.Server.editFolders.Search;
 import com.example.email.Server.user.User;
 import com.example.email.Server.emailContent.Email;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import static java.nio.file.Paths.get;
 
@@ -110,6 +112,5 @@ public class ServerController {
     @GetMapping("/logOut")
     public void logOut() {
         //put user values in info.json hello mi senti ?
-
     }
 }

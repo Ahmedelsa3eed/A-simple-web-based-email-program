@@ -23,7 +23,7 @@ public class Sort {
 
             for (int j=i+1 ; j < listOfMails.size() ; j++){
 
-                if ( sortBy(listOfMails.get(i),sortBy).compareTo(sortBy(listOfMails.get(j),sortBy)) >0 ){
+                if ( sortBy(listOfMails.get(i),sortBy).compareTo(sortBy(listOfMails.get(j),sortBy)) > 0 ){
 
                     Email temp = listOfMails.get(i);
                     listOfMails.set(i, listOfMails.get(j)) ;
@@ -59,10 +59,10 @@ public class Sort {
                 return mail.getSubject();
             case "to":
                 return mail.getTo();
-            case "from":
-                return mail.getFrom();
             case "body":
                 return mail.getBody();
+            case "date":
+                return mail.getDate();
             default:
                 return mail.getFrom();
         }

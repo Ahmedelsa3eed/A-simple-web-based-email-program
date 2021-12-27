@@ -23,11 +23,7 @@ public class Delete {
 
     public void deleteEmail(Email email, String position){
     ArrayList<Email> list =  whereToDelete(position);
-        for (int i =0 ;i<list.size();i++) {
-            if (email.isEqual(list.get(i), email))  {
-                 list.set(i, email);
-            }
-        }
+
         list.remove(email);
         server.trash.add(email);
         whereToDelete(position).equals(list);
@@ -35,6 +31,7 @@ public class Delete {
 
     public ArrayList<Email> whereToDelete(String position){
         switch (position){
+
             case "inbox":
                 return server.inbox;
             case "sent":
