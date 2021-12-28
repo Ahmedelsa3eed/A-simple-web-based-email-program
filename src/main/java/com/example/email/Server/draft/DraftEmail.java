@@ -1,4 +1,4 @@
-package com.example.email.Server;
+package com.example.email.Server.draft;
 
 import com.example.email.Server.controller.SingleTonServer;
 import com.example.email.Server.editFolders.Delete;
@@ -17,7 +17,6 @@ public class DraftEmail {
 
     public void addToDraft(Email email){
         server.draft.add(email);
-
     }
 
     //we want to edit the mail can edit to ,from ,subject,b

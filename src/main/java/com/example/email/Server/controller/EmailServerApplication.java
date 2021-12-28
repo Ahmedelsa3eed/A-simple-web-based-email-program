@@ -1,22 +1,12 @@
 package com.example.email.Server.controller;
 
-import com.example.email.Server.Contact.AddContact;
-import com.example.email.Server.Contact.ContactUser;
-import com.example.email.Server.DraftEmail;
-import com.example.email.Server.SignIn.SignIn;
-import com.example.email.Server.editFolders.Delete;
-import com.example.email.Server.editFolders.Sort;
-import com.example.email.Server.emailContent.Email;
-import com.example.email.Server.emailContent.SendingEmail;
-import com.example.email.Server.user.User;
-import com.fasterxml.jackson.databind.ObjectMapper;
+//import com.example.email.Server.folders.FileListFilter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
+import org.springframework.scheduling.annotation.Scheduled;
 
 import java.io.File;
-import java.io.IOException;
-import java.time.LocalDateTime;
 
 @SpringBootApplication(exclude = {SecurityAutoConfiguration.class })
 public class EmailServerApplication {
@@ -105,5 +95,9 @@ public class EmailServerApplication {
 //
 //		sort.sort("sent", "date");
 //
+/*
+		FileListFilter fileListFilter = new FileListFilter();
+		fileListFilter.recursiveDelete(new File("data\\attachments\\5f8030cd-68f8-472e-b307-4313e0fec4a1"));
+*/
 	}
 }

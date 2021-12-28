@@ -4,6 +4,7 @@ import com.example.email.Server.emailContent.Email;
 import com.example.email.Server.folders.FolderFactory;
 import com.example.email.Server.folders.JsonFactory;
 import com.example.email.Server.controller.SingleTonServer;
+import com.example.email.Server.user.User;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,11 +15,13 @@ import static java.nio.file.Paths.get;
 public class LogOut {
     SingleTonServer server = SingleTonServer.getInstance();
 
+    /*
+    *    save from server to hdd all the updates on user server.
+    *    we have arraylist of inbox each has in an email object json file
+    *    we update and replace all files
+    *    credited by emary
+    */
     public void save(){
-        //this function will be used to save from server to hdd all the updates on user server.
-        //we have arraylist of inbox each has in an email object json file
-        //we update and replace all files
-        //this we be edited by me
         try {
             String[] files={"sent","trash","draft"};
             for (String whatToSave:files) {
@@ -44,7 +47,12 @@ public class LogOut {
         }
         server.resetServer();
     }
-    public static void removeDirectory(File dir) {
+    public void refresh(){
+        User tempUser = server.getUser();
+        save();
+        server.loadUser(tempUser);
+    }
+    private void removeDirectory(File dir) {
         if (dir.isDirectory()) {
             File[] files = dir.listFiles();
             if (files != null && files.length > 0) {
@@ -57,7 +65,7 @@ public class LogOut {
             dir.delete();
         }
     }
-    public ArrayList<Email> getListOf(String whatToSave){
+    private ArrayList<Email> getListOf(String whatToSave){
         switch (whatToSave){
             case "sent":
                 return server.sent;

@@ -4,46 +4,31 @@ import com.example.email.Server.controller.SingleTonServer;
 import com.example.email.Server.user.User;
 import com.example.email.Server.folders.FolderFactory;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.tomcat.util.http.fileupload.FileUtils;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.nio.channels.FileChannel;
-import java.nio.file.Files;
-
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class SendingEmail {
-    SingleTonServer server;
-    String pathReceiver;
-    Email email;
+    SingleTonServer server = SingleTonServer.getInstance();
     /*
      * first, update the userinfo file of the receiver
      * second, update the data at the singleton server
      * don't forgot to update the userinfo before logout
      * */
     public void send(Email email){
-        this.email = email;
         try {
-            server = SingleTonServer.getInstance();
             email.setDate(LocalDateTime.now().toString());
+            email.setAttachmentPath(server.attachmentId);
+            email.setAttachmentsName();
+            server.attachmentId = null;
             User receiver = getUserInfo(email.getTo());
-           // pathSender = "data\\"+server.getUser().getEmail()+"\\sent\\"+server.getUser().getIdSend();
-            pathReceiver = "data/"+receiver.getEmail()+"/inbox/"+receiver.getIdReceive();
+            String pathReceiver = "data/"+receiver.getEmail()+"/inbox/"+receiver.getIdReceive();
 
             FolderFactory factory = new FolderFactory();
-            //factory.createFolder(pathSender);
             factory.createFolder(pathReceiver);
 
             server.getUser().setIdSend(server.getUser().getIdSend() + 1);
@@ -54,13 +39,7 @@ public class SendingEmail {
 
             updateUserInfo(receiver);
             System.out.println(email.getAttachmentPath());
-//            File file = new File("data/"+server.getUser().getEmail()+"/attachments/"+email.getAttachmentPath());
-//            Files.copy(file.getInputStream(),
-//                    new File("data/"+email.getTo()+"/attachment/"+email.getAttachmentPath()).toPath());
-/*
-     FileUtils.c(new File("data/"+server.getUser().getEmail()+"/attachments/"+email.getAttachmentPath())
-                        ,new File("data/"+email.getTo()+"/attachments/"+email.getAttachmentPath()));
-*/
+
             server.sent.add(email);
         }
         catch (Exception e){
@@ -99,26 +78,6 @@ public class SendingEmail {
         infoFile.createNewFile();
         ObjectMapper mapper = new ObjectMapper();
         mapper.writeValue(infoFile, user);
-    }
-    private boolean move(File sourceFile, File destFile)
-    {
-        if (sourceFile.isDirectory())
-        {
-            for (File file : sourceFile.listFiles())
-            {
-                move(file, new File(file.getPath().substring("temp".length()+1)));
-            }
-        }
-        else
-        {
-            try {
-                Files.move(Paths.get(sourceFile.getPath()), Paths.get(destFile.getPath()), StandardCopyOption.REPLACE_EXISTING);
-                return true;
-            } catch (IOException e) {
-                return false;
-            }
-        }
-        return false;
     }
 
 }

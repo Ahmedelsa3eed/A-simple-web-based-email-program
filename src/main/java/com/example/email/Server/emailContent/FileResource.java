@@ -2,6 +2,7 @@ package com.example.email.Server.emailContent;
 
 import com.example.email.Server.controller.SingleTonServer;
 import com.example.email.Server.folders.FolderFactory;
+import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -10,11 +11,9 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.annotation.Resource;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.file.Path;
 import java.nio.file.*;
 import java.util.List;
@@ -34,11 +33,12 @@ public class FileResource {
     public String uploadFiles(List<MultipartFile> multipartFiles, String emailAddress){
         DIRECTORY = String.format(DIRECTORY, emailAddress);
         String uniqueId = addAttachmentFile(DIRECTORY);
+        SingleTonServer server = SingleTonServer.getInstance();
+        server.attachmentId = uniqueId;
         try {
             for(MultipartFile file : multipartFiles) {
                 String filename = StringUtils.cleanPath(file.getOriginalFilename());
-                DIRECTORY += "/" + uniqueId;
-                Path fileStorage = get(DIRECTORY, filename).toAbsolutePath().normalize();
+                Path fileStorage = get(DIRECTORY + "/" + uniqueId, filename).toAbsolutePath().normalize();
                 System.out.println(fileStorage);
                 Files.copy(file.getInputStream(), fileStorage, REPLACE_EXISTING);
             }
@@ -49,17 +49,15 @@ public class FileResource {
         return uniqueId;
     }
 
-    // Define a method to download files
-//    @GetMapping("download/{filename}")
-    public ResponseEntity<Resource> downloadFiles(@PathVariable("filename") String filename) throws IOException {
-        Path filePath = get(DIRECTORY).toAbsolutePath().normalize().resolve(filename);
+    public ResponseEntity<Resource> downloadFiles(String filename, String attachment) throws IOException {
+        Path filePath = get(DIRECTORY+"/"+filename).toAbsolutePath().normalize().resolve(attachment);
         if(!Files.exists(filePath)) {
-            throw new FileNotFoundException(filename + " was not found on the server");
+            throw new FileNotFoundException(attachment + " was not found on the server");
         }
-        Resource resource = (Resource) new UrlResource(filePath.toUri());
+        Resource resource = new UrlResource(filePath.toUri());
         HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.add("File-Name", filename);
-        httpHeaders.add(CONTENT_DISPOSITION, "attachment;File-Name=" + ((UrlResource) resource).getFilename());
+        httpHeaders.add("File-Name", attachment);
+        httpHeaders.add(CONTENT_DISPOSITION, "attachment;File-Name=" + (resource).getFilename());
         return ResponseEntity.ok().contentType(MediaType.parseMediaType(Files.probeContentType(filePath)))
                 .headers(httpHeaders).body(resource);
     }

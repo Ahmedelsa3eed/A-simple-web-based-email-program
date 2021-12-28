@@ -18,6 +18,7 @@ public class SingleTonServer {
     public ArrayList<Email> trash;
     public ArrayList<Email> draft;
     public ArrayList<ContactUser> contacts;
+    public String attachmentId;
 
     public User getUser() {
         return user;
@@ -55,10 +56,10 @@ public class SingleTonServer {
                     for (String file : files) {
                         ObjectMapper objectMapper = new ObjectMapper();
                         File jsonFile = new File(path + "\\" + file);
-                        //String[] jsonfiles = jsonFile.list();
+                        String[] jsonFiles = jsonFile.list();
                         if (!folder.equals("contacts")){
                             Email mail = objectMapper.readerFor(Email.class)
-                                    .readValue(new File(jsonFile.getPath() + "\\" + jsonFile.getName()));
+                                    .readValue(new File(jsonFile.getPath() + "\\" + jsonFiles[0]));
                             arrayFactory(folder, mail);
                         }
                         else {

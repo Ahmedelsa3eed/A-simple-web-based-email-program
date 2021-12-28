@@ -11,10 +11,12 @@ public class Email {
     private String subject;
     private String body;
     private String attachmentPath;
-
+    private String[] attachmentsName;
+    
     public Email() {
+        this.priority = "b";
+        this.attachmentPath = "noAttachment";
     }
-
     public Email(String priority, String date, String from, String to, String subject, String body) {
         this.priority = priority;
         this.date = date;
@@ -23,7 +25,6 @@ public class Email {
         this.subject = subject;
         this.body = body;
     }
-
     public Email(String priority, String date, String from, String to, String subject, String body, String attachmentPath) {
         this.priority = priority;
         this.date = date;
@@ -33,7 +34,14 @@ public class Email {
         this.body = body;
         this.attachmentPath = attachmentPath;
     }
-
+    
+    public String[] getAttachmentsName() {
+        return attachmentsName;
+    }
+    public void setAttachmentsName() {
+        File file = new File("data/attachments/"+attachmentPath);
+        attachmentsName = file.list();
+    }
     public String getAttachmentPath() {
         return attachmentPath;
     }
@@ -76,12 +84,6 @@ public class Email {
     public void setBody(String body) {
         this.body = body;
     }
-
-    public boolean isEqual(Email email1 , Email email2){
-        return email1.from.equals(email2.from) &&
-                email1.to.equals(email2.to) &&
-                email1.body.equals(email2.body) &&
-                email1.subject.equals(email2.subject);
-    }
+    
 
 }
