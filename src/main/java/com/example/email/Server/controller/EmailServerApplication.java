@@ -22,7 +22,7 @@ import java.time.LocalDateTime;
 public class EmailServerApplication {
 
 	public static void main(String[] args) {
-		//SpringApplication.run(EmailServerApplication.class, args);
+		SpringApplication.run(EmailServerApplication.class, args);
 /*
         		User user= new User();
 				User user2=new User();
@@ -72,38 +72,38 @@ public class EmailServerApplication {
 */
 		//expect in draft array that mail deleted and add edited mail
 
-		SendingEmail underTest;
-		SignIn signIn;
-		SingleTonServer server;
-		SendingEmail sendingEmail;
-		Sort sort;
-
-
-		underTest = new SendingEmail();
-		signIn = new SignIn();
-		server = SingleTonServer.getInstance();
-		sendingEmail = new SendingEmail();
-		sort = new Sort();
-
-
-		User user = new User("ahmed", "mahmoud", "ahmed@mail.com", "1");
-		signIn.signIn(user);
-		String date = LocalDateTime.of(2020, 12, 10, 16, 10).toString();
-		Email email = new Email(0, date, "ahmed@mail.com", "emary@mail.com",
-				"sub1", "body1");
-
-		String date2 = LocalDateTime.of(2021, 12, 10, 16, 15).toString();
-		Email email2 = new Email(0, date2, "ahmed@mail.com", "emary@mail.com",
-				"sub2", "bod2");
-
-		String date3 = LocalDateTime.now().toString();
-		Email email3 = new Email(0, date3, "ahmed@mail.com", "emary@mail.com",
-				"sub3", "body3");
-		sendingEmail.send(email);
-		sendingEmail.send(email2);
-		sendingEmail.send(email3);
-
-		sort.sort("sent", "date");
-
+//		SendingEmail underTest;
+//		SignIn signIn;
+//		SingleTonServer server;
+//		SendingEmail sendingEmail;
+//		Sort sort;
+//
+//
+//		underTest = new SendingEmail();
+//		signIn = new SignIn();
+//		server = SingleTonServer.getInstance();
+//		sendingEmail = new SendingEmail();
+//		sort = new Sort();
+//
+//
+//		User user = new User("ahmed", "mahmoud", "ahmed@mail.com", "1");
+//		signIn.signIn(user);
+//		String date = LocalDateTime.of(2020, 12, 10, 16, 10).toString();
+//		Email email = new Email("b", date, "ahmed@mail.com", "emary@mail.com",
+//				"sub1", "body1");
+//
+//		String date2 = LocalDateTime.of(2021, 12, 10, 16, 15).toString();
+//		Email email2 = new Email("a", date2, "ahmed@mail.com", "emary@mail.com",
+//				"sub2", "bod2");
+//
+//		String date3 = LocalDateTime.now().toString();
+//		Email email3 = new Email("c", date3, "ahmed@mail.com", "emary@mail.com",
+//				"sub3", "body3");
+//		sendingEmail.send(email);
+//		sendingEmail.send(email2);
+//		sendingEmail.send(email3);
+//
+//		sort.sort("sent", "date");
+//
 	}
 }

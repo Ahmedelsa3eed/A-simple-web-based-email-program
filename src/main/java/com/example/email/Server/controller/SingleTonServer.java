@@ -19,7 +19,6 @@ public class SingleTonServer {
     public ArrayList<Email> draft;
     public ArrayList<ContactUser> contacts;
 
-
     public User getUser() {
         return user;
     }
@@ -56,9 +55,17 @@ public class SingleTonServer {
                     for (String file : files) {
                         ObjectMapper objectMapper = new ObjectMapper();
                         File jsonFile = new File(path + "\\" + file);
-                        String[] jsonfiles = jsonFile.list();
-                        Email mail = objectMapper.readerFor(Email.class).readValue(new File(jsonFile.getPath() + "\\" + jsonfiles[0]));
-                        arrayFactory(folder, mail);
+                        //String[] jsonfiles = jsonFile.list();
+                        if (!folder.equals("contacts")){
+                            Email mail = objectMapper.readerFor(Email.class)
+                                    .readValue(new File(jsonFile.getPath() + "\\" + jsonFile.getName()));
+                            arrayFactory(folder, mail);
+                        }
+                        else {
+                            ContactUser contactUser =  objectMapper.readerFor(ContactUser.class)
+                                    .readValue(new File(jsonFile.getPath()));
+                            server.contacts.add(contactUser);
+                        }
 
                     }
                 }
@@ -74,7 +81,7 @@ public class SingleTonServer {
 
     }
 
-    public void arrayFactory(String folder, Email email){
+    private void arrayFactory(String folder, Email email){
         switch (folder){
             case "inbox":
                 inbox.add(email);
@@ -91,10 +98,6 @@ public class SingleTonServer {
         }
     }
 
-    public void addEmail(Email email){
-        sent.add(email);
-    }
-
     public void resetServer(){
         user = new User();
         sent = new ArrayList<>();
@@ -102,6 +105,5 @@ public class SingleTonServer {
         trash = new ArrayList<>();
         draft = new ArrayList<>();
     }
-
 
 }

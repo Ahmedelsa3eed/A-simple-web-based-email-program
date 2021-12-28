@@ -7,6 +7,7 @@ import com.example.email.Server.DraftEmail;
 import com.example.email.Server.SignIn.SignIn;
 import com.example.email.Server.editFolders.Delete;
 import com.example.email.Server.editFolders.Search;
+import com.example.email.Server.emailContent.FileResource;
 import com.example.email.Server.user.User;
 import com.example.email.Server.emailContent.Email;
 import com.example.email.Server.emailContent.SendingEmail;
@@ -16,9 +17,11 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import static java.nio.file.Paths.get;
 
@@ -30,7 +33,7 @@ public class ServerController {
     //    SendingEmail s;
     @PostMapping("/register")
     @ResponseBody
-    public boolean signUp(@RequestBody User user) throws IOException {
+    public boolean signUp(@RequestBody User user) {
         Register register = new Register();
         return register.signUp(user);
     }
@@ -52,12 +55,15 @@ public class ServerController {
         s.send(email);
     }
 
-//    @PostMapping("/upload")
-//    @ResponseBody
-//    public void upload(@RequestParam("files")List<MultipartFile> multipartFiles){
-//        SingleTonServer server = SingleTonServer.getInstance();
-//        server.multipartFiles = multipartFiles;
-//    }
+    @PostMapping("/upload")
+    @ResponseBody
+    public ResponseEntity<List<String>> upload(@RequestParam("files") List<MultipartFile> multipartFiles){
+        FileResource fileResource = new FileResource();
+        server = SingleTonServer.getInstance();
+        List<String> list = new ArrayList<>();
+        list.add( fileResource.uploadFiles(multipartFiles, server.getUser().getEmail()));
+        return ResponseEntity.ok().body(list);
+    }
 
     @RequestMapping(value = "/inbox", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ArrayList<Email>> inbox(){

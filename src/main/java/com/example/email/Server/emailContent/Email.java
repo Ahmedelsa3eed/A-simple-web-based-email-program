@@ -1,11 +1,5 @@
 package com.example.email.Server.emailContent;
 
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.util.List;
-
 /*
 * immutable Design pattern
 * */
@@ -16,6 +10,7 @@ public class Email {
     private String to;
     private String subject;
     private String body;
+    private String attachmentPath;
 
     public Email() {
     }
@@ -27,6 +22,7 @@ public class Email {
         this.to = to;
         this.subject = subject;
         this.body = body;
+        this.attachmentPath = attachmentPath;
     }
 
     public int getPriority() {
@@ -36,15 +32,12 @@ public class Email {
     public void setPriority(int priority) {
         this.priority = priority;
     }
-
     public String getDate() {
         return date;
     }
-
     public void setDate(String date) {
         this.date = date;
     }
-
     public String getFrom() {
         return from;
     }
@@ -57,19 +50,15 @@ public class Email {
     public String getBody() {
         return body;
     }
-
     public void setFrom(String from) {
         this.from = from;
     }
-
     public void setTo(String to) {
         this.to = to;
     }
-
     public void setSubject(String subject) {
         this.subject = subject;
     }
-
     public void setBody(String body) {
         this.body = body;
     }

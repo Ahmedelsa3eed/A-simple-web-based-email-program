@@ -4,9 +4,23 @@ import com.example.email.Server.controller.SingleTonServer;
 import com.example.email.Server.user.User;
 import com.example.email.Server.folders.FolderFactory;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.tomcat.util.http.fileupload.FileUtils;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.nio.channels.FileChannel;
+import java.nio.file.Files;
+
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -41,7 +55,7 @@ public class SendingEmail {
             updateUserInfo(receiver);
             server.sent.add(email);
         }
-        catch (IOException e){
+        catch (Exception e){
             e.printStackTrace();
         }
     }
@@ -76,6 +90,26 @@ public class SendingEmail {
         infoFile.createNewFile();
         ObjectMapper mapper = new ObjectMapper();
         mapper.writeValue(infoFile, user);
+    }
+    private boolean move(File sourceFile, File destFile)
+    {
+        if (sourceFile.isDirectory())
+        {
+            for (File file : sourceFile.listFiles())
+            {
+                move(file, new File(file.getPath().substring("temp".length()+1)));
+            }
+        }
+        else
+        {
+            try {
+                Files.move(Paths.get(sourceFile.getPath()), Paths.get(destFile.getPath()), StandardCopyOption.REPLACE_EXISTING);
+                return true;
+            } catch (IOException e) {
+                return false;
+            }
+        }
+        return false;
     }
 
 }

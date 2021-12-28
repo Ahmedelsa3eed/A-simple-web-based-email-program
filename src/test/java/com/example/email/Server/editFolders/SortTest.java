@@ -12,29 +12,27 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 class SortTest {
-    SendingEmail underTest;
-    @Mock
-    SignIn signIn;
+
+    @Mock private SignIn signIn;
     private AutoCloseable autoCloseable;
-    SingleTonServer server;
-    SendingEmail sendingEmail;
-    Sort sort;
-    String date3;
+    @Mock private SendingEmail sendingEmail;
+    SingleTonServer server = SingleTonServer.getInstance();
+    private Sort underTest;
+    private String date3;
+    private String date2;
+    private String date;
 
     @BeforeEach
     void setUp() {
         autoCloseable = MockitoAnnotations.openMocks(this);
-        underTest = new SendingEmail();
         signIn = new SignIn();
-        server = SingleTonServer.getInstance();
+        server.resetServer();
         sendingEmail = new SendingEmail();
-        sort = new Sort();
+        underTest = new Sort();
         User user = new User("ahmed", "mahmoud", "ahmed@mail.com", "1");
         signIn.signIn(user);
         String date = LocalDateTime.of(2020,12,10,16,10).toString();
@@ -52,18 +50,15 @@ class SortTest {
         sendingEmail.send(email2);
         sendingEmail.send(email3);
     }
-
     @AfterEach
     void tearDown() throws Exception {
         autoCloseable.close();
     }
-
     @Test
     void sortByDate() {
         sort.sort("sent","date");
         assertThat(server.sent.get(0).getDate()).isEqualTo(date3);
     }
-
     @Test
     void sortByBody() {
         sort.sort("sent","date");

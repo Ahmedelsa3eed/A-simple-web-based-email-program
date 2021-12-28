@@ -76,13 +76,9 @@ public class EditContact {
  *  priority queue to view important emails first, you should support at least 4 priorities.
  *  Priority will be assigned when composing a new email manually
  *
- *  3.draft
- *  when sending you click discard, put this email in the draft of that user.
- *
- *  4.sea
- *aloooo
- *join meeting
- * swany m3l2
- * OK
- *
+ *  3.draft when sending you click discard, put this email in the draft of that user.
+ *  4.attachment
+ *  5.auto delete emails after 30 days.
+ *  6.You should enable selecting multiple emails to be able to bulk move, delete, ...etc.
+ *  7.You should implement a refresh button to check for any new email.
  * **/
