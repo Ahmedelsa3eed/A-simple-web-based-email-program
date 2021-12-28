@@ -37,6 +37,7 @@ public class Search {
    }
 
    //take the search_by then returns the string to be searched
+
    public String toBeSearched(Email mail, String searchBy){
        switch (searchBy){
            case "body":
@@ -45,6 +46,8 @@ public class Search {
                return mail.getSubject();
            case "from":
                return mail.getFrom();
+           case "date":
+               return mail.getDate();
            default:
                return mail.getTo();
        }

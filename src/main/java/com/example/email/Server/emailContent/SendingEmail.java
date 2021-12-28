@@ -35,7 +35,6 @@ public class SendingEmail {
             receiver.setIdReceive(receiver.getIdReceive() + 1);
 
             createMail(server.getUser(), pathReceiver, email);
-            //createMail(receiver, pathSender, email);
 
             updateUserInfo(receiver);
             System.out.println(email.getAttachmentPath());
@@ -55,16 +54,6 @@ public class SendingEmail {
         ObjectMapper mapper = new ObjectMapper();
         mapper.writeValue(mail, email);
     }
-
-
-//    public void uploadFiles(List<MultipartFile> multipartFiles) throws IOException {
-//        FileResource fileResource = new FileResource();
-//        fileResource.uploadFiles(multipartFiles, pathReceiver);
-////        fileResource.uploadFiles(multipartFiles, pathSender);
-//        email.multipartFiles = multipartFiles;
-//        server.sent.add(email);
-//        createMail(server.getUser(), pathReceiver, email);
-//    }
 
     private User getUserInfo(String mail) throws IOException{
         String path = "data\\"+mail+"\\info.json";

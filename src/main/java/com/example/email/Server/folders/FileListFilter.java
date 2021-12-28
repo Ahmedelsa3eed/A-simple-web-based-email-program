@@ -8,8 +8,8 @@ import org.springframework.scheduling.annotation.Scheduled;
 @Configuration
 @EnableScheduling
 public class FileListFilter {
-/*
-    @Scheduled(fixedDelay = 24 * 60 * 60 * 1000)
+
+    //@Scheduled(fixedDelay = 3 *  1000)
     public void recursiveDelete(File file) {
         System.out.println("a");
         if (file != null && file.exists()) {
@@ -20,7 +20,8 @@ public class FileListFilter {
                         recursiveDelete(fyle);
                     }
                     else {
-                        if (fyle.lastModified() > (double)30 * 24 * 60 * 60 * 1000) {
+                        System.out.println(fyle.lastModified());
+                        if (fyle.lastModified() > (double) 3* 1000) {
                             fyle.delete();
                         }
                     }
@@ -28,6 +29,5 @@ public class FileListFilter {
             }
         }
     }
-
- */
 }
+*/

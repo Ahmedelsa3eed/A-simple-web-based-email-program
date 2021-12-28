@@ -16,6 +16,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -24,14 +25,13 @@ import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 import static org.apache.tomcat.util.http.fileupload.FileUploadBase.CONTENT_DISPOSITION;
 
 public class FileResource {
-    private static String DIRECTORY = "data/%s/attachments";
+    private static final String DIRECTORY = "data/attachments";
     /*
     * upload files, it accepts post request
     * we're trying to create some resource on the server
     * we return a list of those file names so that we can download them again
     * */
-    public String uploadFiles(List<MultipartFile> multipartFiles, String emailAddress){
-        DIRECTORY = String.format(DIRECTORY, emailAddress);
+    public String uploadFiles(List<MultipartFile> multipartFiles){
         String uniqueId = addAttachmentFile(DIRECTORY);
         SingleTonServer server = SingleTonServer.getInstance();
         server.attachmentId = uniqueId;
@@ -61,7 +61,10 @@ public class FileResource {
         return ResponseEntity.ok().contentType(MediaType.parseMediaType(Files.probeContentType(filePath)))
                 .headers(httpHeaders).body(resource);
     }
-
+    private String[] getListOfAttachments(String folderName){
+        File file = new File(DIRECTORY + "/" + folderName);
+        return file.list();
+    }
     private String addAttachmentFile(String path){
         String uniqueID = UUID.randomUUID().toString();
         FolderFactory folderFactory = new FolderFactory();

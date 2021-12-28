@@ -146,9 +146,35 @@ public class ServerController {
         return new ResponseEntity<>(server.contacts, HttpStatus.OK);
     }
 
+    @GetMapping("/search")
+    public ResponseEntity<ArrayList<Email>> search(@RequestParam String searchBar, String searchPosition, String searchBy){
+        Search s = new Search();
+        return new ResponseEntity<>(s.search(searchBar, searchPosition, searchBy), HttpStatus.OK);
+    }
+
+    @PostMapping("/priority")
+    @ResponseBody
+    public ResponseEntity<ArrayList<Email>> priority(@RequestParam("TwoEmails") List<Email> TwoEmails) {
+        UpdatePriority updatePriority = new UpdatePriority();
+        updatePriority.edit(TwoEmails.get(0), TwoEmails.get(1));
+        return new ResponseEntity<>(server.inbox, HttpStatus.OK);
+    }
+
+    @GetMapping("/refresh")
+    public void refresh(){
+        LogOut logOut = new LogOut();
+        logOut.refresh();
+    }
+
     @GetMapping("/logOut")
     public void logOut() {
         LogOut logOut = new LogOut();
         logOut.save();
     }
 }
+/**
+ * Now we should show the attachments names in th front end so we can add them in mail as array of
+ * strings so that it will be related to that mail there will be a method that get the attachments
+ * names to show them in the E-mail it's easy we will only loop on the file in the folder and add
+ * attachment name to the array of string .
+ * */

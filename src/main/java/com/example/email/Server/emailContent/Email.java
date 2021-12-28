@@ -1,5 +1,8 @@
 package com.example.email.Server.emailContent;
 
+import java.io.File;
+import java.util.ArrayList;
+
 /*
  * immutable Design pattern
  * */

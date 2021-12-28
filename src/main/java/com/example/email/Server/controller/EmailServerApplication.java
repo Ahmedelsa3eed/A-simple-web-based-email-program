@@ -13,6 +13,7 @@ public class EmailServerApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(EmailServerApplication.class, args);
+
 /*
         		User user= new User();
 				User user2=new User();
@@ -94,6 +95,7 @@ public class EmailServerApplication {
 //		sendingEmail.send(email3);
 //
 //		sort.sort("sent", "date");
+
 //
 /*
 		FileListFilter fileListFilter = new FileListFilter();

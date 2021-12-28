@@ -35,7 +35,6 @@ public class EditContact {
             }
         }
 
-
     }
 
 
@@ -53,7 +52,7 @@ public class EditContact {
         return searchedContacts;
     }
     //take the search_by then returns the string to be searched
-    private String toBeSearched(ContactUser user, String searchBy){
+    private ArrayList<String> toBeSearched(ContactUser user, String searchBy){
         switch (searchBy){
             case "name":
                 ArrayList<String> name = new ArrayList<>();
@@ -72,5 +71,5 @@ public class EditContact {
  *  5.Auto delete emails after 30 days.
  *
  *  6.You should enable selecting multiple emails to be able to bulk move, delete, ...etc.
- *  7.You should implement a refresh button to check for any new email.
+ *  4.download attachment
  * **/

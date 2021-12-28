@@ -26,8 +26,10 @@ public class Delete {
         ArrayList<Email> list =  whereToDelete(position);
 
         for (int i =0 ; i < list.size();i++){
-            if (email.isEqual(email,list.get(i))){
+            if (email.getDate().equals(list.get(i).getDate())){
+                
                 list.set(i,email);
+                
             }
         }
 
