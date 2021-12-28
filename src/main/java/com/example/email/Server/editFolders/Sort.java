@@ -4,6 +4,7 @@ import com.example.email.Server.emailContent.Email;
 import com.example.email.Server.controller.SingleTonServer;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class Sort {
 
@@ -23,8 +24,8 @@ public class Sort {
 
             for (int j=i+1 ; j < listOfMails.size() ; j++){
 
-                if ( sortBy(listOfMails.get(i),sortBy).compareTo(sortBy(listOfMails.get(j),sortBy)) > 0 && !sortBy.equals("date")||
-                        ( sortBy(listOfMails.get(i),sortBy).compareTo(sortBy(listOfMails.get(j),sortBy)) < 0 ) ){
+                if ( sortBy(listOfMails.get(i),sortBy).toLowerCase().compareTo(sortBy(listOfMails.get(j),sortBy).toLowerCase()) > 0 && !sortBy.equals("date")||
+                        (sortBy.equals("date") && sortBy(listOfMails.get(i),sortBy).compareTo(sortBy(listOfMails.get(j),sortBy)) < 0 ) ){
 
                     Email temp = listOfMails.get(i);
                     listOfMails.set(i, listOfMails.get(j)) ;
@@ -64,6 +65,9 @@ public class Sort {
                 return mail.getBody();
             case "date":
                 return mail.getDate();
+            case "priority":
+                return mail.getPriority();
+
             default:
                 return mail.getFrom();
         }

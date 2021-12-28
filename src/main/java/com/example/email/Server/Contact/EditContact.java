@@ -72,7 +72,8 @@ public class EditContact {
  * 1.contact
  *   rename , delete , search , sort
  *
- * 2.handle the priority stars 0 or 1 or 2 or 3 or 4
+ *  a, b, c ,d
+ *  [d,d,d,c,b,b,a,a,a]
  *  priority queue to view important emails first, you should support at least 4 priorities.
  *  Priority will be assigned when composing a new email manually
  *

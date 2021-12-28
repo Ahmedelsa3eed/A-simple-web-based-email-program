@@ -28,6 +28,7 @@ class SortTest {
 
     @BeforeEach
     void setUp() {
+
         autoCloseable = MockitoAnnotations.openMocks(this);
         signIn = new SignIn();
         server.resetServer();
@@ -35,17 +36,18 @@ class SortTest {
         underTest = new Sort();
         User user = new User("ahmed", "mahmoud", "ahmed@mail.com", "1");
         signIn.signIn(user);
-        String date = LocalDateTime.of(2020,12,10,16,10).toString();
-        Email email = new Email(0, date, "ahmed@mail.com", "emary@mail.com",
-                "sub1", "body1");
+        date = LocalDateTime.of(2020,12,10,16,10).toString();
+        Email email = new Email("c", date, "ahmed@mail.com", "emary@mail.com",
+                "csub1", "zbody1");
 
-        String date2 = LocalDateTime.of(2021,12,10,16,15).toString();
-        Email email2 = new Email(0, date2, "ahmed@mail.com", "emary@mail.com",
-                "sub2", "bod2");
+        date2 = LocalDateTime.of(2021,12,10,16,15).toString();
+        Email email2 = new Email("b", date2, "ahmed@mail.com", "emary@mail.com",
+                "Asub2", "bod2");
 
         date3 = LocalDateTime.now().toString();
-        Email email3 = new Email(0, date3, "ahmed@mail.com", "emary@mail.com",
-                "sub3", "body3");
+        Email email3 = new Email("a", date3, "ahmed@mail.com", "emary@mail.com",
+                "bsub3", "abody3");
+
         sendingEmail.send(email);
         sendingEmail.send(email2);
         sendingEmail.send(email3);
@@ -56,13 +58,31 @@ class SortTest {
     }
     @Test
     void sortByDate() {
-        sort.sort("sent","date");
+        underTest.sort("sent","date");
         assertThat(server.sent.get(0).getDate()).isEqualTo(date3);
+        assertThat(server.sent.get(1).getDate()).isEqualTo(date2);
+        assertThat(server.sent.get(2).getDate()).isEqualTo(date);
     }
     @Test
     void sortByBody() {
-        sort.sort("sent","date");
-        assertThat(server.sent.get(0).getDate()).isEqualTo(date3);
+        underTest.sort("sent","body");
+        assertThat(server.sent.get(0).getBody()).isEqualTo("abody3");
+        assertThat(server.sent.get(1).getBody()).isEqualTo("bod2");
+        assertThat(server.sent.get(2).getBody()).isEqualTo("zbody1");
+    }
+    @Test
+    void sortBySubject() {
+        underTest.sort("sent","subject");
+        assertThat(server.sent.get(0).getSubject()).isEqualTo("Asub2");
+        assertThat(server.sent.get(1).getSubject()).isEqualTo("bsub3");
+        assertThat(server.sent.get(2).getSubject()).isEqualTo("csub1");
+    }
+    @Test
+    void sortByPriority() {
+        underTest.sort("sent","priority");
+        assertThat(server.sent.get(0).getPriority()).isEqualTo("a");
+        assertThat(server.sent.get(1).getPriority()).isEqualTo("b");
+        assertThat(server.sent.get(2).getPriority()).isEqualTo("c");
     }
 
 

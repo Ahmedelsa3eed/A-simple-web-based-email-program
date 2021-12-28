@@ -1,10 +1,10 @@
 package com.example.email.Server.emailContent;
 
 /*
-* immutable Design pattern
-* */
+ * immutable Design pattern
+ * */
 public class Email {
-    private int priority;
+    private String priority;
     private String date;
     private String from;
     private String to;
@@ -15,7 +15,16 @@ public class Email {
     public Email() {
     }
 
-    public Email(int priority, String date, String from, String to, String subject, String body) {
+    public Email(String priority, String date, String from, String to, String subject, String body) {
+        this.priority = priority;
+        this.date = date;
+        this.from = from;
+        this.to = to;
+        this.subject = subject;
+        this.body = body;
+    }
+
+    public Email(String priority, String date, String from, String to, String subject, String body, String attachmentPath) {
         this.priority = priority;
         this.date = date;
         this.from = from;
@@ -25,11 +34,16 @@ public class Email {
         this.attachmentPath = attachmentPath;
     }
 
-    public int getPriority() {
+    public String getAttachmentPath() {
+        return attachmentPath;
+    }
+    public void setAttachmentPath(String attachmentPath) {
+        this.attachmentPath = attachmentPath;
+    }
+    public String getPriority() {
         return priority;
     }
-
-    public void setPriority(int priority) {
+    public void setPriority(String priority) {
         this.priority = priority;
     }
     public String getDate() {

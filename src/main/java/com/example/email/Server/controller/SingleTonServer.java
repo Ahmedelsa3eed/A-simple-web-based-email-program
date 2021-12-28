@@ -48,7 +48,7 @@ public class SingleTonServer {
             File data = new File("data\\"+user.getEmail());
             String[] folders = data.list();
             for (String folder: folders){
-                if (!folder.equals("info.json") && !folder.equals("contacts")) {
+                if (!folder.equals("info.json") && !folder.equals("attachments")) {
                     String path = "data\\" + user.getEmail() + "\\" + folder;
                     File f = new File(path);
                     String[] files = f.list();

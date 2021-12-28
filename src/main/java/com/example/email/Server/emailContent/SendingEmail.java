@@ -37,7 +37,7 @@ public class SendingEmail {
         this.email = email;
         try {
             server = SingleTonServer.getInstance();
-           // email.setDate(LocalDateTime.now().toString());
+            email.setDate(LocalDateTime.now().toString());
             User receiver = getUserInfo(email.getTo());
            // pathSender = "data\\"+server.getUser().getEmail()+"\\sent\\"+server.getUser().getIdSend();
             pathReceiver = "data/"+receiver.getEmail()+"/inbox/"+receiver.getIdReceive();
@@ -53,6 +53,14 @@ public class SendingEmail {
             //createMail(receiver, pathSender, email);
 
             updateUserInfo(receiver);
+            System.out.println(email.getAttachmentPath());
+//            File file = new File("data/"+server.getUser().getEmail()+"/attachments/"+email.getAttachmentPath());
+//            Files.copy(file.getInputStream(),
+//                    new File("data/"+email.getTo()+"/attachment/"+email.getAttachmentPath()).toPath());
+/*
+     FileUtils.c(new File("data/"+server.getUser().getEmail()+"/attachments/"+email.getAttachmentPath())
+                        ,new File("data/"+email.getTo()+"/attachments/"+email.getAttachmentPath()));
+*/
             server.sent.add(email);
         }
         catch (Exception e){
@@ -68,6 +76,7 @@ public class SendingEmail {
         ObjectMapper mapper = new ObjectMapper();
         mapper.writeValue(mail, email);
     }
+
 
 //    public void uploadFiles(List<MultipartFile> multipartFiles) throws IOException {
 //        FileResource fileResource = new FileResource();

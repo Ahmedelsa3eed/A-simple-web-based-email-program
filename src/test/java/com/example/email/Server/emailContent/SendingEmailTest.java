@@ -23,7 +23,7 @@ class SendingEmailTest {
         SingleTonServer server = SingleTonServer.getInstance();
         //given
         String date = LocalDateTime.now().toString();
-        Email email = new Email(0, date, "ahmed@mail.com", "emary@mail.com",
+        Email email = new Email("a", date, "ahmed@mail.com", "emary@mail.com",
                 "sub", "body");
         System.out.println(date);
         underTest.send(email);
