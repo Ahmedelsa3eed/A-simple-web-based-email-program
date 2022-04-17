@@ -1,0 +1,49 @@
+<div class="login-wrapper">
+  <div class="card">
+    <div class="card-body">
+      <form class="form-signin" (ngSubmit)="onSubmit(sendForm)" #sendForm="ngForm">
+        <h2 class="form-signin-heading">Send Email</h2>
+
+        <label class="sr-only">to</label>
+        <input type="email" id="to" name="to" class="form-control" placeholder="Email address" required autofocus
+          ngModel>
+
+        <label class="sr-only">Subject</label>
+        <input type="text" id="subject" name="subject" class="form-control" placeholder="Title of your mail" required
+          autofocus ngModel>
+
+        <label class="sr-only">Body</label>
+        <input type="text" id="body" name="body" class="form-control" placeholder="Body of mail" required autofocus
+          ngModel>
+
+        <label class="sr-only">Attachment</label>
+        <input type="file" name="files" (change)="onFileSelect($event)" multiple class="form-control"
+          placeholder="attachment" autofocus ngModel>
+        <br>
+
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
+
+        <button class="toDraft" (click)="toDraft()" >To draft</button>
+
+        <div class="alert alert-danger" role="alert" *ngIf="isFormNCom">
+          Please fill all fields.
+        </div>
+        <div class="alert alert-danger" role="alert" *ngIf="inCorrectMail">
+          Invalid Mail.
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- $event.target.files -->
+<!-- <div>
+  <form [formGroup]="uploadForm" (ngSubmit)="onSubmit()">
+    <div>
+      <input type="file" name="profile" multiple (change)="onFileSelect($event.target.files)" />
+    </div>
+    <div>
+      <button type="submit">Upload</button>
+    </div>
+  </form>
+</div> -->

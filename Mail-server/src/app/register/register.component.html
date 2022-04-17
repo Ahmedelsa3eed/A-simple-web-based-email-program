@@ -1,0 +1,38 @@
+<div class="login-wrapper">
+  <div class="card">
+    <div class="card-body">
+      <form class="form-signin" (ngSubmit)="onSubmit(signInForm)" #signInForm="ngForm">
+        <h2 class="form-signin-heading">Register</h2>
+
+        <label  class="sr-only"></label>
+        <input type="text" id="First name" name="first" class="form-control"
+               placeholder="First name" required autofocus ngModel>
+
+        <label class="sr-only"></label>
+        <input type="text" id="Last name" name="last" class="form-control"
+               placeholder="Last name" required autofocus ngModel>
+
+        <label for="inputEmail" class="sr-only"></label>
+        <input type="email" id="inputEmail" name="email" class="form-control"
+               placeholder="Email address" required autofocus ngModel>
+
+        <label for="inputPassword" class="sr-only"></label>
+        <input type="password" id="inputPassword" name="password" class="form-control"
+               placeholder="Password" required ngModel>
+
+        <div class="foot">
+          <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
+          <button class="signin" routerLink="" >Back</button>
+        </div>
+
+        <div class="alert alert-danger" role="alert" *ngIf="notValid">
+          {{errMsg}}
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+
+
