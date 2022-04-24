@@ -9,7 +9,7 @@ public class ContactUser {
     public ContactUser(){
         this.emails = new ArrayList<>();
     }
-    public ContactUser(String name, ArrayList<String> emails) {
+    public ContactUser(String name, ArrayList<String> emails){
         this.name = name;
         this.emails = emails;
     }

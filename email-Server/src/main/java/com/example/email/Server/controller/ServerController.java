@@ -29,10 +29,10 @@ import java.util.List;
 import static java.nio.file.Paths.get;
 
 @CrossOrigin
-@RestController
+@Controller
 /*Server controller is the facade of this system*/
 public class ServerController {
-    SingleTonServer server;
+    SingleTonServer server=SingleTonServer.getInstance();
 
     @PostMapping("/register")
     @ResponseBody
@@ -146,7 +146,8 @@ public class ServerController {
     @GetMapping("/search")
     public ResponseEntity<ArrayList<Email>> search(@RequestParam String searchBar, String searchPosition, String searchBy){
         Search s = new Search();
-        return new ResponseEntity<>(s.search(searchBar, searchPosition, searchBy), HttpStatus.OK);
+        ArrayList<Email> emails =s.search(searchBar, searchPosition, searchBy);
+        return new ResponseEntity<>(emails, HttpStatus.OK);
     }
 
     @GetMapping("/sort")
@@ -157,9 +158,8 @@ public class ServerController {
 
     @PostMapping("/priority")
     @ResponseBody
-    public ResponseEntity<ArrayList<Email>> priority(@RequestParam("TwoEmails") List<Email> TwoEmails) {
-        UpdatePriority updatePriority = new UpdatePriority();
-        updatePriority.edit(TwoEmails.get(0), TwoEmails.get(1));
+    public ResponseEntity<ArrayList<Email>> priority(@RequestBody ArrayList<Email> emails) {
+        server.inbox=emails;
         return new ResponseEntity<>(server.inbox, HttpStatus.OK);
     }
 

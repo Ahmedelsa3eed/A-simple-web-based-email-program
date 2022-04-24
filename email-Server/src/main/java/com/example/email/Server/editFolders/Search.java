@@ -30,6 +30,7 @@ public class Search {
                return server.sent;
            case "trash":
                return server.trash;
+
            default:
                return server.inbox;
        }
@@ -48,6 +49,8 @@ public class Search {
                return mail.getFrom();
            case "date":
                return mail.getDate();
+           case "priority":
+               return mail.getPriority();
            default:
                return mail.getTo();
        }

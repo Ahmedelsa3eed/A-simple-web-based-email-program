@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
       return;
     }
     const user = new Data(logInForm.value.inputEmail, logInForm.value.password);
-    if (!this.autoService.isValidEmail(user.getEmail())) {
+    if (!this.autoService.auto(user)) {
       this.err = "Not valid email!"
       this.NotValid = true;
       return;

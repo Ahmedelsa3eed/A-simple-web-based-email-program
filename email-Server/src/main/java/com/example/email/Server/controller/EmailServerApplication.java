@@ -27,7 +27,7 @@ public class EmailServerApplication {
 
 		try {
 			ObjectMapper objectMapper = new ObjectMapper();
-			user = objectMapper.readerFor(User.class).readValue(new File("data\\emary@mail.com\\info.json"));
+			user = objectMapper.readerFor(User.class).readValue(new File("data\\ahmed@mail.com\\info.json"));
 			//user2= objectMapper.readerFor(User.class).readValue(new File("data\\pet@mail.com\\info.json"));
 		} catch( IOException e) {
 			e.printStackTrace();
@@ -39,43 +39,12 @@ public class EmailServerApplication {
 		contactUser.setName("My team");
 		contactUser.addEmail("emary@mail.com");
 		contactUser.addEmail("saeed@mail.com");
+
 		AddContact a = new AddContact();
 		a.addContact(contactUser);
-
-
-
-		Email mail = new Email();
-		Email mail2 =new Email();
-		mail.setFrom("ahmed@mail.com");
-		mail.setTo("emary@mail.com");
-		mail.setSubject("jj");
-		mail.setBody("I'm the 1st mail");
-		c.send(mail);
-
-	 	mail2.setFrom("ahmed@mail.com");
-		mail2.setTo("emary@mail.com");
-		mail2.setSubject("jj");
-		mail2.setBody("I'm the second mail");
-		c.send(mail2);
-
-		DraftEmail draft =new DraftEmail();
-		draft.addToDraft(mail);
-		draft.addToDraft(mail2);
-
-		Email editedMail=new Email();
-		editedMail.setSubject("jj hello");
-		editedMail.setBody("I'm the 3rd mail");
-		editedMail.setFrom("ahmed@mail.com");
-		editedMail.setTo("emary@mail.com");
-		c.send(editedMail);
-
-		c.deleteEmail(editedMail);
-
-		c.refresh();
-		c.refresh();
-		c.signIn(user);
 		c.logOut();
-*/
+
+
 		//expect in draft array that mail deleted and add edited mail
 
 //		SendingEmail underTest;

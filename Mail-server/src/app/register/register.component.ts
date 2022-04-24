@@ -34,12 +34,14 @@ export class RegisterComponent implements OnInit {
 
     if (!this.autoService.isValidEmail(user.getEmail())) {
       this.errMsg = "Not valid Email!"
+      this.autoService.isLoggedIn = false
       this.notValid = true
       return;
     }
 
     if (!this.autoService.isValidPassword(user.getPassword())) {
       this.errMsg = "Password should contains at least 8 characters!"
+      this.autoService.isLoggedIn = false
       this.notValid = true
       return;
     }
