@@ -1,6 +1,7 @@
 package com.example.email.Server.emailContent;
 
 import com.example.email.Server.controller.SingleTonServer;
+import com.example.email.Server.model.Email;
 
 public class UpdatePriority {
     SingleTonServer server = SingleTonServer.getInstance();
@@ -12,5 +13,4 @@ public class UpdatePriority {
             }
         }
     }
-    
 }

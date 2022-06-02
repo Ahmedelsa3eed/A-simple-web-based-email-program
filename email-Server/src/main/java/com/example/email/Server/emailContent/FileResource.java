@@ -8,7 +8,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -16,7 +15,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.*;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -26,11 +24,7 @@ import static org.apache.tomcat.util.http.fileupload.FileUploadBase.CONTENT_DISP
 
 public class FileResource {
     private static final String DIRECTORY = "data/attachments";
-    /*
-    * upload files, it accepts post request
-    * we're trying to create some resource on the server
-    * we return a list of those file names so that we can download them again
-    * */
+
     public String uploadFiles(List<MultipartFile> multipartFiles){
         String uniqueId = addAttachmentFile(DIRECTORY);
         SingleTonServer server = SingleTonServer.getInstance();

@@ -1,6 +1,8 @@
 package com.example.email.Server.Contact;
 
 import com.example.email.Server.controller.SingleTonServer;
+import com.example.email.Server.model.ContactUser;
+
 import java.io.File;
 import java.util.ArrayList;
 
@@ -33,5 +35,4 @@ public class AddContact {
         }
         return false;
     }
-
 }

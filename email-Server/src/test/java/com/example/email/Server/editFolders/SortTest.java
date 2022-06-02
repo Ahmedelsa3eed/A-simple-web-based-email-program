@@ -1,10 +1,10 @@
 package com.example.email.Server.editFolders;
 
-import com.example.email.Server.SignIn.SignIn;
+import com.example.email.Server.logs.SignIn;
 import com.example.email.Server.controller.SingleTonServer;
-import com.example.email.Server.emailContent.Email;
+import com.example.email.Server.model.Email;
 import com.example.email.Server.emailContent.SendingEmail;
-import com.example.email.Server.user.User;
+import com.example.email.Server.model.User;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

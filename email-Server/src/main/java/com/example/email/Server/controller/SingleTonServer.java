@@ -1,15 +1,13 @@
 package com.example.email.Server.controller;
 
-import com.example.email.Server.Contact.ContactUser;
-import com.example.email.Server.emailContent.Email;
-import com.example.email.Server.user.User;
+import com.example.email.Server.model.*;
+import com.example.email.Server.model.Email;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-/*SingleTon DP*/
 public class SingleTonServer {
     private static SingleTonServer server;
     private User user;
@@ -29,13 +27,11 @@ public class SingleTonServer {
     }
 
     private SingleTonServer(){
-
         sent = new ArrayList<>();
         inbox = new ArrayList<>();
         trash = new ArrayList<>();
         draft = new ArrayList<>();
         contacts = new ArrayList<>();
-
     }
 
     public static SingleTonServer getInstance(){
@@ -60,20 +56,15 @@ public class SingleTonServer {
                         File jsonFile = new File(path + "\\" + file);
                         String[] jsonFiles = jsonFile.list();
                         if (!folder.equals("contacts")){
-
                             Email mail = objectMapper.readerFor(Email.class)
                                     .readValue(new File(jsonFile.getPath() + "\\" + jsonFiles[0]));
                             arrayFactory(folder, mail);
-
                         }
                         else {
-
                             ContactUser contactUser =  objectMapper.readerFor(ContactUser.class)
                                     .readValue(new File(jsonFile.getPath()));
                             server.contacts.add(contactUser);
-
                         }
-
                     }
                 }
             }
@@ -83,10 +74,8 @@ public class SingleTonServer {
         }
         catch (NullPointerException e){
             e.printStackTrace();
-            //return false;
         }
         loadInbox();
-
     }
 
     private void arrayFactory(String folder, Email email){
@@ -132,6 +121,4 @@ public class SingleTonServer {
             e.printStackTrace();
         }
     }
-
-
 }

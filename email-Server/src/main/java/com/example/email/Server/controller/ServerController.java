@@ -1,20 +1,17 @@
 package com.example.email.Server.controller;
 
-import com.example.email.Server.Contact.AddContact;
-import com.example.email.Server.Contact.ContactUser;
-import com.example.email.Server.Contact.EditContact;
-import com.example.email.Server.draft.DraftEmail;
-import com.example.email.Server.SignIn.SignIn;
+import com.example.email.Server.logs.LogOut;
+import com.example.email.Server.logs.Register;
+import com.example.email.Server.logs.SignIn;
+import com.example.email.Server.model.ContactUser;
+import com.example.email.Server.model.User;
+import com.example.email.Server.logs.DraftEmail;
 import com.example.email.Server.editFolders.Delete;
 import com.example.email.Server.editFolders.Search;
 import com.example.email.Server.editFolders.Sort;
 import com.example.email.Server.emailContent.FileResource;
-import com.example.email.Server.emailContent.UpdatePriority;
-import com.example.email.Server.logOut.LogOut;
-import com.example.email.Server.user.User;
-import com.example.email.Server.emailContent.Email;
+import com.example.email.Server.model.Email;
 import com.example.email.Server.emailContent.SendingEmail;
-import com.example.email.Server.signUp.Register;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -26,11 +23,8 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.ArrayList;
 import java.util.List;
 
-import static java.nio.file.Paths.get;
-
 @CrossOrigin
 @Controller
-/*Server controller is the facade of this system*/
 public class ServerController {
     SingleTonServer server=SingleTonServer.getInstance();
 
@@ -146,7 +140,7 @@ public class ServerController {
     @GetMapping("/search")
     public ResponseEntity<ArrayList<Email>> search(@RequestParam String searchBar, String searchPosition, String searchBy){
         Search s = new Search();
-        ArrayList<Email> emails =s.search(searchBar, searchPosition, searchBy);
+        ArrayList<Email> emails = s.search(searchBar, searchPosition, searchBy);
         return new ResponseEntity<>(emails, HttpStatus.OK);
     }
 
@@ -176,7 +170,6 @@ public class ServerController {
         logOut.refresh();
     }
 
-
     @PostMapping( "/deleteFromDraft")
     @ResponseBody
     public void deleteFromDraft(@RequestBody ArrayList<Email> newEmails){
@@ -187,11 +180,8 @@ public class ServerController {
     @PostMapping( "/deleteFromSent")
     @ResponseBody
     public void deleteFromSent(@RequestBody ArrayList<Email> newEmails){
-
         server.sent = newEmails;
-
     }
-
 
     @PostMapping( "/deleteFromTrash")
     @ResponseBody
@@ -206,9 +196,3 @@ public class ServerController {
         logOut.save();
     }
 }
-/**
- * Now we should show the attachments names in th front end so we can add them in mail as array of
- * strings so that it will be related to that mail there will be a method that get the attachments
- * names to show them in the E-mail it's easy we will only loop on the file in the folder and add
- * attachment name to the array of string .
- * */

@@ -1,6 +1,6 @@
-package com.example.email.Server.signUp;
+package com.example.email.Server.logs;
 
-import com.example.email.Server.user.User;
+import com.example.email.Server.model.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
@@ -17,7 +17,6 @@ class RegisterTest {
 
     @Test
     void canNotSignUp() {
-        //given
         User user = new User("ahmed",
                 "mahmoud",
                 "ahmed@mail.com",
@@ -34,5 +33,4 @@ class RegisterTest {
                 "0000");
         assertThat(underTest.signUp(user)).isEqualTo(HttpStatus.CREATED);
     }
-
 }

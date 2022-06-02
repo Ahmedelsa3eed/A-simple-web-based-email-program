@@ -1,6 +1,6 @@
 package com.example.email.Server.editFolders;
 
-import com.example.email.Server.emailContent.Email;
+import com.example.email.Server.model.Email;
 import com.example.email.Server.controller.SingleTonServer;
 
 import java.util.ArrayList;
@@ -21,7 +21,6 @@ public class Search {
        return searchedMails;
    }
 
-    //take the folder name then returns the arraylist of emails of that folder
     public ArrayList<Email> getSearchingPosition(String searchPosition){
        switch (searchPosition){
            case "draft":
@@ -30,14 +29,10 @@ public class Search {
                return server.sent;
            case "trash":
                return server.trash;
-
            default:
                return server.inbox;
        }
-
    }
-
-   //take the search_by then returns the string to be searched
 
    public String toBeSearched(Email mail, String searchBy){
        switch (searchBy){

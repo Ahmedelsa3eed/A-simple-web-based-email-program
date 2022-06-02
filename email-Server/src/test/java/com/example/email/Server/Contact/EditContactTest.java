@@ -1,15 +1,12 @@
 package com.example.email.Server.Contact;
 
 import com.example.email.Server.controller.SingleTonServer;
-import com.example.email.Server.user.User;
+import com.example.email.Server.model.ContactUser;
+import com.example.email.Server.model.User;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 class EditContactTest {
     EditContact underTest;

@@ -1,4 +1,4 @@
-package com.example.email.Server.Contact;
+package com.example.email.Server.model;
 
 import java.util.ArrayList;
 

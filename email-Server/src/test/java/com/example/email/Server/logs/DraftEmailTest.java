@@ -1,7 +1,7 @@
-package com.example.email.Server.draft;
+package com.example.email.Server.logs;
 
 import com.example.email.Server.controller.SingleTonServer;
-import com.example.email.Server.emailContent.Email;
+import com.example.email.Server.model.Email;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -30,10 +30,7 @@ class DraftEmailTest {
     }
     @Test
     void editDraft() {
-
         underTest.editDraft(email,editedMail);
         assertThat(server.draft.get(0).getSubject()).isEqualTo("eited sub");
-
-
     }
 }

@@ -1,12 +1,12 @@
 package com.example.email.Server.Contact;
 
+import com.example.email.Server.model.ContactUser;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 class AddContactTest {
     AddContact underTest;

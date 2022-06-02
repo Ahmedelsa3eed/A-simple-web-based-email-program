@@ -1,4 +1,4 @@
-package com.example.email.Server.user;
+package com.example.email.Server.model;
 
 public class User {
     private String firstName;

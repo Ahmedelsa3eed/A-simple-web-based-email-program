@@ -1,11 +1,7 @@
-package com.example.email.Server.emailContent;
+package com.example.email.Server.model;
 
 import java.io.File;
-import java.util.ArrayList;
 
-/*
- * immutable Design pattern
- * */
 public class Email {
     private String priority;
     private String date;
@@ -20,7 +16,12 @@ public class Email {
         this.priority = "b";
         this.attachmentPath = "noAttachment";
     }
-    public Email(String priority, String date, String from, String to, String subject, String body) {
+    public Email(String priority,
+                 String date,
+                 String from,
+                 String to,
+                 String subject,
+                 String body) {
         this.priority = priority;
         this.date = date;
         this.from = from;
@@ -28,7 +29,13 @@ public class Email {
         this.subject = subject;
         this.body = body;
     }
-    public Email(String priority, String date, String from, String to, String subject, String body, String attachmentPath) {
+    public Email(String priority,
+                 String date,
+                 String from,
+                 String to,
+                 String subject,
+                 String body,
+                 String attachmentPath) {
         this.priority = priority;
         this.date = date;
         this.from = from;
@@ -87,6 +94,4 @@ public class Email {
     public void setBody(String body) {
         this.body = body;
     }
-    
-
 }

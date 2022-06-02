@@ -1,7 +1,7 @@
-package com.example.email.Server.SignIn;
+package com.example.email.Server.logs;
 
 import com.example.email.Server.controller.SingleTonServer;
-import com.example.email.Server.user.User;
+import com.example.email.Server.model.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,23 +19,26 @@ public class SignIn {
         File data = new File("data");
         String []files = data.list();
         try {
-            if ( files == null || files.length == 0){//Email doesn't exist
+            /* Email doesn't exist */
+            if ( files == null || files.length == 0){
                 return new ResponseEntity<>(null, HttpStatus.ACCEPTED);
             }
             for (String file:files){
                 if (file.equals(user.getEmail())){
                     ObjectMapper objectMapper = new ObjectMapper();
                     User currentUser = objectMapper.readerFor(User.class).readValue(new File(path));
-                    if(currentUser.getPassword().equals(user.getPassword())){//sign in successfully
+                    /* sign in successfully */
+                    if(currentUser.getPassword().equals(user.getPassword())){
                         server.loadUser(currentUser);
                         return new ResponseEntity<>(currentUser, HttpStatus.OK);
                     }
-                    else{//Wrong Password!
+                    /* Wrong Password! */
+                    else{
                         return new ResponseEntity<>(null, HttpStatus.ACCEPTED);
                     }
                 }
             }
-            //wrong email address
+            /* wrong email address */
             return new ResponseEntity<>(null, HttpStatus.ACCEPTED);
         }
         catch (IOException e){

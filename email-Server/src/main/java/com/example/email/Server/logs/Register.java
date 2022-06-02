@@ -1,6 +1,6 @@
-package com.example.email.Server.signUp;
+package com.example.email.Server.logs;
 
-import com.example.email.Server.user.User;
+import com.example.email.Server.model.User;
 import com.example.email.Server.folders.FolderFactory;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.HttpStatus;
@@ -16,7 +16,6 @@ public class Register {
         try {
             File file = new File("data" + "\\"+user.getEmail());
             if(checkMailAddress(user.getEmail())){
-                //There exist user with that email
                 return new ResponseEntity<>("There exist user with that email", HttpStatus.ACCEPTED);
             }
 
