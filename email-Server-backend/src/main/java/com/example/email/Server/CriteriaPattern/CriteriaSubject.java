@@ -1,6 +1,6 @@
 package com.example.email.Server.CriteriaPattern;
 
-import com.example.email.Server.emailContent.Email;
+import com.example.email.Server.model.Email;
 
 import java.util.ArrayList;
 import java.util.List;
