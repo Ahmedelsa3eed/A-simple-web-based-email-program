@@ -12,6 +12,9 @@ jobs:
   
     name: Build
     runs-on: ubuntu-latest
+    env:
+      # Source Code location
+      Mail_Server: ${{ github.workspace }}
     
     steps:
       - uses: actions/checkout@v2
@@ -43,4 +46,6 @@ jobs:
           # Needed to get PR information, if any
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=Ahmedelsa3eed_A-simple-web-based-email-program
+        run: |
+          cd $Mail_Server/email-Server-backend
+          mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=Ahmedelsa3eed_A-simple-web-based-email-program
