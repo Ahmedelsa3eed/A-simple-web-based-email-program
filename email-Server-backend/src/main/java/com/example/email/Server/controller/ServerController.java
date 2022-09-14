@@ -1,5 +1,6 @@
 package com.example.email.Server.controller;
 
+import com.example.email.Server.DataBase;
 import com.example.email.Server.logs.LogOut;
 import com.example.email.Server.logs.Register;
 import com.example.email.Server.logs.SignIn;
@@ -54,8 +55,7 @@ public class ServerController {
     @PostMapping("/send")
     @ResponseBody
     public void send(@RequestBody Email email){
-        SendingEmail s = new SendingEmail();
-        s.send(email);
+        DataBase.sendEmail(email);
     }
 
     @GetMapping("/download")

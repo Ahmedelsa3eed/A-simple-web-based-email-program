@@ -12,9 +12,8 @@ public class SignIn {
 
     public ResponseEntity<User> signIn(User user){
         server = SingleTonServer.getInstance();
-        dataBase = DataBase.getInstance();
         //get the correct password from mongodb
-        User currentUser = dataBase.getUser( user.getEmail());
+        User currentUser = DataBase.getUser( user.getEmail());
         if (currentUser == null){
             return new ResponseEntity<>(null,HttpStatus.ACCEPTED);
         }
