@@ -1,5 +1,5 @@
 # Mail Server App
-![Code Analysis](https://github.com/Ahmedelsa3eed/A-simple-web-based-email-program/workflows/build/badge.svg)
+[![SonarCloud](https://sonarcloud.io/images/project_badges/sonarcloud-orange.svg)](https://sonarcloud.io/summary/new_code?id=Ahmedelsa3eed_A-simple-web-based-email-program)
 
 ## Accosiated with Alexandria University
 
