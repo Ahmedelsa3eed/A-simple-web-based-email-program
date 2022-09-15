@@ -48,5 +48,5 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
           cd $Mail_Server/email-Server-backend
-          mvn install -DskipTests
+          mvn install -Dmaven.test.skip=true
           mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=Ahmedelsa3eed_A-simple-web-based-email-program
