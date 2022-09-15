@@ -14,14 +14,15 @@ public class DataBase {
     private static DataBase instance = null;
     private MongoClient mongoClient;
     private MongoDatabase database;
-    private DataBase(){
-        ConnectionString connectionString = new ConnectionString("mongodb+srv://MailServer:Mailserver123@mailserver.5krhxva.mongodb.net/?retryWrites=true&w=majority");
+
+    private DataBase() {
+        String uri = "mongodb+srv://MailServer:Mailserver123@mailserver.5krhxva.mongodb.net/?retryWrites=true&w=majority";
+        ConnectionString connectionString = new ConnectionString(uri);
         MongoClientSettings settings = MongoClientSettings.builder()
                 .applyConnectionString(connectionString)
                 .build();
         this.mongoClient = MongoClients.create(settings);
         this.database = mongoClient.getDatabase("MailServer");
-
     }
 
     public static DataBase getInstance() {
@@ -29,12 +30,12 @@ public class DataBase {
             instance = new DataBase();
         }
         return instance;
-
     }
 
     public MongoDatabase getDatabase() {
         return database;
     }
+
     public User getUser(String email){
         Document document = database.getCollection("Users").find(new Document("email", email)).first();
         JSONObject jsonObject = new JSONObject();
@@ -46,21 +47,20 @@ public class DataBase {
 
         return user;
     }
+
     public String getPassword(String email){
-        try{
-        Document doc = database.getCollection("Users").find(new Document("email", email)).first();
-        return doc.getString("password");
-        }catch(Exception e){
+        try {
+            Document doc = database.getCollection("Users").find(new Document("email", email)).first();
+            return doc.getString("password");
+        }
+        catch(Exception e){
             return "Wrong Email";
         }
-
     }
-
 
     public static void main(String[] args) {
         // Replace the uri string with your MongoDB deployment's connection string
         DataBase database = DataBase.getInstance();
         System.out.println(database.getPassword("ahmd@gmail.com"));
-
     }
 }
