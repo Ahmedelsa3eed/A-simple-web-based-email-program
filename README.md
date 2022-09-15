@@ -1,4 +1,7 @@
-# Accosiated with Alexandria University
+# Mail Server App
+![Code Analysis](https://github.com/Ahmedelsa3eed/A-simple-web-based-email-program/workflows/build/badge.svg)
+
+## Accosiated with Alexandria University
 
 ## Objective
 The aim of the project is to implement the basic functionalities of a mail server, including manipulation of mails, attachments and contacts.
