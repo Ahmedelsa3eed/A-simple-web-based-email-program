@@ -171,7 +171,6 @@ public class ServerController {
     @ResponseBody
     public void deleteFromDraft(@RequestBody ArrayList<Email> newEmails){
         server.draft = newEmails;
-
     }
 
     @PostMapping( "/deleteFromSent")

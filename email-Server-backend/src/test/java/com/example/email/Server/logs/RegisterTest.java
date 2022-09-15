@@ -31,6 +31,6 @@ class RegisterTest {
                 "mahmoud",
                 "saeed22@mail.com",
                 "0000");
-        assertThat(underTest.signUp(user)).isEqualTo(HttpStatus.CREATED);
+        assertThat(underTest.signUp(user).getStatusCode()).isEqualTo(HttpStatus.CREATED);
     }
 }
