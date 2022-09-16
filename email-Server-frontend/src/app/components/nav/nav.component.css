@@ -1,0 +1,35 @@
+nav {
+    flex: 0 0 200px;
+    padding: 1rem;
+    border-right: 1px solid #e1e6ef;
+}
+
+nav .btn-block {
+    margin-bottom: 15px;
+}
+
+nav .nav {
+    flex-direction: column;
+}
+
+nav .nav .nav-item {
+    position: relative;
+}
+
+nav .nav .nav-item .nav-link {
+    color: #151b1e;
+    border-bottom: 1px solid #e1e6ef;
+}
+
+nav .nav .nav-item .nav-link i {
+    width: 20px;
+    margin: 0 10px 0 0;
+    font-size: 14px;
+    text-align: center;
+}
+
+nav .nav .nav-item .nav-link .badge {
+    float: right;
+    margin-top: 4px;
+    margin-left: 10px;
+}
