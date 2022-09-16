@@ -1,5 +1,6 @@
 package com.example.email.Server.controller;
 
+import com.example.email.Server.DataBaseServices.EmailsServices;
 import com.example.email.Server.logs.LogOut;
 import com.example.email.Server.logs.Register;
 import com.example.email.Server.logs.SignIn;
@@ -54,8 +55,7 @@ public class ServerController {
     @PostMapping("/send")
     @ResponseBody
     public void send(@RequestBody Email email){
-        SendingEmail s = new SendingEmail();
-        s.send(email);
+        EmailsServices.sendEmail(email);
     }
 
     @GetMapping("/download")
@@ -68,16 +68,14 @@ public class ServerController {
 
     @RequestMapping(value = "/inbox", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ArrayList<Email>> getInbox(){
-        server  = SingleTonServer.getInstance();
-        return new ResponseEntity<>(server.inbox, HttpStatus.OK);
+        return new ResponseEntity<>(EmailsServices.getMailsFromDB("ziad@mail.com", "receiver"), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/sent", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ArrayList<Email>> getSent(){
-        server  = SingleTonServer.getInstance();
-        return new ResponseEntity<>(server.sent, HttpStatus.OK);
+        //TODO : make the front end send the current user email
+        return new ResponseEntity<>(EmailsServices.getMailsFromDB("ahmed@gmail.com", "sender"), HttpStatus.OK);
     }
-
     @RequestMapping(value = "/draft", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ArrayList<Email>> getDraft(){
         server  = SingleTonServer.getInstance();
@@ -159,9 +157,8 @@ public class ServerController {
 
     @PostMapping( "/deleteFromInbox")
     @ResponseBody
-    public void deleteEmail(@RequestBody Email oldEmail) {
-        Delete d = new Delete();
-        d.deleteEmail(oldEmail, "inbox");
+    public void deleteEmail() {
+        EmailsServices.removeMailFromInbox();
     }
 
     @GetMapping("/refresh")
@@ -174,7 +171,6 @@ public class ServerController {
     @ResponseBody
     public void deleteFromDraft(@RequestBody ArrayList<Email> newEmails){
         server.draft = newEmails;
-
     }
 
     @PostMapping( "/deleteFromSent")
