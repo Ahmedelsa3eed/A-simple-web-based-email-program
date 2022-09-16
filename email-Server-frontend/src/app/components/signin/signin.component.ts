@@ -1,4 +1,6 @@
+import { SigninService } from './../../services/signin.service';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { User } from 'src/app/models/User';
 
 @Component({
@@ -8,9 +10,12 @@ import { User } from 'src/app/models/User';
 })
 export class SigninComponent implements OnInit {
 
-  user: User;
+  public user: User;
+  public isLoading: boolean = false;
+  public isRefuesdLogin: boolean = false;
 
-  constructor() {
+  constructor(private signinService: SigninService,
+    private router: Router) {
     this.user = new User();
   }
 
@@ -18,8 +23,26 @@ export class SigninComponent implements OnInit {
   }
 
   submitForm() {
-    console.log(this.user);
-    
+    this.isLoading = true;
+    this.signinService.signIn(this.user)
+    .subscribe({
+      next: (res) => {
+        console.log(res);
+        if(res.ok) {
+          this.router.navigateByUrl('/home');
+        }
+        else {
+          window.alert("Not OK!");
+        }
+        this.isLoading = false;
+      },
+      error: (e) => {
+        this.isLoading = false;
+        this.isRefuesdLogin = true;
+        console.error(e);
+      },
+      complete: () => console.info('complete')
+    })
   }
 
 }
