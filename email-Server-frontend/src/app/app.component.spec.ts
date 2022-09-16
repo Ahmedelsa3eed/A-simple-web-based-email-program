@@ -20,16 +20,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'MailServer'`, () => {
+  it(`should have as title 'email-Server-frontend'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('MailServer');
+    expect(app.title).toEqual('email-Server-frontend');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('MailServer app is running!');
+    expect(compiled.querySelector('.content span')?.textContent).toContain('email-Server-frontend app is running!');
   });
 });
