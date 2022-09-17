@@ -19,6 +19,7 @@ public class DataBase {
                 .applyConnectionString(connectionString)
                 .build();
          MongoClient mongoClient = MongoClients.create(settings);
+
         return mongoClient.getDatabase(databaseName);
 
     }

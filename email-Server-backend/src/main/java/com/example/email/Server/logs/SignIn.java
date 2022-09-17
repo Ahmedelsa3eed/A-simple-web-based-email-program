@@ -10,18 +10,23 @@ public class SignIn {
     SingleTonServer server;
 
     public ResponseEntity<User> signIn(User user){
+
         server = SingleTonServer.getInstance();
-        //get the correct password from mongodb
         User currentUser = UsersServices.getUserFromDB( user.getEmail());
+        System.out.println(currentUser.getEmail());
         if (currentUser == null){
-            return new ResponseEntity<>(null,HttpStatus.ACCEPTED);
+            System.out.println("user not found");
+            return new ResponseEntity<>(null,HttpStatus.NOT_ACCEPTABLE);
         }
         else if(currentUser.getPassword().equals(user.getPassword())){
-            server.loadUser(currentUser);
-            return new ResponseEntity<>(currentUser, HttpStatus.OK);
+            System.out.println("Password is correct");
+            System.out.println("password: " + currentUser.getPassword() + " Given " + user.getPassword());
+            return new ResponseEntity<>(currentUser, HttpStatus.ACCEPTED);
         }
         else {
-            return new ResponseEntity<>(null, HttpStatus.ACCEPTED);
+            System.out.println("Password is incorrect");
+            System.out.println("password: " + currentUser.getPassword() + " Given " + user.getPassword());
+            return new ResponseEntity<>(null, HttpStatus.NOT_ACCEPTABLE);
         }
     }
 }

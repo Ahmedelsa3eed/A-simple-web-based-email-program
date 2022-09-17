@@ -30,7 +30,8 @@ public class ServerController {
 
     @PostMapping("/register")
     @ResponseBody
-    public ResponseEntity<String> signUp(@RequestBody User user) {
+    public ResponseEntity<User> signUp(@RequestBody User user) {
+
         Register register = new Register();
         return register.signUp(user);
     }
@@ -67,7 +68,7 @@ public class ServerController {
 
     @RequestMapping(value = "/inbox", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ArrayList<Email>> getInbox(){
-        return new ResponseEntity<>(EmailsServices.getRequestedEmails("ziad@mail.com", "receiver"), HttpStatus.OK);
+        return new ResponseEntity<>(EmailsServices.getRequestedEmails("ziad@gmail.com", "receiver"), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/sent", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
