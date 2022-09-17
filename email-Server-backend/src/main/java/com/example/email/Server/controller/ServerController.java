@@ -66,15 +66,16 @@ public class ServerController {
         return fileResource.downloadFiles(filename, attachment);
     }
 
-    @RequestMapping(value = "/inbox", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ArrayList<Email>> getInbox(){
-        return new ResponseEntity<>(EmailsServices.getRequestedEmails("ziad@gmail.com", "receiver"), HttpStatus.OK);
+    @GetMapping("/inbox")
+    public ResponseEntity<Email[]> getInbox(@RequestParam String userEmail){
+        System.out.println("inbox of "+ userEmail);
+        return new ResponseEntity<>(EmailsServices.getRequestedEmails(userEmail, "Inbox"), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/sent", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ArrayList<Email>> getSent(){
+    @GetMapping("/sent")
+    public ResponseEntity<Email[]> getSent(@RequestParam String userEmail){
         //TODO : make the front end send the current user email
-        return new ResponseEntity<>(EmailsServices.getRequestedEmails("ahmed@mail.com", "Sent"), HttpStatus.OK);
+        return new ResponseEntity<>(EmailsServices.getRequestedEmails(userEmail, "Sent"), HttpStatus.OK);
     }
     @RequestMapping(value = "/draft", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ArrayList<Email>> getDraft(){
@@ -88,10 +89,9 @@ public class ServerController {
         return new ResponseEntity<>(server.contacts, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/trash", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ArrayList<Email>> getTrash(){
-        server  = SingleTonServer.getInstance();
-        return new ResponseEntity<>(server.trash, HttpStatus.OK);
+    @GetMapping("/trash")
+    public ResponseEntity<Email[]> getTrash(@RequestParam String userEmail){
+        return new ResponseEntity<>(EmailsServices.getRequestedEmails(userEmail, "Trash"), HttpStatus.OK);
     }
 
     @PostMapping("/addToDraft")
@@ -157,8 +157,9 @@ public class ServerController {
 
     @PostMapping( "/deleteFromInbox")
     @ResponseBody
-    public void deleteEmail(String userEmail, String emailId) {
-        EmailsServices.removeMailFromInbox(userEmail, emailId);
+    public void deleteEmail(@RequestBody Email email) {
+        System.out.println("delete "+ email.get_id());
+        EmailsServices.removeMailFromInbox(email);
     }
 
     @GetMapping("/refresh")
@@ -167,10 +168,11 @@ public class ServerController {
         logOut.refresh();
     }
 
-    @PostMapping( "/deleteFromDraft")
-    @ResponseBody
-    public void deleteFromDraft(@RequestBody ArrayList<Email> newEmails){
-        server.draft = newEmails;
+    @GetMapping( "/delete")
+    public void deleteEmailFromDB(@RequestParam  String emailID, String userEmail ,String position) {
+        System.out.println("We should delete this email from "+position);
+        EmailsServices.removeMailFromDB(userEmail,emailID, position);
+
     }
 
     @PostMapping( "/deleteFromSent")

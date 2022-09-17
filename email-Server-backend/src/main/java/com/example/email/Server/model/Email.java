@@ -3,10 +3,11 @@ package com.example.email.Server.model;
 import java.io.File;
 
 public class Email {
+    private String _id;
     private String priority;
     private String date;
-    private String from;
-    private String to;
+    private String sender;
+    private String receiver;
     private String subject;
     private String body;
     private String attachmentPath;
@@ -18,28 +19,37 @@ public class Email {
     }
     public Email(String priority,
                  String date,
-                 String from,
-                 String to,
+                 String sender,
+                 String receiver,
                  String subject,
                  String body) {
         this.priority = priority;
         this.date = date;
-        this.from = from;
-        this.to = to;
+        this.sender = sender;
+        this.receiver = receiver;
         this.subject = subject;
         this.body = body;
     }
+
+    public String get_id() {
+        return _id;
+    }
+
+    public void set_id(String _id) {
+        this._id = _id;
+    }
+
     public Email(String priority,
                  String date,
-                 String from,
-                 String to,
+                 String sender,
+                 String receiver,
                  String subject,
                  String body,
                  String attachmentPath) {
         this.priority = priority;
         this.date = date;
-        this.from = from;
-        this.to = to;
+        this.sender = sender;
+        this.receiver = receiver;
         this.subject = subject;
         this.body = body;
         this.attachmentPath = attachmentPath;
@@ -70,11 +80,11 @@ public class Email {
     public void setDate(String date) {
         this.date = date;
     }
-    public String getFrom() {
-        return from;
+    public String getSender() {
+        return sender;
     }
-    public String getTo() {
-        return to;
+    public String getReceiver() {
+        return receiver;
     }
     public String getSubject() {
         return subject;
@@ -82,11 +92,11 @@ public class Email {
     public String getBody() {
         return body;
     }
-    public void setFrom(String from) {
-        this.from = from;
+    public void setSender(String sender) {
+        this.sender = sender;
     }
-    public void setTo(String to) {
-        this.to = to;
+    public void setReceiver(String receiver) {
+        this.receiver = receiver;
     }
     public void setSubject(String subject) {
         this.subject = subject;

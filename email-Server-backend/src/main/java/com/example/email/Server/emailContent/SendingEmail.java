@@ -18,7 +18,7 @@ public class SendingEmail {
             email.setAttachmentPath(server.attachmentId);
             email.setAttachmentsName();
             server.attachmentId = null;
-            User receiver = getUserInfo(email.getTo());
+            User receiver = getUserInfo(email.getReceiver());
             String pathReceiver = "data/"+receiver.getEmail()+"/inbox/"+receiver.getIdReceive();
 
             FolderFactory factory = new FolderFactory();

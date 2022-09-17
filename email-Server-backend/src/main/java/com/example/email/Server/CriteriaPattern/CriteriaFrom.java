@@ -11,7 +11,7 @@ public class CriteriaFrom implements Criteria{
         List<Email> FromEmails = new ArrayList<>();
 
         for (Email email : emails){
-            if(email.getFrom().contains(searchBar)){
+            if(email.getSender().contains(searchBar)){
                 FromEmails.add(email);
             }
         }
