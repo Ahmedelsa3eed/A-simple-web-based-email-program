@@ -1,12 +1,12 @@
 export class Email {
-  _d: string;
+  _id: string;
   sender: string;
   receiver: string;
   subject: string;
   content: string;
 
   constructor() {
-    this._d = "";
+    this._id = "";
     this.sender = "";
     this.receiver = "";
     this.subject = "";
