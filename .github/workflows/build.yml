@@ -27,10 +27,12 @@ jobs:
         with:
           java-version: 11
           
-      - name: Setup Node
-        uses: actions/setup-node@v3
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
+          node-version: 16
           cache: 'npm'
+          cache-dependency-path: $Mail_Server/email-Server-frontend/package-lock.json
 
       - name: Node install dependencies
         run: npm install
