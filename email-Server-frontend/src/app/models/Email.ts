@@ -1,11 +1,16 @@
 export class Email {
-    recipient: string;
-    subject: string;
-    body: string;
+  _id: string;
+  sender: string;
+  receiver: string;
+  subject: string;
+  body: string;
 
-    constructor() {
-        this.recipient = "";
-        this.subject = "";
-        this.body = "";
-    }
+  constructor() {
+    this._id = "";
+    this.sender = "";
+    this.receiver = "";
+    this.subject = "";
+    this.body = "";
+  }
+
 }

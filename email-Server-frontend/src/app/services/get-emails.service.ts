@@ -13,7 +13,7 @@ export class GetEmailsService {
 
   constructor(private http: HttpClient) { }
 
-  request(user: User, endpoint: string): Observable<HttpResponse<User[]>> {    
+  request(user: User, endpoint: string): Observable<HttpResponse<User[]>> {
     return this.http.post<User[]>(`${this.url}/${endpoint}`, user, {
       observe: 'response',
       responseType: 'json'
