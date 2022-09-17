@@ -1,7 +1,8 @@
-import { HttpClient, HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpParams, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { Email } from '../models/Email';
 import { User } from '../models/User';
 
 @Injectable({
@@ -13,9 +14,12 @@ export class GetEmailsService {
 
   constructor(private http: HttpClient) { }
 
-  request(user: User, endpoint: string): Observable<HttpResponse<User[]>> {
-    return this.http.post<User[]>(`${this.url}/${endpoint}`, user, {
+  requestEmails(user: User, endpoint: string): Observable<HttpResponse<Email[]>> {
+    return this.http.get<Email[]>(`${this.url}/${endpoint}`, {
       observe: 'response',
+      params: {
+        senderEmail: user.email
+      },
       responseType: 'json'
     }).pipe(
       catchError(this.handleError)
