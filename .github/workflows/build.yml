@@ -26,11 +26,6 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 11
-        
-      - name: Build Frontend
-        run: |
-          cd $Mail_Server/email-Server-frontend
-          npm run build
           
       - name: Cache SonarCloud packages
         uses: actions/cache@v1
