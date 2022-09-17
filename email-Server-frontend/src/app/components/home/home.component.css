@@ -4,3 +4,9 @@
     background: #fff;
     border: 1px solid #e1e6ef;
 }
+
+@media (max-width: 767px) {
+    .home {
+        flex-direction: column;
+    }
+}

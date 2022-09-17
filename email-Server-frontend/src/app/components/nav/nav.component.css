@@ -2,6 +2,7 @@ nav {
     flex: 0 0 200px;
     padding: 1rem;
     border-right: 1px solid #e1e6ef;
+    min-width: 200px;
 }
 
 nav .btn-block {
