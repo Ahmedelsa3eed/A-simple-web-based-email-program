@@ -5,11 +5,11 @@
     </div>
 </div>
 
-<div 
-    class="modal fade" 
-    id="exampleModal" 
-    tabindex="-1" 
-    aria-labelledby="exampleModalLabel" 
+<div
+    class="modal fade"
+    id="exampleModal"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
     aria-hidden="true">
 
     <div class="modal-dialog">
@@ -19,10 +19,10 @@
                 <div *ngIf="isLoading" class="spinner-border text-success" role="status">
                     <span class="visually-hidden"></span>
                 </div>
-                <button 
-                    type="button" 
-                    class="btn-close" 
-                    data-bs-dismiss="modal" 
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
                     aria-label="Close">
                 </button>
             </div>
@@ -30,10 +30,10 @@
                 <form>
                     <div class="mb-3">
                         <label for="receiver-name" class="col-form-label">Recipient:</label>
-                        <input 
+                        <input
                             name="receiver"
-                            type="text" 
-                            class="form-control" 
+                            type="text"
+                            class="form-control"
                             id="receiver-name"
                             required
                             [(ngModel)]="email.receiver"
@@ -41,10 +41,10 @@
                     </div>
                     <div class="mb-3">
                         <label for="subject" class="col-form-label">Subject:</label>
-                        <input 
+                        <input
                             name="subject"
-                            type="text" 
-                            class="form-control" 
+                            type="text"
+                            class="form-control"
                             id="subject"
                             required
                             [(ngModel)]="email.subject"
@@ -54,7 +54,7 @@
                         <label for="message-text" class="col-form-label">Message:</label>
                         <textarea
                             name="body"
-                            class="form-control" 
+                            class="form-control"
                             id="message-text"
                             [(ngModel)]="email.body"
                             #body="ngModel">
@@ -63,14 +63,14 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button 
-                    type="button" 
-                    class="btn btn-secondary" 
+                <button
+                    type="button"
+                    class="btn btn-secondary"
                     data-bs-dismiss="modal">
                     Close
                 </button>
-                <button 
-                    type="button" 
+                <button
+                    type="button"
                     class="btn btn-primary"
                     [disabled]="receiver.invalid"
                     (click)="sendEmail()">

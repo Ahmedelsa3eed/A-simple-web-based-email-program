@@ -25,52 +25,60 @@ public class EmailsServices {
         }
         return null;
     }
-
     public static void sendEmail(Email email) {
-        System.out.println(email.getFrom());
-        System.out.println(email.getTo());
+        System.out.println(email.getSender());
+        System.out.println(email.getReceiver());
 
-        String senderID = getUserIDFromDB(email.getFrom());
-        String receiverID = getUserIDFromDB(email.getTo());
+        String senderID = getUserIDFromDB(email.getSender());
+        String receiverID = getUserIDFromDB(email.getReceiver());
         System.out.println("The sender Id is  "+senderID);
         System.out.println("The receiver Id is"+receiverID);
         if(senderID == null || receiverID == null){
-            System.out.println("Error in sending email to " + email.getTo());
+            System.out.println("Error in sending email to " + email.getReceiver());
             return;
         }
         MongoDatabase senderDatabase = DataBase.connectToDB(senderID);
         MongoDatabase receiverDatabase = DataBase.connectToDB(receiverID);
-        System.out.println("Email sent to " + email.getTo());
+        System.out.println("Email sent to " + email.getReceiver());
         Document document = new Document();
-        document.append("sender", email.getFrom());
-        document.append("receiver", email.getTo());
+        document.append("sender", email.getSender());
+        document.append("receiver", email.getReceiver());
         document.append("subject", email.getSubject());
         document.append("content", email.getBody());
         document.append("date", email.getDate());
         document.append("priority", email.getPriority());
-        System.out.println("Email sent to " + email.getTo());
+        System.out.println("Email sent to " + email.getReceiver());
         senderDatabase.getCollection("Sent").insertOne(document);
         receiverDatabase.getCollection("Inbox").insertOne(document);
     }
 
-    public static ArrayList<Email> getRequestedEmails(String userEmail, String CollectionName){
+    public static Email[] getRequestedEmails(String userEmail, String CollectionName){
         String userID = getUserIDFromDB(userEmail);
         MongoDatabase database = DataBase.connectToDB(userID);
         ArrayList<Email> emails = new ArrayList<>();
         for (Document document : database.getCollection(CollectionName).find()) {
             System.out.println(document);
             Email email = new Email();
-            email.setFrom((String) document.get("sender"));
-            email.setTo((String) document.get("receiver"));
+            email.set_id(document.get("_id").toString());
+            email.setSender((String) document.get("sender"));
+            email.setReceiver((String) document.get("receiver"));
             email.setSubject((String) document.get("subject"));
             email.setBody((String) document.get("content"));
             email.setDate((String) document.get("date"));
             email.setPriority((String) document.get("priority"));
             emails.add(email);
         }
-        return emails;
+        Email[] emailsArray = new Email[emails.size()];
+        emailsArray = emails.toArray(emailsArray);
+        for (Email email : emailsArray) {
+            System.out.println(email);
+        }
+        return emailsArray;
     }
-    public static void removeMailFromInbox(String userEmail, String emailId){
+    public static void removeMailFromInbox(Email email){
+        String userEmail = email.getReceiver();
+        String emailId = email.get_id();
+        System.out.println(emailId + " " + userEmail);
         String userID = getUserIDFromDB(userEmail);
         MongoDatabase database = DataBase.connectToDB(userID);
         MongoCollection<Document> collection = database.getCollection("Inbox");
@@ -84,6 +92,16 @@ public class EmailsServices {
             System.err.println("Unable to delete due to an error: " + me);
         }
 
+    }
+    public static void removeMailFromDB(String userEmail, String emailId, String collectionName){
+        System.out.println(emailId + " " + userEmail);
+        String userID = getUserIDFromDB(userEmail);
+        MongoDatabase database = DataBase.connectToDB(userID);
+        MongoCollection<Document> collection = database.getCollection(collectionName);
+        System.out.println("To be deleted " + collection.find(new Document("_id", new ObjectId(emailId) )).first());
+        Bson query = eq("_id", new ObjectId(emailId));
+        DeleteResult result = collection.deleteOne(query);
+        System.out.println("Deleted document count: " + result.getDeletedCount());
     }
 
 }

@@ -14,11 +14,11 @@ export class GetEmailsService {
 
   constructor(private http: HttpClient) { }
 
-  requestEmails(user: User, endpoint: string): Observable<HttpResponse<Email[]>> {
+  public requestEmails(user: User, endpoint: string): Observable<HttpResponse<Email[]>> {
     return this.http.get<Email[]>(`${this.url}/${endpoint}`, {
       observe: 'response',
       params: {
-        senderEmail: user.email
+        userEmail: user.email
       },
       responseType: 'json'
     }).pipe(

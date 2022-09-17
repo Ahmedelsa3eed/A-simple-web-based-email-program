@@ -40,7 +40,7 @@ export class HomeComponent implements OnInit {
         console.log(res);
         this.isLoading = false;
         if(res.ok) {
-          this.router.navigateByUrl('./inbox');
+          this.router.navigateByUrl('/home/inbox');
         }
         else {
           window.alert(`returned status code: ${res.status}`);

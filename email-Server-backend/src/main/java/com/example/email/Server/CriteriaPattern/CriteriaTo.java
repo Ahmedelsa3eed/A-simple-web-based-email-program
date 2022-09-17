@@ -11,7 +11,7 @@ public class CriteriaTo implements Criteria{
         List<Email> toEmails = new ArrayList<>();
 
         for (Email email : emails){
-            if(email.getTo().contains(searchBar)){
+            if(email.getReceiver().contains(searchBar)){
                 toEmails.add(email);
             }
         }

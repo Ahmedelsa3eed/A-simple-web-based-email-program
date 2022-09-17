@@ -41,13 +41,13 @@ public class Search {
            case "subject":
                return mail.getSubject();
            case "from":
-               return mail.getFrom();
+               return mail.getSender();
            case "date":
                return mail.getDate();
            case "priority":
                return mail.getPriority();
            default:
-               return mail.getTo();
+               return mail.getReceiver();
        }
    }
 }
