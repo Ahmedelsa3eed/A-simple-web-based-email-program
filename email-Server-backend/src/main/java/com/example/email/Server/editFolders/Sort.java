@@ -48,7 +48,7 @@ public class Sort {
             case "subject":
                 return mail.getSubject();
             case "to":
-                return mail.getTo();
+                return mail.getReceiver();
             case "body":
                 return mail.getBody();
             case "date":
@@ -56,7 +56,7 @@ public class Sort {
             case "priority":
                 return mail.getPriority();
             default:
-                return mail.getFrom();
+                return mail.getSender();
         }
     }
 }

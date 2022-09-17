@@ -32,7 +32,7 @@ public class LogOut {
 
                     FolderFactory factory = new FolderFactory();
                     factory.createFolder(pathSent);
-                    pathSent += "\\" + getListOf(whatToSave).get(i).getTo() + ".json";
+                    pathSent += "\\" + getListOf(whatToSave).get(i).getReceiver() + ".json";
 
                     JsonFactory jsonFactory = new JsonFactory();
                     jsonFactory.createJsonFile(new File(pathSent), getListOf(whatToSave).get(i));
@@ -61,7 +61,7 @@ public class LogOut {
 
                 FolderFactory factory = new FolderFactory();
                 factory.createFolder(pathSent);
-                pathSent += "\\" + getListOf("inbox").get(i).getTo() + ".json";
+                pathSent += "\\" + getListOf("inbox").get(i).getReceiver() + ".json";
 
                 JsonFactory jsonFactory = new JsonFactory();
                 jsonFactory.createJsonFile(new File(pathSent), getListOf("inbox").get(i));
