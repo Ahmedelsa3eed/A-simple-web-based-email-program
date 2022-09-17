@@ -13,8 +13,8 @@ export class SignUpService {
 
   constructor(private http: HttpClient) { }
 
-  signUp(user: User): Observable<HttpResponse<User>> {    
-    return this.http.post<User>(`${this.url}/signUp`, user, {
+  signUp(user: User): Observable<HttpResponse<User>> {
+    return this.http.post<User>(`${this.url}/register`, user, {
       observe: 'response',
       responseType: 'json'
     }).pipe(

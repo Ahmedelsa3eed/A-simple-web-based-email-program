@@ -11,6 +11,7 @@ import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { NavComponent } from './components/nav/nav.component';
 import { InboxComponent } from './components/inbox/inbox.component';
 import { HeaderComponent } from './components/header/header.component';
+import { EmailComponent } from './components/email/email.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { HeaderComponent } from './components/header/header.component';
     SignUpComponent,
     NavComponent,
     InboxComponent,
-    HeaderComponent
+    HeaderComponent,
+    EmailComponent
   ],
   imports: [
     BrowserModule,
