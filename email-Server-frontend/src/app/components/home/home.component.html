@@ -26,15 +26,15 @@
             <div class="modal-body">
                 <form>
                     <div class="mb-3">
-                        <label for="recipient-name" class="col-form-label">Recipient:</label>
+                        <label for="receiver-name" class="col-form-label">Recipient:</label>
                         <input 
-                            name="recipient"
+                            name="receiver"
                             type="text" 
                             class="form-control" 
-                            id="recipient-name"
+                            id="receiver-name"
                             required
-                            [(ngModel)]="email.recipient"
-                            #recipient="ngModel">
+                            [(ngModel)]="email.receiver"
+                            #receiver="ngModel">
                     </div>
                     <div class="mb-3">
                         <label for="subject" class="col-form-label">Subject:</label>
@@ -69,7 +69,7 @@
                 <button 
                     type="button" 
                     class="btn btn-primary"
-                    [disabled]="recipient.invalid"
+                    [disabled]="receiver.invalid"
                     (click)="sendEmail()">
                     Send message
                 </button>
