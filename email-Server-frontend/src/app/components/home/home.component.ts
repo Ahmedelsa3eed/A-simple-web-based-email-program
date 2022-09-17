@@ -38,6 +38,7 @@ export class HomeComponent implements OnInit {
     .subscribe({
       next: (res) => {
         console.log(res);
+        this.isLoading = false;
         if(res.ok) {
           this.router.navigateByUrl('./inbox');
         }
@@ -45,7 +46,6 @@ export class HomeComponent implements OnInit {
           window.alert(`returned status code: ${res.status}`);
           this.isRefuesdSend = true;
         }
-        this.isLoading = false;
       },
       error: (e) => {
         this.isLoading = false;
