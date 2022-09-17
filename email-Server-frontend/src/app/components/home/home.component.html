@@ -1,6 +1,79 @@
 <div class="">
     <div class="home mb-4">
         <app-nav></app-nav>
-        <app-inbox></app-inbox>
+        <router-outlet></router-outlet>
+    </div>
+</div>
+
+<div 
+    class="modal fade" 
+    id="exampleModal" 
+    tabindex="-1" 
+    aria-labelledby="exampleModalLabel" 
+    aria-hidden="true">
+
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                <button 
+                    type="button" 
+                    class="btn-close" 
+                    data-bs-dismiss="modal" 
+                    aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-3">
+                        <label for="recipient-name" class="col-form-label">Recipient:</label>
+                        <input 
+                            name="recipient"
+                            type="text" 
+                            class="form-control" 
+                            id="recipient-name"
+                            required
+                            [(ngModel)]="email.recipient"
+                            #recipient="ngModel">
+                    </div>
+                    <div class="mb-3">
+                        <label for="subject" class="col-form-label">Subject:</label>
+                        <input 
+                            name="subject"
+                            type="text" 
+                            class="form-control" 
+                            id="subject"
+                            required
+                            [(ngModel)]="email.subject"
+                            #subject="ngModel">
+                    </div>
+                    <div class="mb-3">
+                        <label for="message-text" class="col-form-label">Message:</label>
+                        <textarea
+                            name="body"
+                            class="form-control" 
+                            id="message-text"
+                            [(ngModel)]="email.body"
+                            #body="ngModel">
+                        </textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button 
+                    type="button" 
+                    class="btn btn-secondary" 
+                    data-bs-dismiss="modal">
+                    Close
+                </button>
+                <button 
+                    type="button" 
+                    class="btn btn-primary"
+                    [disabled]="recipient.invalid"
+                    (click)="sendEmail()">
+                    Send message
+                </button>
+            </div>
+        </div>
     </div>
 </div>

@@ -1,24 +1,20 @@
-import { User } from 'src/app/models/User';
 import { HttpClient, HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { User } from '../models/User';
 
 @Injectable({
   providedIn: 'root'
 })
-export class SigninService {
+export class GetEmailsService {
 
   private url = environment.baseUrl;
 
   constructor(private http: HttpClient) { }
 
-  /**
-   * The observe option specifies how much of the response to return
-   * The responseType option specifies the format in which to return data
-   */
-  signIn(user: User): Observable<HttpResponse<User>> {    
-    return this.http.post<User>(`${this.url}/signIn`, user, {
+  request(user: User, endpoint: string): Observable<HttpResponse<User[]>> {    
+    return this.http.post<User[]>(`${this.url}/${endpoint}`, user, {
       observe: 'response',
       responseType: 'json'
     }).pipe(
@@ -39,5 +35,4 @@ export class SigninService {
     // Return an observable with a user-facing error message.
     return throwError(() => new Error('Something bad happened; please try again later.'));
   }
-
 }

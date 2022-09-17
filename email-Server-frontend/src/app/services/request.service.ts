@@ -1,20 +1,37 @@
+import { User } from 'src/app/models/User';
 import { HttpClient, HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { User } from '../models/User';
+import { Email } from '../models/Email';
 
 @Injectable({
   providedIn: 'root'
 })
-export class SignUpService {
+export class RequestService {
 
   private url = environment.baseUrl;
 
   constructor(private http: HttpClient) { }
 
-  signUp(user: User): Observable<HttpResponse<User>> {    
-    return this.http.post<User>(`${this.url}/signUp`, user, {
+  /**
+   * The observe option specifies how much of the response to return
+   * The responseType option specifies the format in which to return data
+   * @param user the request body
+   * @param endpoint example endpoint: signIn or signUp
+   * @returns Observable<HttpResponse<>>
+   */
+  request(user: User, endpoint: string): Observable<HttpResponse<User>> {    
+    return this.http.post<User>(`${this.url}/${endpoint}`, user, {
+      observe: 'response',
+      responseType: 'json'
+    }).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  sendEmail(email: Email) {
+    return this.http.post<User>(`${this.url}/send`, email, {
       observe: 'response',
       responseType: 'json'
     }).pipe(
@@ -25,7 +42,7 @@ export class SignUpService {
   private handleError(error: HttpErrorResponse) {
     if (error.status === 0) {
       // A client-side or network error occurred. Handle it accordingly.
-      console.error('A client-side or network error occurred:', error.error);
+      console.error('An error occurred:', error.error);
     } else {
       // The backend returned an unsuccessful response code.
       // The response body may contain clues as to what went wrong.

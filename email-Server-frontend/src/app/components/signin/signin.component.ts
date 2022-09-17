@@ -1,4 +1,4 @@
-import { SigninService } from './../../services/signin.service';
+import { RequestService } from '../../services/request.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from 'src/app/models/User';
@@ -14,7 +14,7 @@ export class SigninComponent implements OnInit {
   public isLoading: boolean = false;
   public isRefuesdLogin: boolean = false;
 
-  constructor(private signinService: SigninService,
+  constructor(private requestService: RequestService,
     private router: Router) {
     this.user = new User();
   }
@@ -24,7 +24,7 @@ export class SigninComponent implements OnInit {
 
   submitForm() {
     this.isLoading = true;
-    this.signinService.signIn(this.user)
+    this.requestService.request(this.user, 'signIn')
     .subscribe({
       next: (res) => {
         console.log(res);
