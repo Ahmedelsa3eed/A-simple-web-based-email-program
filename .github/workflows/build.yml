@@ -32,6 +32,7 @@ jobs:
         with:
           node-version: '16'
           cache: npm
+          cache-dependency-path: '$Mail_Server/email-Server-frontend/package-lock.json'
 
       - name: Node install dependencies
         run: npm install
