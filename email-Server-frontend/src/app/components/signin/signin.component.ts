@@ -1,6 +1,6 @@
 import { RequestService } from '../../services/request.service';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { User } from 'src/app/models/User';
 
 @Component({
@@ -29,7 +29,7 @@ export class SigninComponent implements OnInit {
       next: (res) => {
         console.log(res);
         if(res.ok) {
-          this.router.navigateByUrl('/home');
+          this.router.navigateByUrl('/home/inbox');
         }
         else {
           window.alert(`returned status code: ${res.status}`);
