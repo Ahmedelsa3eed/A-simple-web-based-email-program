@@ -30,8 +30,8 @@ export class RequestService {
     );
   }
 
-  sendEmail(email: Email) {
-    return this.http.post<User>(`${this.url}/send`, email, {
+  sendEmail(email: Email): Observable<HttpResponse<boolean>> {
+    return this.http.post<boolean>(`${this.url}/send`, email, {
       observe: 'response',
       responseType: 'json'
     }).pipe(

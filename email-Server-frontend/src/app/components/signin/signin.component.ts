@@ -1,6 +1,7 @@
+import { UserService } from './../../services/user.service';
 import { RequestService } from '../../services/request.service';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { User } from 'src/app/models/User';
 
 @Component({
@@ -15,7 +16,8 @@ export class SigninComponent implements OnInit {
   public isRefuesdLogin: boolean = false;
 
   constructor(private requestService: RequestService,
-    private router: Router) {
+    private router: Router,
+    private userService: UserService) {
     this.user = new User();
   }
 
@@ -29,6 +31,7 @@ export class SigninComponent implements OnInit {
       next: (res) => {
         console.log(res);
         if(res.ok) {
+          this.userService.setUser(this.user);
           this.router.navigateByUrl('/home/inbox');
         }
         else {
