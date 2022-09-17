@@ -1,156 +1,64 @@
-main {
-  min-width: 0;
-  flex: 1;
-  padding: 1rem;
+
+a, a:hover, a:focus{outline:none; text-decoration:none;}
+
+body{
+  font-family: 'Open Sans', sans-serif;
 }
 
-.inbox .toolbar {
-  padding-bottom: 1rem;
-  border-bottom: 1px solid #e1e6ef;
-}
+h2{float:left; width:100%; color:#fff; margin-bottom:30px; font-size: 14px;}
+h2 span{font-family: 'Libre Baskerville', serif; display:block; font-size:45px; text-transform:none; margin-bottom:20px; margin-top:30px; font-weight:700}
+h2 a{color:#fff; font-weight:bold;}
 
-.inbox .messages {
-  padding: 0;
-  list-style: none;
-}
 
-.inbox .messages {
-  padding: 0;
-  list-style: none;
-}
-
-.inbox .message:hover {
-  background: #f9f9fa;
-}
-
-.inbox .message .actions {
-  position: absolute;
-  left: 0;
+.card {
+  -moz-box-direction: normal;
+  -moz-box-orient: vertical;
+  background-color: #fff;
+  border-radius: 0.25rem;
   display: flex;
   flex-direction: column;
+  position: relative;
+  margin-bottom:1px;
+  border:none;
+}
+.card-header:first-child {
+  border-radius: 0;
+}
+.card-header {
+  background-color: #f7f7f9;
+  margin-bottom: 0;
+  padding: 20px 1.25rem;
+  border:none;
+
+}
+.card-header a i{
+  float:left;
+  font-size:25px;
+  padding:5px 0;
+  margin:0 25px 0 0px;
+  color:#195C9D;
+}
+.card-header i{
+  float:right;
+  font-size:30px;
+  width:1%;
+  margin-top:8px;
+  margin-right:10px;
+}
+.card-header a{
+  width:97%;
+  float:left;
+  color:#565656;
+}
+.card-header p{
+  margin:0;
 }
 
-.inbox .message .actions .action {
-  width: 2rem;
-  margin-bottom: 0.5rem;
-  color: #c0cadd;
-  text-align: center;
+.card-header h3{
+  margin:0 0 0px;
+  font-size:20px;
+  font-family: 'Slabo 27px', serif;
+  font-weight:bold;
+  color: #000000;
 }
 
-.inbox .message a {
-  color: #000;
-}
-
-.inbox .message a:hover {
-  text-decoration: none;
-}
-
-.inbox .message.unread .header,
-.inbox .message.unread .title {
-  font-weight: bold;
-}
-
-.inbox .message .header {
-  display: flex;
-  flex-direction: row;
-  margin-bottom: 0.5rem;
-}
-
-.inbox .message .header .date {
-  margin-left: auto;
-}
-
-.inbox .message .title {
-  margin-bottom: 0.5rem;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.inbox .message .description {
-  font-size: 12px;
-}
-
-.message .toolbar {
-  padding-bottom: 1rem;
-  border-bottom: 1px solid #e1e6ef;
-}
-
-.message .details .title {
-  padding: 1rem 0;
-  font-weight: bold;
-}
-
-.message .details .header {
-  display: flex;
-  padding: 1rem 0;
-  margin: 1rem 0;
-  border-top: 1px solid #e1e6ef;
-  border-bottom: 1px solid #e1e6ef;
-}
-
-.message .details .header .avatar {
-  width: 40px;
-  height: 40px;
-  margin-right: 1rem;
-}
-
-.message .details .header .from {
-  font-size: 12px;
-  color: #9faecb;
-  align-self: center;
-}
-
-.message .details .header .from span {
-  display: block;
-  font-weight: bold;
-}
-
-.message .details .header .date {
-  margin-left: auto;
-}
-
-.message .details .attachments {
-  padding: 1rem 0;
-  margin-bottom: 1rem;
-  border-top: 3px solid #f9f9fa;
-  border-bottom: 3px solid #f9f9fa;
-}
-
-.message .details .attachments .attachment {
-  display: flex;
-  margin: 0.5rem 0;
-  font-size: 12px;
-  align-self: center;
-}
-
-.message .details .attachments .attachment .badge {
-  margin: 0 0.5rem;
-  line-height: inherit;
-}
-
-.message .details .attachments .attachment .menu {
-  margin-left: auto;
-}
-
-.message .details .attachments .attachment .menu a {
-  padding: 0 0.5rem;
-  font-size: 14px;
-  color: #e1e6ef;
-}
-
-@media (max-width: 767px) {
-  nav {
-    flex: 0 0 100%;
-  }
-}
-
-@media (max-width: 575px) {
-  .message .header {
-    flex-flow: row wrap;
-  }
-
-  .message .header .date {
-    flex: 0 0 100%;
-  }
-}

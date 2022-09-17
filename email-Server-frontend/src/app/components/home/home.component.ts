@@ -39,7 +39,7 @@ export class HomeComponent implements OnInit {
       next: (res) => {
         console.log(res);
         if(res.ok) {
-          this.router.navigateByUrl('./inbox');
+          this.router.navigateByUrl('/home/inbox');
         }
         else {
           window.alert(`returned status code: ${res.status}`);
