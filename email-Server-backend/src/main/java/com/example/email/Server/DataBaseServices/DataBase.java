@@ -10,20 +10,22 @@ import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 public class DataBase {
-
-
-
-
-    public static MongoDatabase connectToDB(){
+    public static MongoDatabase connectToDB(String databaseName){
          ConnectionString connectionString = new ConnectionString("mongodb+srv://MailServer:Mailserver123@mailserver.5krhxva.mongodb.net/?retryWrites=true&w=majority");
          MongoClientSettings settings = MongoClientSettings.builder()
                 .applyConnectionString(connectionString)
                 .build();
          MongoClient mongoClient = MongoClients.create(settings);
+        return mongoClient.getDatabase(databaseName);
 
-        return mongoClient.getDatabase("MailServer");
+    }
+
+    public static void main(String[] args) {
+        MongoDatabase database = connectToDB("ahmed@gmail.com");
+        database.createCollection("Inbox");
 
     }
 

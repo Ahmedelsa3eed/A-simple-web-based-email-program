@@ -12,7 +12,6 @@ import com.example.email.Server.editFolders.Search;
 import com.example.email.Server.editFolders.Sort;
 import com.example.email.Server.emailContent.FileResource;
 import com.example.email.Server.model.Email;
-import com.example.email.Server.emailContent.SendingEmail;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -68,13 +67,13 @@ public class ServerController {
 
     @RequestMapping(value = "/inbox", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ArrayList<Email>> getInbox(){
-        return new ResponseEntity<>(EmailsServices.getMailsFromDB("ziad@mail.com", "receiver"), HttpStatus.OK);
+        return new ResponseEntity<>(EmailsServices.getRequestedEmails("ziad@mail.com", "receiver"), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/sent", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ArrayList<Email>> getSent(){
         //TODO : make the front end send the current user email
-        return new ResponseEntity<>(EmailsServices.getMailsFromDB("ahmed@gmail.com", "sender"), HttpStatus.OK);
+        return new ResponseEntity<>(EmailsServices.getRequestedEmails("ahmed@mail.com", "Sent"), HttpStatus.OK);
     }
     @RequestMapping(value = "/draft", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ArrayList<Email>> getDraft(){
@@ -157,8 +156,8 @@ public class ServerController {
 
     @PostMapping( "/deleteFromInbox")
     @ResponseBody
-    public void deleteEmail() {
-        EmailsServices.removeMailFromInbox();
+    public void deleteEmail(String userEmail, String emailId) {
+        EmailsServices.removeMailFromInbox(userEmail, emailId);
     }
 
     @GetMapping("/refresh")
