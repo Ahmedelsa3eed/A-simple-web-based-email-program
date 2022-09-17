@@ -168,10 +168,10 @@ public class ServerController {
         logOut.refresh();
     }
 
-    @PostMapping( "/delete")
-    @ResponseBody
-    public void deleteFromDraft(@RequestBody Email email, String position) {
-        EmailsServices.removeMailFromDB(email, position);
+    @GetMapping( "/delete")
+    public void deleteEmailFromDB(@RequestParam  String emailID, String userEmail ,String position) {
+        System.out.println("We should delete this email from "+position);
+        EmailsServices.removeMailFromDB(userEmail,emailID, position);
 
     }
 

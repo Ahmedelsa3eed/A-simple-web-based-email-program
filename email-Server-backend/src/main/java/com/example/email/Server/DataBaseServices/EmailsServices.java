@@ -93,9 +93,7 @@ public class EmailsServices {
         }
 
     }
-    public static void removeMailFromDB(Email email, String collectionName){
-        String userEmail = email.getSender();
-        String emailId = email.get_id();
+    public static void removeMailFromDB(String userEmail, String emailId, String collectionName){
         System.out.println(emailId + " " + userEmail);
         String userID = getUserIDFromDB(userEmail);
         MongoDatabase database = DataBase.connectToDB(userID);
