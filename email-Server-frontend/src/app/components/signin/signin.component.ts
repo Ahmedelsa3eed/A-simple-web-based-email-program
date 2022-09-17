@@ -33,7 +33,8 @@ export class SigninComponent implements OnInit {
           this.router.navigateByUrl('/home');
         }
         else {
-          window.alert("Not OK!");
+          window.alert(`returned status code: ${res.status}`);
+          this.isRefuesdLogin = true;
         }
         this.isLoading = false;
       },

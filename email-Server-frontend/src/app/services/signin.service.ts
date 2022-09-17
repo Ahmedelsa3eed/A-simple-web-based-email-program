@@ -18,9 +18,9 @@ export class SigninService {
    * The responseType option specifies the format in which to return data
    */
   signIn(user: User): Observable<HttpResponse<User>> {
-    return this.http.post<HttpResponse<User>>(`${this.url}/signIn`, user, {
-      observe: "body",
-      responseType: "json",
+    return this.http.post<User>(`${this.url}/signIn`, user, {
+      observe: 'response',
+      responseType: 'json'
     }).pipe(
       catchError(this.handleError)
     );
