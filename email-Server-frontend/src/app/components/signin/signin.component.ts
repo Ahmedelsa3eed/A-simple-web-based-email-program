@@ -2,7 +2,6 @@ import { SigninService } from './../../services/signin.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from 'src/app/models/User';
-import { HttpStatusCode } from '@angular/common/http';
 
 @Component({
   selector: 'app-signin',
@@ -29,7 +28,7 @@ export class SigninComponent implements OnInit {
     .subscribe({
       next: (res) => {
         console.log(res);
-        if(res.status === HttpStatusCode.Ok) {
+        if(res.ok) {
           this.router.navigateByUrl('/home');
         }
         else {
