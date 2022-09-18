@@ -24,7 +24,6 @@ export class SentComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.isLoading = true;
     this.setUser();
     this.emails = this.getSentEmails();
   }
@@ -35,6 +34,7 @@ export class SentComponent implements OnInit {
   }
 
   fetchSentEmails() {
+    this.isLoading = true;
     this.getEmailsService.requestEmails(this.user, 'sent')
     .subscribe({
       next: (res) => {

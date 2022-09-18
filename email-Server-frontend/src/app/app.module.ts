@@ -14,6 +14,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { EmailComponent } from './components/email/email.component';
 import { SentComponent } from './components/sent/sent.component';
 import { TrashComponent } from './components/trash/trash.component';
+import { DraftComponent } from './components/draft/draft.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { TrashComponent } from './components/trash/trash.component';
     HeaderComponent,
     EmailComponent,
     SentComponent,
-    TrashComponent
+    TrashComponent,
+    DraftComponent
   ],
   imports: [
     BrowserModule,

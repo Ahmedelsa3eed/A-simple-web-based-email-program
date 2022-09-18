@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import {BehaviorSubject, Observable} from "rxjs";
-import {Email} from "../../models/Email";
-import {User} from "../../models/User";
-import {GetEmailsService} from "../../services/get-emails.service";
-import {UserService} from "../../services/user.service";
+import { Observable, BehaviorSubject } from 'rxjs';
+import { Email } from 'src/app/models/Email';
+import { User } from 'src/app/models/User';
+import { GetEmailsService } from 'src/app/services/get-emails.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
-  selector: 'app-trash',
-  templateUrl: './trash.component.html',
-  styleUrls: ['./trash.component.css']
+  selector: 'app-draft',
+  templateUrl: './draft.component.html',
+  styleUrls: ['./draft.component.css']
 })
-export class TrashComponent implements OnInit {
+export class DraftComponent implements OnInit {
 
   public user: User;
   public isLoading: boolean = false;
@@ -18,24 +18,24 @@ export class TrashComponent implements OnInit {
   emails?: Observable<Email[]>;
   email$ = new BehaviorSubject<Email[]>([]);
 
-  constructor(private getEmailsService: GetEmailsService, 
+  constructor(private getEmailsService:GetEmailsService,
     private userService:UserService) {
     this.user = new User;
   }
 
   ngOnInit(): void {
+    this.isLoading = true;
     this.setUser();
-    this.emails = this.getTrashEmails();
+    this.emails = this.getEmails();
   }
 
-  getTrashEmails() {
-    this.fetchTrashEmails();
+  getEmails() {
+    this.fetchEmails();
     return this.email$;
   }
 
-  fetchTrashEmails() {
-    this.isLoading = true;
-    this.getEmailsService.requestEmails(this.user, 'trash')
+  fetchEmails() {
+    this.getEmailsService.requestEmails(this.user, 'draft')
     .subscribe({
       next: (res) => {
         console.log(res);
@@ -51,12 +51,12 @@ export class TrashComponent implements OnInit {
       complete: () => console.info('complete')
     })
   }
-  
+
   private setUser() {
     this.userService.getUser().subscribe(res => {
       this.user = res;
       console.log(res);
     });
   }
-
+  
 }

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import {Email} from "../../models/Email";
-import {GetEmailsService} from "../../services/get-emails.service";
-import {User} from "../../models/User";
-import {UserService} from "../../services/user.service";
+import { Email } from "../../models/Email";
+import { GetEmailsService } from "../../services/get-emails.service";
+import { User } from "../../models/User";
+import { UserService } from "../../services/user.service";
 
 @Component({
   selector: 'app-inbox',
@@ -24,7 +24,6 @@ export class InboxComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.isLoading = true;
     this.setUser();
     this.emails = this.getInboxEmails();
   }
@@ -35,6 +34,7 @@ export class InboxComponent implements OnInit {
   }
 
   fetchInboxEmails() {
+    this.isLoading = true;
     this.getEmailsService.requestEmails(this.user, 'inbox')
     .subscribe({
       next: (res) => {
