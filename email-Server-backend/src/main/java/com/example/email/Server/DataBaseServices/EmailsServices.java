@@ -10,6 +10,7 @@ import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Objects;
 
 import static com.mongodb.client.model.Filters.eq;
@@ -47,6 +48,7 @@ public class EmailsServices {
         document.append("content", email.getBody());
         document.append("date", email.getDate());
         document.append("priority", email.getPriority());
+        document.append("seen", email.isSeen());
         System.out.println("Email sent to " + email.getReceiver());
         senderDatabase.getCollection("Sent").insertOne(document);
         receiverDatabase.getCollection("Inbox").insertOne(document);
@@ -66,6 +68,8 @@ public class EmailsServices {
             email.setBody((String) document.get("content"));
             email.setDate((String) document.get("date"));
             email.setPriority((String) document.get("priority"));
+            email.setSeen((boolean) document.get("seen"));
+
             emails.add(email);
         }
         Email[] emailsArray = new Email[emails.size()];
@@ -102,6 +106,17 @@ public class EmailsServices {
         Bson query = eq("_id", new ObjectId(emailId));
         DeleteResult result = collection.deleteOne(query);
         System.out.println("Deleted document count: " + result.getDeletedCount());
+    }
+
+    public static void markAsSeen(String emailID, String userEmail){
+        String userID = getUserIDFromDB(userEmail);
+        MongoDatabase database = DataBase.connectToDB(userID);
+        MongoCollection<Document> collection = database.getCollection("Inbox");
+        Bson query = eq("_id", new ObjectId(emailID));
+        Document document = collection.find(query).first();
+        assert document != null;
+        document.replace("seen", true);
+        collection.replaceOne(query, document);
     }
 
 }
