@@ -4,6 +4,8 @@ export class Email {
   receiver: string;
   subject: string;
   body: string;
+  seen: boolean;
+  date: Date;
 
   constructor() {
     this._id = "";
@@ -11,6 +13,8 @@ export class Email {
     this.receiver = "";
     this.subject = "";
     this.body = "";
+    this.seen = false;
+    this.date = new Date();
   }
 
 }

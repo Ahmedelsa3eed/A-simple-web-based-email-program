@@ -76,5 +76,16 @@ export class RequestService {
       );
     }
 
+  public markAsSeen(email: Email, user: User) {
+    return this.http.get(`${this.url}/markAsSeen`,  {
+      observe: 'response',
+      params: {
+        emailID: email._id,
+        userEmail: user.email
+      }
+    }).pipe(
+      catchError(this.handleError)
+    )
+  }
 
 }

@@ -36,29 +36,42 @@ export class EmailComponent implements OnInit {
           this.requestsService.deleteEmailFromDB(this.email,"Sent",this.user).subscribe(
             res => {
               console.log(res);
+              this.router.navigateByUrl('/home/sent');
+
             }
           );
     }else if (this.router.url === '/home/trash') {
       this.requestsService.deleteEmailFromDB(this.email,"Trash",this.user).subscribe(
         res => {
           console.log(res);
+          this.router.navigateByUrl('/home/trash');
+
         }
       );
     }else if(this.router.url === '/home/draft'){
       this.requestsService.deleteEmailFromDB(this.email,"Draft",this.user).subscribe(
         res => {
           console.log(res);
+          this.router.navigateByUrl('/home/draft');
         }
       );
     } else{
       this.requestsService.deleteEmailFromInbox(this.email).subscribe(res => {
         console.log(res);
+        this.router.navigateByUrl('/home/inbox');
       })
-
-
     }
 
   }
 
+  public markAsSeen() {
+    if (!this.email.seen) {
+      this.email.seen = true;
+      this.requestsService.markAsSeen(this.email, this.user).subscribe(res => {
+        console.log(res);
+      })
+    }
+
+  }
 
 }
