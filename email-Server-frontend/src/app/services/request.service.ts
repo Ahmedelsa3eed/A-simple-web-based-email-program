@@ -39,6 +39,41 @@ export class RequestService {
     );
   }
 
+  deleteEmailFromInbox(email: Email) {
+    return this.http.post<boolean>(`${this.url}/deleteFromInbox`, email, {
+      observe: 'response',
+      responseType: 'json'
+    }).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  deleteEmailFromDB(email: Email, position: string, user: User) {
+    return this.http.get(`${this.url}/delete`,  {
+      observe: 'response',
+      params: {
+        emailID: email._id,
+        userEmail: user.email,
+        position: position
+      },
+      responseType: 'json'
+    }).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  public markAsSeen(email: Email, user: User) {
+    return this.http.get(`${this.url}/markAsSeen`,  {
+      observe: 'response',
+      params: {
+        emailID: email._id,
+        userEmail: user.email
+      }
+    }).pipe(
+      catchError(this.handleError)
+    )
+  }
+
   private handleError(error: HttpErrorResponse) {
     if (error.status === 0) {
       // A client-side or network error occurred. Handle it accordingly.
@@ -52,29 +87,5 @@ export class RequestService {
     // Return an observable with a user-facing error message.
     return throwError(() => new Error('Something bad happened; please try again later.'));
   }
-
-    deleteEmailFromInbox(email: Email) {
-      return this.http.post<boolean>(`${this.url}/deleteFromInbox`, email, {
-        observe: 'response',
-        responseType: 'json'
-      }).pipe(
-        catchError(this.handleError)
-      );
-    }
-
-    deleteEmailFromDB(email: Email, position: string, user: User) {
-      return this.http.get(`${this.url}/delete`,  {
-        observe: 'response',
-        params: {
-          emailID: email._id,
-          userEmail: user.email,
-          position: position
-        },
-        responseType: 'json'
-      }).pipe(
-        catchError(this.handleError)
-      );
-    }
-
 
 }

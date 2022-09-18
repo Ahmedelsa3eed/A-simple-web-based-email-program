@@ -12,33 +12,36 @@ import {UserService} from "../../services/user.service";
 })
 export class TrashComponent implements OnInit {
 
-  emails?:Observable<Email[]>;
+  emails?: Observable<Email[]>;
   email$ = new BehaviorSubject<Email[]>([]);
-  public user:User;
+  public user: User;
 
-  constructor(private getEmailsService:GetEmailsService, private userService:UserService) {
-    this.emails = this.getInboxEmails();
+  constructor(private getEmailsService: GetEmailsService, 
+    private userService:UserService) {
     this.user = new User;
   }
 
   ngOnInit(): void {
-
+    this.setUser();
+    this.emails = this.getInboxEmails();
   }
 
   getInboxEmails():Observable<Email[]> {
+    this.getEmailsService.requestEmails(this.user, 'trash')
+    .subscribe(res => {
+      console.log(res);
+
+      // @ts-ignore
+      this.email$.next(res.body);
+    });
+    return this.email$;
+  }
+  
+  private setUser() {
     this.userService.getUser().subscribe(res => {
       this.user = res;
       console.log(res);
     });
-    this.getEmailsService.requestEmails(this.user, 'trash').subscribe(
-      res => {
-        console.log(res);
-
-        // @ts-ignore
-        this.email$.next(res.body);
-      });
-
-    return this.email$;
-
   }
+
 }
