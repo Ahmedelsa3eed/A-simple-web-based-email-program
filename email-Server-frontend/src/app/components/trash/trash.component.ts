@@ -12,9 +12,11 @@ import {UserService} from "../../services/user.service";
 })
 export class TrashComponent implements OnInit {
 
+  public user: User;
+  public isLoading: boolean = false;
+  public isRefuesdLogin: boolean = false;
   emails?: Observable<Email[]>;
   email$ = new BehaviorSubject<Email[]>([]);
-  public user: User;
 
   constructor(private getEmailsService: GetEmailsService, 
     private userService:UserService) {
@@ -22,19 +24,32 @@ export class TrashComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.isLoading = true;
     this.setUser();
-    this.emails = this.getInboxEmails();
+    this.emails = this.getTrashEmails();
   }
 
-  getInboxEmails():Observable<Email[]> {
-    this.getEmailsService.requestEmails(this.user, 'trash')
-    .subscribe(res => {
-      console.log(res);
-
-      // @ts-ignore
-      this.email$.next(res.body);
-    });
+  getTrashEmails() {
+    this.fetchTrashEmails();
     return this.email$;
+  }
+
+  fetchTrashEmails() {
+    this.getEmailsService.requestEmails(this.user, 'trash')
+    .subscribe({
+      next: (res) => {
+        console.log(res);
+        this.isLoading = false;
+        // @ts-ignore
+        this.email$.next(res.body);
+      },
+      error: (e) => {
+        this.isLoading = false;
+        this.isRefuesdLogin = true;
+        console.error(e);
+      },
+      complete: () => console.info('complete')
+    })
   }
   
   private setUser() {

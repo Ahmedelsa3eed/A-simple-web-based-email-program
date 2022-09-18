@@ -1,32 +1,33 @@
-<div class="col-md-10 offset-md-1" style="margin-bottom: 10px ; margin-top: 10px  ">
-      <div class="card">
-        <div class="card-header" role="tab" id="headingOne" >
-          <div class="mb-0">
-            <button class="remove-button" (click)="removeEmail()">remove</button>
-            <a href="" (click)="markAsSeen()" data-bs-toggle="collapse" [attr.data-bs-target]="'#collapse'+email._id" aria-expanded="false" aria-controls="flush-collapseOne">
-              <i class="fa fa-file-text-o" aria-hidden="true"></i>
-              <h3 *ngIf="email.sender != user.email && !email.seen " class="alert alert-success">From: {{email.sender}}</h3>
-              <h3 *ngIf="email.sender != user.email && email.seen ">From: {{email.sender}}</h3>
-              <h3 *ngIf="email.sender == user.email">To: {{email.receiver}}</h3>
-              <p>Subject: {{email.subject}}</p>
-            </a>
-            <i class="fa fa-angle-right" aria-hidden="true"></i>
-          </div>
-        </div>
-        <div [id]="'collapse'+email._id" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-            <div class="input-group-prepend">
-              <span style="margin-left: 2px"><strong> From:</strong> </span>
-            </div>
-            <span style="margin-left: 2px" >{{email.sender}}</span>
-            <div class="input-group-prepend">
-            <span> <strong>Subject: </strong></span>
-            </div>
-            <span>{{email.subject}}</span>
-            <div class="input-group-prepend">
-              <span ><strong> body</strong></span>
-            </div>
-            <span>{{email.body}}</span>
+<div class="col-md-10 offset-md-1" style="margin-bottom: 10px; margin-top: 10px;">
+  <div class="card">
+        
+    <div class="card-header" role="tab" id="headingOne">
+      <div class="mb-0">
+        <button class="remove-button" (click)="removeEmail()">remove</button>
+        <a href="" (click)="markAsSeen()" data-bs-toggle="collapse" [attr.data-bs-target]="'#collapse'+email._id" aria-expanded="false" aria-controls="flush-collapseOne">
+          <i class="fa fa-file-text-o" aria-hidden="true"></i>
+          <h3 *ngIf="email.sender != user.email && !email.seen " class="alert alert-success">From: {{email.sender}}</h3>
+          <h3 *ngIf="email.sender != user.email && email.seen ">From: {{email.sender}}</h3>
+          <h3 *ngIf="email.sender == user.email">To: {{email.receiver}}</h3>
+          <p>Subject: {{email.subject}}</p>
+        </a>
+        <i class="fa fa-angle-right" aria-hidden="true"></i>
       </div>
-      </div>
-</div>
+    </div>
 
+    <div [id]="'collapse'+email._id" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+      <div class="input-group-prepend">
+        <span style="margin-left: 2px"><strong> From:</strong> </span>
+      </div>
+      <span style="margin-left: 2px" >{{email.sender}}</span>
+      <div class="input-group-prepend">
+      <span> <strong>Subject: </strong></span>
+      </div>
+      <span>{{email.subject}}</span>
+      <div class="input-group-prepend">
+        <span ><strong> body</strong></span>
+      </div>
+      <span>{{email.body}}</span>
+    </div>
+  </div>
+</div>

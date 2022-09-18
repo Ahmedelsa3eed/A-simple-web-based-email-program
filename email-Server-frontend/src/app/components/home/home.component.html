@@ -1,14 +1,16 @@
 <div class="">
-    <div class="home mb-4">
-        <ul>
-          <app-nav></app-nav>
-        </ul>
+    
+    <ul>
+        <app-nav></app-nav>
+    </ul>
+
+    <div class="section">
+        <router-outlet></router-outlet>
     </div>
-  <div class="section" style="margin-left:23%;padding:1px 16px;height:1000px">
-    <router-outlet></router-outlet>
-  </div>
+
 </div>
 
+<!-- Send popup -->
 <div
     class="modal fade"
     id="exampleModal"

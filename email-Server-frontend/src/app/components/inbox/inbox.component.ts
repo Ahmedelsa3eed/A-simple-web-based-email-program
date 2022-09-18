@@ -13,6 +13,8 @@ import {UserService} from "../../services/user.service";
 export class InboxComponent implements OnInit {
 
   public user: User;
+  public isLoading: boolean = false;
+  public isRefuesdLogin: boolean = false;
   emails?: Observable<Email[]>;
   email$ = new BehaviorSubject<Email[]>([]);
 
@@ -22,19 +24,32 @@ export class InboxComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.isLoading = true;
     this.setUser();
     this.emails = this.getInboxEmails();
   }
 
-  getInboxEmails(): Observable<Email[]> {
-    this.getEmailsService.requestEmails(this.user, 'inbox')
-    .subscribe(res => {
-      console.log(res);
-      // @ts-ignore
-      this.email$.next(res.body);
-    });
-
+  getInboxEmails() {
+    this.fetchInboxEmails();
     return this.email$;
+  }
+
+  fetchInboxEmails() {
+    this.getEmailsService.requestEmails(this.user, 'inbox')
+    .subscribe({
+      next: (res) => {
+        console.log(res);
+        this.isLoading = false;
+        // @ts-ignore
+        this.email$.next(res.body);
+      },
+      error: (e) => {
+        this.isLoading = false;
+        this.isRefuesdLogin = true;
+        console.error(e);
+      },
+      complete: () => console.info('complete')
+    })
   }
 
   private setUser() {

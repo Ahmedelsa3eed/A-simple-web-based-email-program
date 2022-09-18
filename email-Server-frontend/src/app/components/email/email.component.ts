@@ -16,8 +16,8 @@ export class EmailComponent implements OnInit {
   user = new User();
 
   constructor(private userService: UserService, 
-    private requestsService:RequestService,
-    private router:Router) { }
+    private requestsService: RequestService,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.setUser();
