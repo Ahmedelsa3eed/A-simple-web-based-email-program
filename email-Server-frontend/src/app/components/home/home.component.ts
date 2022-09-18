@@ -4,6 +4,7 @@ import { RequestService } from './../../services/request.service';
 import { Email } from './../../models/Email';
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/models/User';
+import { HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-home',
@@ -32,20 +33,12 @@ export class HomeComponent implements OnInit {
   }
 
   sendEmail() {
-    this.isLoading = true;
-    this.email.sender = this.user.email;
+    this.prepareData();
+
     this.requestService.sendEmail(this.email)
     .subscribe({
       next: (res) => {
-        console.log(res);
-        if(res.ok) {
-          this.router.navigateByUrl('./inbox');
-        }
-        else {
-          window.alert(`returned status code: ${res.status}`);
-          this.isRefuesdSend = true;
-        }
-        this.isLoading = false;
+        this.handleResponse(res);
       },
       error: (e) => {
         this.isLoading = false;
@@ -54,6 +47,23 @@ export class HomeComponent implements OnInit {
       },
       complete: () => console.info('complete')
     })
+  }
+  
+  prepareData() {
+    this.isLoading = true;
+    this.email.sender = this.user.email;
+  }
+
+  private handleResponse(res: HttpResponse<boolean>) {
+    console.log(res);
+    this.isLoading = false;
+    if (res.ok) {
+      this.router.navigateByUrl('/home/inbox');
+    }
+    else {
+      window.alert(`returned status code: ${res.status}`);
+      this.isRefuesdSend = true;
+    }
   }
 
 }

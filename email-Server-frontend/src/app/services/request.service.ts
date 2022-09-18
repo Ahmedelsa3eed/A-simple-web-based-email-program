@@ -21,7 +21,7 @@ export class RequestService {
    * @param endpoint example endpoint: signIn or signUp
    * @returns Observable<HttpResponse<>>
    */
-  request(user: User, endpoint: string): Observable<HttpResponse<User>> {    
+  request(user: User, endpoint: string): Observable<HttpResponse<User>> {
     return this.http.post<User>(`${this.url}/${endpoint}`, user, {
       observe: 'response',
       responseType: 'json'
@@ -37,6 +37,41 @@ export class RequestService {
     }).pipe(
       catchError(this.handleError)
     );
+  }
+
+  deleteEmailFromInbox(email: Email) {
+    return this.http.post<boolean>(`${this.url}/deleteFromInbox`, email, {
+      observe: 'response',
+      responseType: 'json'
+    }).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  deleteEmailFromDB(email: Email, position: string, user: User) {
+    return this.http.get(`${this.url}/delete`,  {
+      observe: 'response',
+      params: {
+        emailID: email._id,
+        userEmail: user.email,
+        position: position
+      },
+      responseType: 'json'
+    }).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  public markAsSeen(email: Email, user: User) {
+    return this.http.get(`${this.url}/markAsSeen`,  {
+      observe: 'response',
+      params: {
+        emailID: email._id,
+        userEmail: user.email
+      }
+    }).pipe(
+      catchError(this.handleError)
+    )
   }
 
   private handleError(error: HttpErrorResponse) {
