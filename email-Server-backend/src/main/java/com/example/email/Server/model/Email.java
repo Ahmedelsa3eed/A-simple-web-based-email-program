@@ -10,6 +10,16 @@ public class Email {
     private String receiver;
     private String subject;
     private String body;
+    private boolean seen;
+
+    public boolean isSeen() {
+        return seen;
+    }
+
+    public void setSeen(boolean seen) {
+        this.seen = seen;
+    }
+
     private String attachmentPath;
     private String[] attachmentsName;
     

@@ -175,6 +175,12 @@ public class ServerController {
 
     }
 
+    @GetMapping( "/markAsSeen")
+    public void markAsSeen(@RequestParam String emailID, String userEmail) {
+        System.out.println("mark as seen "+ emailID);
+        EmailsServices.markAsSeen(emailID, userEmail);
+    }
+
     @PostMapping( "/deleteFromSent")
     @ResponseBody
     public void deleteFromSent(@RequestBody ArrayList<Email> newEmails){

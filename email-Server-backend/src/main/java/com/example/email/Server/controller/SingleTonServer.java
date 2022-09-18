@@ -17,15 +17,12 @@ public class SingleTonServer {
     public ArrayList<Email> draft;
     public ArrayList<ContactUser> contacts;
     public String attachmentId;
-
     public User getUser() {
         return user;
     }
-
     public void setUser(User user) {
         this.user = user;
     }
-
     private SingleTonServer(){
         sent = new ArrayList<>();
         inbox = new ArrayList<>();
