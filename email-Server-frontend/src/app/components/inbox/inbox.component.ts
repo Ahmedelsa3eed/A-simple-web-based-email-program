@@ -21,7 +21,6 @@ export class InboxComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
   }
 
   getInboxEmails():Observable<Email[]> {
