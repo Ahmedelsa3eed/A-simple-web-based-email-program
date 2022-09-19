@@ -39,6 +39,19 @@ export class RequestService {
     );
   }
 
+  search(searchString: string, folderName: string): Observable<HttpResponse<Email[]>> {
+    return this.http.get<Email[]>(`${this.url}/search`, {
+      observe: 'response',
+      params: {
+        searchString: searchString,
+        folderName: folderName
+      },
+      responseType: 'json'
+    }).pipe(
+      catchError(this.handleError)
+    );
+  }
+
   deleteEmailFromInbox(email: Email) {
     return this.http.post<boolean>(`${this.url}/deleteFromInbox`, email, {
       observe: 'response',

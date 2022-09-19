@@ -4,6 +4,7 @@ import { Email } from "../../models/Email";
 import { GetEmailsService } from "../../services/get-emails.service";
 import { User } from "../../models/User";
 import { UserService } from "../../services/user.service";
+import { RequestService } from 'src/app/services/request.service';
 
 @Component({
   selector: 'app-inbox',
@@ -17,9 +18,11 @@ export class InboxComponent implements OnInit {
   public isRefuesdLogin: boolean = false;
   emails?: Observable<Email[]>;
   email$ = new BehaviorSubject<Email[]>([]);
+  public searchString: string = "";
 
   constructor(private getEmailsService: GetEmailsService,
-    private userService: UserService) {
+    private userService: UserService,
+    private requestService: RequestService) {
     this.user = new User;
   }
 
@@ -36,6 +39,24 @@ export class InboxComponent implements OnInit {
   fetchInboxEmails() {
     this.isLoading = true;
     this.getEmailsService.requestEmails(this.user, 'inbox')
+    .subscribe({
+      next: (res) => {
+        console.log(res);
+        this.isLoading = false;
+        // @ts-ignore
+        this.email$.next(res.body);
+      },
+      error: (e) => {
+        this.isLoading = false;
+        this.isRefuesdLogin = true;
+        console.error(e);
+      },
+      complete: () => console.info('complete')
+    })
+  }
+
+  search() {
+    this.requestService.search(this.searchString, 'inbox')
     .subscribe({
       next: (res) => {
         console.log(res);
