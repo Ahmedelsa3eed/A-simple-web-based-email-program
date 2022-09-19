@@ -4,7 +4,7 @@
     <div class="input-group mb-3">
         <input name="search" type="text" class="form-control" placeholder="Search" aria-label="Search"
             aria-describedby="button-addon2" [(ngModel)]="searchString">
-        <button 
+        <button
             class="btn btn-outline-secondary"
             style="background: #212529; color: white;"
             type="button"
@@ -19,10 +19,13 @@
         <select [(ngModel)]="selectedValue" class="form-select" id="inputGroupSelect03" aria-label="Example select with button addon">
             <option value="" disabled selected>Sort By...</option>
             <option selected value="date">Date</option>
-            <option value="name">Name</option>
-            <option value="body">Body</option>
+            <option value="sender">sender Email</option>
+            <option value="subject">Subject</option>
+            <option value="priority">Priority Level</option>
+
+          <option value="content">Body</option>
         </select>
-        <button 
+        <button
             class="btn btn-outline-secondary"
             style="background: #212529; color: white;"
             type="button"
@@ -30,7 +33,7 @@
             OK
         </button>
     </div>
-    
+
     <div class="section">
 
         <div *ngIf="isLoading" class="d-flex justify-content-center" style="margin-top: 15px;">
@@ -48,7 +51,7 @@
         </div>
 
         <app-email *ngFor="let email of emails |async" [email]="email"></app-email>
-        
+
     </div>
 
 </main>

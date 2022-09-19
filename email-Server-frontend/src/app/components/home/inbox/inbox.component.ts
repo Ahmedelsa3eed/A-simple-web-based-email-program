@@ -57,7 +57,7 @@ export class InboxComponent implements OnInit {
   }
 
   search() {
-    this.requestService.search(this.searchString, 'inbox')
+    this.requestService.search(this.user._id, this.searchString, 'Inbox')
     .subscribe({
       next: (res) => {
         console.log(res);
@@ -76,7 +76,7 @@ export class InboxComponent implements OnInit {
 
   sort(by: string) {
     console.log(by);
-    this.requestService.sort(by, 'inbox', this.user._id)
+    this.requestService.sort(by, 'Inbox', this.user._id)
     .subscribe({
       next: (res) => {
         console.log(res);

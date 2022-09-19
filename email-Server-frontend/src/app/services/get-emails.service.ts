@@ -18,7 +18,7 @@ export class GetEmailsService {
     return this.http.get<Email[]>(`${this.url}/${endpoint}`, {
       observe: 'response',
       params: {
-        userEmail: user.email
+        userID: user._id,
       },
       responseType: 'json'
     }).pipe(

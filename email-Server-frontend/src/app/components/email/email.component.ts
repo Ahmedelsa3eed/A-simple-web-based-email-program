@@ -31,31 +31,38 @@ export class EmailComponent implements OnInit {
       this.requestsService.deleteEmailFromDB(this.email, "Sent", this.user)
       .subscribe((res) => {
           console.log(res);
-          this.router.navigateByUrl('/home/sent');
-      });
+        this.router.navigateByUrl('/home', { skipLocationChange: true })
+          .then(() => {
+            this.router.navigate(['/home/sent']);
+          });      });
     }
     else if (this.router.url === '/home/trash') {
       this.requestsService.deleteEmailFromDB(this.email,"Trash",this.user)
       .subscribe((res) => {
         console.log(res);
-        this.router.navigateByUrl('/home/trash');
-      });
+        this.router.navigateByUrl('/home', { skipLocationChange: true })
+          .then(() => {
+            this.router.navigate(['/home/trash']);
+          });      });
     }
     else if(this.router.url === '/home/draft') {
       this.requestsService.deleteEmailFromDB(this.email,"Draft",this.user)
       .subscribe((res) => {
           console.log(res);
-          this.router.navigateByUrl('/home/draft');
-      });
+        this.router.navigateByUrl('/home', { skipLocationChange: true })
+          .then(() => {
+            this.router.navigate(['/home/draft']);
+          });      });
     }
     else{
       this.requestsService.deleteEmailFromInbox(this.email)
       .subscribe((res) => {
         if (res.ok) {
           console.log(res);
-          this.router.navigateByUrl('/home/');
-
-          this.router.navigateByUrl('/home/inbox');
+          this.router.navigateByUrl('/home', { skipLocationChange: true })
+            .then(() => {
+              this.router.navigate(['/home/inbox']);
+            });
 
         }
         })
