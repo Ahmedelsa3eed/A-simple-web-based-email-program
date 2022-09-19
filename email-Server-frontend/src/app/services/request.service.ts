@@ -52,6 +52,20 @@ export class RequestService {
     );
   }
 
+  sort(by: string, folderName: string, userId: string) {
+    return this.http.get<Email[]>(`${this.url}/sort`, {
+      observe: 'response',
+      params: {
+        by: by,
+        folderName: folderName,
+        userID: userId
+      },
+      responseType: 'json'
+    }).pipe(
+      catchError(this.handleError)
+    );
+  }
+
   deleteEmailFromInbox(email: Email): Observable<HttpResponse<boolean>> {
     return this.http.post<boolean>(`${this.url}/deleteFromInbox`, email, {
       observe: 'response',

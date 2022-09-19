@@ -73,6 +73,24 @@ export class InboxComponent implements OnInit {
     })
   }
 
+  sort(by: string) {
+    this.requestService.sort(by, 'inbox', this.user._id)
+    .subscribe({
+      next: (res) => {
+        console.log(res);
+        
+        // @ts-ignore
+        this.email$.next(res.body);
+      },
+      error: (e) => {
+        this.isLoading = false;
+        this.isRefuesdLogin = true;
+        console.error(e);
+      },
+      complete: () => console.info('complete')
+    })
+  }
+
   private setUser() {
     this.userService.getUser().subscribe(res => {
       this.user = res;
