@@ -48,8 +48,8 @@ export class RequestService {
     );
   }
 
-  deleteEmailFromDB(email: Email, position: string, user: User) {
-    return this.http.get(`${this.url}/delete`,  {
+  deleteEmailFromDB(email: Email, position: string, user: User): Observable<HttpResponse<boolean>> {
+    return this.http.delete<boolean>(`${this.url}/delete`, {
       observe: 'response',
       params: {
         emailID: email._id,
