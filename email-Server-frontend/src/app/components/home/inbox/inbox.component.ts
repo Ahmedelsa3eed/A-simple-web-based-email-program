@@ -19,6 +19,7 @@ export class InboxComponent implements OnInit {
   emails?: Observable<Email[]>;
   email$ = new BehaviorSubject<Email[]>([]);
   public searchString: string = "";
+  public selectedValue: string = "";
 
   constructor(private getEmailsService: GetEmailsService,
     private userService: UserService,
@@ -74,11 +75,12 @@ export class InboxComponent implements OnInit {
   }
 
   sort(by: string) {
+    console.log(by);
     this.requestService.sort(by, 'inbox', this.user._id)
     .subscribe({
       next: (res) => {
         console.log(res);
-        
+        this.isLoading = false;
         // @ts-ignore
         this.email$.next(res.body);
       },

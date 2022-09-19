@@ -33,7 +33,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form>
+                <form #form="ngForm" (ngSubmit)="sendEmail()">
                     <div class="mb-3">
                         <label for="receiver-name" class="col-form-label">Recipient:</label>
                         <input
@@ -52,7 +52,6 @@
                             type="text"
                             class="form-control"
                             id="subject"
-                            required
                             [(ngModel)]="email.subject"
                             #subject="ngModel">
                     </div>
@@ -66,6 +65,11 @@
                             #body="ngModel">
                         </textarea>
                     </div>
+                    <!-- Upload files -->
+                    <div class="input-group mb-3">
+                        <input type="file" class="form-control" id="inputGroupFile02">
+                        <label class="input-group-text" for="inputGroupFile02">Upload</label>
+                    </div>
                 </form>
             </div>
             <div class="modal-footer">
@@ -76,10 +80,9 @@
                     Close
                 </button>
                 <button
-                    type="button"
+                    type="submit"
                     class="btn btn-primary"
-                    [disabled]="receiver.invalid"
-                    (click)="sendEmail()">
+                    [disabled]="form.invalid">
                     Send message
                 </button>
             </div>
