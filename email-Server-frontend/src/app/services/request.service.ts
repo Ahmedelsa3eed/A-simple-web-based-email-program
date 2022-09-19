@@ -30,9 +30,13 @@ export class RequestService {
     );
   }
 
-  sendEmail(email: Email): Observable<HttpResponse<boolean>> {
+  sendEmail(email: Email, user: User): Observable<HttpResponse<boolean>> {
     return this.http.post<boolean>(`${this.url}/send`, email, {
       observe: 'response',
+      params: {
+        userID: user._id,
+        email: user.email
+      },
       responseType: 'json'
     }).pipe(
       catchError(this.handleError)
