@@ -12,6 +12,7 @@ public class UsersServices {
         Document document = database.getCollection("Users").find(new Document("email", email)).first();
         if(document != null){
             User user = new User();
+            user.set_id(document.get("_id").toString());
             user.setFirstName((String) document.get("firstName"));
             user.setSecondName((String) document.get("secondName"));
             user.setEmail((String) document.get("email"));
