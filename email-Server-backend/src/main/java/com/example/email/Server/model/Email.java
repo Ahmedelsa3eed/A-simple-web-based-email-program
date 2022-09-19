@@ -1,6 +1,9 @@
 package com.example.email.Server.model;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import java.io.File;
+import java.util.List;
 
 public class Email {
     private String _id;
@@ -11,6 +14,15 @@ public class Email {
     private String subject;
     private String body;
     private boolean seen;
+    private List<MultipartFile> attachments;
+
+    public List<MultipartFile> getAttachments() {
+        return attachments;
+    }
+
+    public void setAttachments(List<MultipartFile> attachments) {
+        this.attachments = attachments;
+    }
 
     public boolean isSeen() {
         return seen;

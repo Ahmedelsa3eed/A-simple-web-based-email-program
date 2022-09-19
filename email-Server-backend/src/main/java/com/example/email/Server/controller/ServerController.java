@@ -1,9 +1,6 @@
 package com.example.email.Server.controller;
 
-import com.example.email.Server.DataBaseServices.EmailsServices;
-import com.example.email.Server.DataBaseServices.SearchEmails;
-import com.example.email.Server.DataBaseServices.SortService;
-import com.example.email.Server.DataBaseServices.UploadFileToDB;
+import com.example.email.Server.DataBaseServices.*;
 import com.example.email.Server.logs.LogOut;
 import com.example.email.Server.logs.Register;
 import com.example.email.Server.logs.SignIn;
@@ -26,6 +23,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @CrossOrigin
 @Controller
@@ -66,9 +65,20 @@ public class ServerController {
         return new ResponseEntity<>(id, HttpStatus.OK);
     }
 
-    @PostMapping("/send")
-    @ResponseBody
-    public void send(@RequestBody Email email){
+    @RequestMapping(path = "/send", method = RequestMethod.POST, consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
+    public void send(@RequestBody Email email,@RequestParam String userID){
+        System.out.println("sending email");
+        System.out.println("userID: " + userID);
+        ArrayList<MultipartFile> multipartFiles = (ArrayList<MultipartFile>) email.getAttachments();;
+        System.out.println("uploading files" + multipartFiles.size());
+        for (MultipartFile multipartFile : multipartFiles) {
+            try {
+                System.out.println("uploading file................" + multipartFile.getOriginalFilename());
+                UploadFileToDB.uploadFile(multipartFile.getBytes(),userID,multipartFile.getOriginalFilename());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
         EmailsServices.sendEmail(email);
     }
 
@@ -116,13 +126,13 @@ public class ServerController {
         return new ResponseEntity<>(server.draft, HttpStatus.OK);
     }
 
-    @PostMapping("/sendDraft")
-    @ResponseBody
-    public void sendDraft(@RequestBody Email email){
-        Delete d = new Delete();
-        d.deleteEmail(email,"draft");
-        send(email);
-    }
+//    @PostMapping("/sendDraft")
+//    @ResponseBody
+//    public void sendDraft(@RequestBody Email email){
+//        Delete d = new Delete();
+//        d.deleteEmail(email,"draft");
+//        send(email);
+//    }
 
     @PostMapping("/editDraft")
     @ResponseBody
