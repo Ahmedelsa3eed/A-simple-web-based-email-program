@@ -24,48 +24,58 @@ export class EmailComponent implements OnInit {
     this.handleRouterEvent();
   }
 
+  handleRouterEvent() {
+    this.router.events.subscribe((e) => {
+      if (e instanceof NavigationEnd) {
+        console.log(e.url);
+      }
+    });
+  }
+
   removeEmail() {
     console.log("you are asking to delete"+this.email._id);
     console.log(this.router.url);
-    if (this.router.url === '/home/sent') {
+    if (this.router.url === '/emails/sent') {
       this.requestsService.deleteEmailFromDB(this.email, "Sent", this.user)
       .subscribe((res) => {
-          console.log(res);
-        this.router.navigateByUrl('/home', { skipLocationChange: true })
+        console.log(res);
+        this.router.navigateByUrl('/emails', { skipLocationChange: true })
           .then(() => {
-            this.router.navigate(['/home/sent']);
-          });      });
+            this.router.navigate(['/emails/sent']);
+          });      
+      });
     }
-    else if (this.router.url === '/home/trash') {
+    else if (this.router.url === '/emails/trash') {
       this.requestsService.deleteEmailFromDB(this.email,"Trash",this.user)
       .subscribe((res) => {
         console.log(res);
-        this.router.navigateByUrl('/home', { skipLocationChange: true })
+        this.router.navigateByUrl('/emails', { skipLocationChange: true })
           .then(() => {
-            this.router.navigate(['/home/trash']);
-          });      });
+            this.router.navigate(['/emails/trash']);
+          });
+      });
     }
-    else if(this.router.url === '/home/draft') {
+    else if(this.router.url === '/emails/draft') {
       this.requestsService.deleteEmailFromDB(this.email,"Draft",this.user)
       .subscribe((res) => {
-          console.log(res);
-        this.router.navigateByUrl('/home', { skipLocationChange: true })
+        console.log(res);
+        this.router.navigateByUrl('/emails', { skipLocationChange: true })
           .then(() => {
-            this.router.navigate(['/home/draft']);
-          });      });
+            this.router.navigate(['/emails/draft']);
+          });
+      });
     }
     else{
       this.requestsService.deleteEmailFromInbox(this.email)
       .subscribe((res) => {
         if (res.ok) {
           console.log(res);
-          this.router.navigateByUrl('/home', { skipLocationChange: true })
+          this.router.navigateByUrl('/emails', { skipLocationChange: true })
             .then(() => {
-              this.router.navigate(['/home/inbox']);
+              this.router.navigate(['/emails/inbox']);
             });
-
         }
-        })
+      })
     }
   }
 
@@ -76,21 +86,12 @@ export class EmailComponent implements OnInit {
         console.log(res);
       })
     }
-
   }
 
   private setUser() {
     this.userService.getUser().subscribe(res => {
       this.user = res;
       console.log(res);
-    });
-  }
-
-  private handleRouterEvent() {
-    this.router.events.subscribe((e) => {
-      if (e instanceof NavigationEnd) {
-        console.log(e.url);
-      }
     });
   }
 
