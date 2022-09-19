@@ -1,9 +1,7 @@
 package com.example.email.Server.DataBaseServices;
 
 import com.example.email.Server.model.Email;
-import com.mongodb.BasicDBObject;
 import com.mongodb.Block;
-import com.mongodb.DBObject;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
@@ -17,19 +15,31 @@ import java.util.ArrayList;
 public class SearchEmails {
 
     public static Email[] searchEmailsInDB(String userID, String searchKey, String searchPosition){
-        System.out.println("Search key is "+searchKey);
-        Email[] emails = EmailsServices.getRequestedEmails(userID, searchPosition);
-        ArrayList<Email> searchedEmails = new ArrayList<>();
-        for (Email email : emails) {
-            if (email.getSubject().contains(searchKey) ||
-                    email.getBody().contains(searchKey)||
-                    email.getReceiver().contains(searchKey)) {
-                searchedEmails.add(email);
-            }
+        MongoDatabase database = DataBase.connectToDB(userID);
+        MongoCollection<Document> collection = database.getCollection(searchPosition);
+        collection.dropIndexes();
+        collection.createIndex(Indexes.text("$**"));
+        Bson filter = Filters.text(searchKey);
+        System.out.println("Text search matches "+ collection.countDocuments(filter) + " documents");
+        ArrayList<Email> emails = new ArrayList<>();
+        for (Document document : collection.find(filter)) {
+            Email email = new Email();
+            email.set_id(document.get("_id").toString());
+            email.setSender((String) document.get("sender"));
+            email.setReceiver((String) document.get("receiver"));
+            email.setSubject((String) document.get("subject"));
+            email.setBody((String) document.get("content"));
+            email.setDate((String) document.get("date"));
+            email.setPriority((String) document.get("priority"));
+            email.setSeen((boolean) document.get("seen"));
+            emails.add(email);
         }
-        Email[] searchedEmailsArray = new Email[searchedEmails.size()];
-        searchedEmails.toArray(searchedEmailsArray);
-        return searchedEmailsArray;
+        for (Email email : emails) {
+            System.out.println(email);
+        }
+        Email[] emailsArray = new Email[emails.size()];
+        emailsArray = emails.toArray(emailsArray);
+        return emailsArray;
     }
 
 }

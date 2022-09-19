@@ -183,19 +183,6 @@ public class ServerController {
         return new ResponseEntity<>(EmailsServices.markAsSeen(userID,emailID), HttpStatus.OK);
     }
 
-    @PostMapping( "/deleteFromSent")
-    @ResponseBody
-    public void deleteFromSent(@RequestBody ArrayList<Email> newEmails){
-        server.sent = newEmails;
-    }
-
-    @PostMapping( "/deleteFromTrash")
-    @ResponseBody
-    public void deleteFromTrash(@RequestBody Email oldEmail){
-        Delete d=new Delete();
-        d.removeFromTrash(oldEmail);
-    }
-
     @GetMapping("/logOut")
     public void logOut() {
         LogOut logOut = new LogOut();
