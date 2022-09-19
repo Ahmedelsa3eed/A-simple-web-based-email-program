@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import {BehaviorSubject, Observable} from "rxjs";
-import {Email} from "../../models/Email";
-import {User} from "../../models/User";
-import {GetEmailsService} from "../../services/get-emails.service";
-import {UserService} from "../../services/user.service";
+import {Email} from "../../../models/Email";
+import {User} from "../../../models/User";
+import {GetEmailsService} from "../../../services/get-emails.service";
+import {UserService} from "../../../services/user.service";
 
 @Component({
-  selector: 'app-trash',
-  templateUrl: './trash.component.html',
-  styleUrls: ['./trash.component.css']
+  selector: 'app-sent',
+  templateUrl: './sent.component.html',
+  styleUrls: ['./sent.component.css']
 })
-export class TrashComponent implements OnInit {
+export class SentComponent implements OnInit {
 
   public user: User;
   public isLoading: boolean = false;
@@ -18,24 +18,24 @@ export class TrashComponent implements OnInit {
   emails?: Observable<Email[]>;
   email$ = new BehaviorSubject<Email[]>([]);
 
-  constructor(private getEmailsService: GetEmailsService, 
+  constructor(private getEmailsService:GetEmailsService,
     private userService:UserService) {
     this.user = new User;
   }
 
   ngOnInit(): void {
     this.setUser();
-    this.emails = this.getTrashEmails();
+    this.emails = this.getSentEmails();
   }
 
-  getTrashEmails() {
-    this.fetchTrashEmails();
+  getSentEmails() {
+    this.fetchSentEmails();
     return this.email$;
   }
 
-  fetchTrashEmails() {
+  fetchSentEmails() {
     this.isLoading = true;
-    this.getEmailsService.requestEmails(this.user, 'trash')
+    this.getEmailsService.requestEmails(this.user, 'sent')
     .subscribe({
       next: (res) => {
         console.log(res);
@@ -51,7 +51,7 @@ export class TrashComponent implements OnInit {
       complete: () => console.info('complete')
     })
   }
-  
+
   private setUser() {
     this.userService.getUser().subscribe(res => {
       this.user = res;

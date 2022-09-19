@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Email } from "../../models/Email";
-import { GetEmailsService } from "../../services/get-emails.service";
-import { User } from "../../models/User";
-import { UserService } from "../../services/user.service";
+import { Email } from "../../../models/Email";
+import { GetEmailsService } from "../../../services/get-emails.service";
+import { User } from "../../../models/User";
+import { UserService } from "../../../services/user.service";
 import { RequestService } from 'src/app/services/request.service';
 
 @Component({
