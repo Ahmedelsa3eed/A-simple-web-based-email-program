@@ -1,17 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { Email } from "../../../models/Email";
-import { GetEmailsService } from "../../../services/get-emails.service";
-import { User } from "../../../models/User";
-import { UserService } from "../../../services/user.service";
+import { ActivatedRoute } from '@angular/router';
+import { Observable, BehaviorSubject } from 'rxjs';
+import { Email } from 'src/app/models/Email';
+import { User } from 'src/app/models/User';
+import { GetEmailsService } from 'src/app/services/get-emails.service';
 import { RequestService } from 'src/app/services/request.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
-  selector: 'app-inbox',
-  templateUrl: './inbox.component.html',
-  styleUrls: ['./inbox.component.css']
+  selector: 'app-emails-list',
+  templateUrl: './emails-list.component.html',
+  styleUrls: ['./emails-list.component.css']
 })
-export class InboxComponent implements OnInit {
+export class EmailsListComponent implements OnInit {
 
   public user: User;
   public isLoading: boolean = false;
@@ -20,26 +21,35 @@ export class InboxComponent implements OnInit {
   email$ = new BehaviorSubject<Email[]>([]);
   public searchString: string = "";
   public selectedValue: string = "";
+  public folderName: string = "";
 
   constructor(private getEmailsService: GetEmailsService,
     private userService: UserService,
-    private requestService: RequestService) {
+    private requestService: RequestService,
+    private route: ActivatedRoute) {
     this.user = new User;
   }
 
   ngOnInit(): void {
+    this.getFolderNameFromRoute();
+    console.log(this.folderName);
     this.setUser();
-    this.emails = this.getInboxEmails();
+    this.emails = this.getEmails();
   }
 
-  getInboxEmails() {
-    this.fetchInboxEmails();
+  getFolderNameFromRoute() {
+    const routeParams = this.route.snapshot.paramMap;
+    this.folderName= String(routeParams.get('folderName'));
+  }
+
+  getEmails() {
+    this.fetchEmails();
     return this.email$;
   }
 
-  fetchInboxEmails() {
+  fetchEmails() {
     this.resetFeedbackFlags();
-    this.getEmailsService.requestEmails(this.user, 'inbox')
+    this.getEmailsService.requestEmails(this.user, this.folderName)
     .subscribe({
       next: (res) => {
         console.log(res);
@@ -58,7 +68,7 @@ export class InboxComponent implements OnInit {
 
   search() {
     this.resetFeedbackFlags();
-    this.requestService.search(this.user._id, this.searchString, 'Inbox')
+    this.requestService.search(this.user._id, this.searchString, this.folderName)
     .subscribe({
       next: (res) => {
         console.log(res);
@@ -77,7 +87,7 @@ export class InboxComponent implements OnInit {
 
   sort(by: string) {
     this.resetFeedbackFlags();
-    this.requestService.sort(by, 'Inbox', this.user._id)
+    this.requestService.sort(by, this.folderName, this.user._id)
     .subscribe({
       next: (res) => {
         console.log(res);

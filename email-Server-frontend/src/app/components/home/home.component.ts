@@ -52,6 +52,12 @@ export class HomeComponent implements OnInit {
 
   }
 
+  onFileSelect(event: any) {
+    for(const file of event.target.files) {
+      this.email.attachments.append('files', file, file.name);
+    }
+  }
+
   private setUser() {
     this.userService.getUser().subscribe(res => {
       this.user = res;

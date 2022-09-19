@@ -33,7 +33,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form #form="ngForm" (ngSubmit)="sendEmail()">
+                <form #form="ngForm" (ngSubmit)="sendEmail()" enctype="multipart/form-data">
                     <div class="mb-3">
                         <label for="receiver-name" class="col-form-label">Recipient:</label>
                         <input
@@ -68,7 +68,12 @@
                     </div>
                     <!-- Upload files -->
                     <div class="input-group mb-3">
-                        <input type="file" class="form-control" id="inputGroupFile02" multiple>
+                        <input 
+                            type="file" 
+                            class="form-control" 
+                            id="inputGroupFile02" 
+                            multiple
+                            (change)="onFileSelect($event)">
                         <label class="input-group-text" for="inputGroupFile02">Upload</label>
                     </div>
                     <!-- Form Buttons -->

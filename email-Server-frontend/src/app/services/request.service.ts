@@ -21,7 +21,7 @@ export class RequestService {
    * @param endpoint example endpoint: signIn or signUp
    * @returns Observable<HttpResponse<>>
    */
-  request(user: User, endpoint: string): Observable<HttpResponse<User>> {
+  validateUser(user: User, endpoint: string): Observable<HttpResponse<User>> {
     return this.http.post<User>(`${this.url}/${endpoint}`, user, {
       observe: 'response',
       responseType: 'json'
