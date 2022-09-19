@@ -21,6 +21,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,7 +49,7 @@ public class ServerController {
 
     @PostMapping("/upload")
     @ResponseBody
-    public ResponseEntity<String> upload(@RequestParam("files") List<MultipartFile> multipartFiles, @RequestParam("userID") String userID) {
+    public ResponseEntity<String> upload(@RequestParam("multipartFiles") List<MultipartFile> multipartFiles, @RequestParam("userID") String userID) {
         //upload data to the server
         System.out.println("uploading files" + multipartFiles.size());
         for (MultipartFile multipartFile : multipartFiles) {
@@ -64,30 +65,25 @@ public class ServerController {
         String id = fileResource.uploadFiles(multipartFiles);
         return new ResponseEntity<>(id, HttpStatus.OK);
     }
-
-    @RequestMapping(path = "/send", method = RequestMethod.POST, consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
-    public void send(@RequestBody Email email,@RequestParam String userID){
+    @PostMapping("/send")
+    @ResponseBody
+    public void send(@RequestBody Email email,@RequestParam("userID") String userID){
         System.out.println("sending email");
         System.out.println("userID: " + userID);
-        ArrayList<MultipartFile> multipartFiles = (ArrayList<MultipartFile>) email.getAttachments();;
-        System.out.println("uploading files" + multipartFiles.size());
-        for (MultipartFile multipartFile : multipartFiles) {
-            try {
-                System.out.println("uploading file................" + multipartFile.getOriginalFilename());
-                UploadFileToDB.uploadFile(multipartFile.getBytes(),userID,multipartFile.getOriginalFilename());
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        EmailsServices.sendEmail(email);
+
+        EmailsServices.sendEmail(email, userID);
     }
 
     @GetMapping("/download")
-    public ResponseEntity<Resource> downloadFiles(@RequestParam String filename,
-                                                  String attachment) throws Exception{
-        System.out.println(attachment);
-        FileResource fileResource = new FileResource();
-        return fileResource.downloadFiles(filename, attachment);
+    public ResponseEntity<Blob> downloadFiles(@RequestParam String senderEmail,
+                                              String attachmentName) throws Exception{
+
+        System.out.println("downloading file");
+        String senderID = EmailsServices.getUserIDFromDB(senderEmail);
+        return DownloadFiles.downloadFile2(senderID,attachmentName);
+
+
+
     }
 
     @GetMapping("/inbox")
