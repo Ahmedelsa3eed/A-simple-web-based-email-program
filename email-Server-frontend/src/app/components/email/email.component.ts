@@ -28,25 +28,13 @@ export class EmailComponent implements OnInit {
     console.log("you are asking to delete"+this.email._id);
     console.log(this.router.url);
     if (this.router.url === '/home/sent') {
-      this.requestsService.deleteEmailFromDB(this.email, "Sent", this.user)
-      .subscribe((res) => {
-          console.log(res);
-          this.router.navigateByUrl('/home/sent');
-      });
+      this.handleDelete('Sent', '/home/sent');
     }
     else if (this.router.url === '/home/trash') {
-      this.requestsService.deleteEmailFromDB(this.email,"Trash",this.user)
-      .subscribe((res) => {
-        console.log(res);
-        this.router.navigateByUrl('/home/trash');
-      });
+      this.handleDelete('Trash', '/home/trash');
     }
     else if(this.router.url === '/home/draft') {
-      this.requestsService.deleteEmailFromDB(this.email,"Draft",this.user)
-      .subscribe((res) => {
-          console.log(res);
-          this.router.navigateByUrl('/home/draft');
-      });
+      this.handleDelete('Draft', '/home/draft');
     } 
     else{
       this.requestsService.deleteEmailFromInbox(this.email)
@@ -56,6 +44,14 @@ export class EmailComponent implements OnInit {
       })
     }
   }
+
+  handleDelete(from: string, routeTo: string) {
+    this.requestsService.deleteEmailFromDB(this.email, from, this.user)
+      .subscribe((res) => {
+          console.log(res);
+          this.router.navigateByUrl(routeTo);
+    });
+  }
   
   public markAsSeen() {
     if (!this.email.seen) {
@@ -64,7 +60,6 @@ export class EmailComponent implements OnInit {
         console.log(res);
       })
     }
-    
   }
   
   private setUser() {
