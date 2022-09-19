@@ -54,11 +54,10 @@ public class EmailsServices {
         receiverDatabase.getCollection("Inbox").insertOne(document);
     }
 
-    public static Email[] getRequestedEmails(String userEmail, String CollectionName){
-        String userID = getUserIDFromDB(userEmail);
+    public static Email[] getRequestedEmails(String userID, String CollectionName){
         MongoDatabase database = DataBase.connectToDB(userID);
         ArrayList<Email> emails = new ArrayList<>();
-        for (Document document : database.getCollection(CollectionName).find()) {
+        for (Document document : database.getCollection(CollectionName).find().sort(new Document("date", -1))) {
             System.out.println(document);
             Email email = new Email();
             email.set_id(document.get("_id").toString());
@@ -79,7 +78,7 @@ public class EmailsServices {
         }
         return emailsArray;
     }
-    public static void removeMailFromInbox(Email email){
+    public static Boolean removeMailFromInbox(Email email){
         String userEmail = email.getReceiver();
         String emailId = email.get_id();
         System.out.println(emailId + " " + userEmail);
@@ -92,24 +91,25 @@ public class EmailsServices {
             database.getCollection("Trash").insertOne(Objects.requireNonNull(collection.find(query).first()));
             DeleteResult result = collection.deleteOne(query);
             System.out.println("Deleted document count: " + result.getDeletedCount());
+            return true;
         } catch (MongoException me) {
             System.err.println("Unable to delete due to an error: " + me);
+            return false;
         }
 
     }
-    public static void removeMailFromDB(String userEmail, String emailId, String collectionName){
-        System.out.println(emailId + " " + userEmail);
-        String userID = getUserIDFromDB(userEmail);
+    public static Boolean removeMailFromDB(String userID, String emailId, String collectionName){
         MongoDatabase database = DataBase.connectToDB(userID);
         MongoCollection<Document> collection = database.getCollection(collectionName);
         System.out.println("To be deleted " + collection.find(new Document("_id", new ObjectId(emailId) )).first());
         Bson query = eq("_id", new ObjectId(emailId));
         DeleteResult result = collection.deleteOne(query);
         System.out.println("Deleted document count: " + result.getDeletedCount());
+        return true;
     }
 
-    public static void markAsSeen(String emailID, String userEmail){
-        String userID = getUserIDFromDB(userEmail);
+    public static Boolean markAsSeen(String userID, String emailID){
+        System.out.println("The user id is " + userID);
         MongoDatabase database = DataBase.connectToDB(userID);
         MongoCollection<Document> collection = database.getCollection("Inbox");
         Bson query = eq("_id", new ObjectId(emailID));
@@ -117,6 +117,7 @@ public class EmailsServices {
         assert document != null;
         document.replace("seen", true);
         collection.replaceOne(query, document);
+        return true;
     }
 
 }
