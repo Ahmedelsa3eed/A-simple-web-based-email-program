@@ -43,6 +43,15 @@ export class RequestService {
     );
   }
 
+  uploadFiles(attachments: FormData) {
+    return this.http.post<any>(`${this.url}/upload`, attachments, {
+      observe: 'response',
+      responseType: 'json'
+    }).pipe(
+      catchError(this.handleError)
+    );
+  }
+
   search(userID: string, searchString: string, folderName: string): Observable<HttpResponse<Email[]>> {
     return this.http.get<Email[]>(`${this.url}/search`, {
       observe: 'response',
