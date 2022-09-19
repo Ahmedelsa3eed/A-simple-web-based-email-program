@@ -2,6 +2,7 @@ package com.example.email.Server.controller;
 
 import com.example.email.Server.DataBaseServices.EmailsServices;
 import com.example.email.Server.DataBaseServices.SearchEmails;
+import com.example.email.Server.DataBaseServices.SortService;
 import com.example.email.Server.logs.LogOut;
 import com.example.email.Server.logs.Register;
 import com.example.email.Server.logs.SignIn;
@@ -75,9 +76,9 @@ public class ServerController {
     }
 
     @GetMapping("/sent")
-    public ResponseEntity<Email[]> getSent(@RequestParam String userEmail){
+    public ResponseEntity<Email[]> getSent(@RequestParam String userID){
         //TODO : make the front end send the current user email
-        return new ResponseEntity<>(EmailsServices.getRequestedEmails(userEmail, "Sent"), HttpStatus.OK);
+        return new ResponseEntity<>(EmailsServices.getRequestedEmails(userID, "Sent"), HttpStatus.OK);
     }
     @RequestMapping(value = "/draft", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ArrayList<Email>> getDraft(){
@@ -92,8 +93,8 @@ public class ServerController {
     }
 
     @GetMapping("/trash")
-    public ResponseEntity<Email[]> getTrash(@RequestParam String userEmail){
-        return new ResponseEntity<>(EmailsServices.getRequestedEmails(userEmail, "Trash"), HttpStatus.OK);
+    public ResponseEntity<Email[]> getTrash(@RequestParam String userID){
+        return new ResponseEntity<>(EmailsServices.getRequestedEmails(userID, "Trash"), HttpStatus.OK);
     }
 
     @PostMapping("/addToDraft")
@@ -144,9 +145,9 @@ public class ServerController {
     }
 
     @GetMapping("/sort")
-    public void sort(@RequestParam String sortPosition, String sortBy){
-        Sort s = new Sort();
-        s.sort(sortPosition, sortBy);
+    public ResponseEntity<Email[]> sort(@RequestParam String userID, String sortBy, String position){
+        System.out.println("sorting for "+ sortBy + " in " + position+ "user "+ userID);
+         return new ResponseEntity<>(SortService.sortEmailsBy(userID,sortBy,position), HttpStatus.OK);
     }
 
     @PostMapping("/priority")
