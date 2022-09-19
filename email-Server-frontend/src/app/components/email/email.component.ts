@@ -4,6 +4,7 @@ import {UserService} from "../../services/user.service";
 import {User} from "../../models/User";
 import {RequestService} from "../../services/request.service";
 import {NavigationEnd, Router} from "@angular/router";
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-email',
@@ -76,7 +77,21 @@ export class EmailComponent implements OnInit {
         console.log(res);
       })
     }
+  }
 
+  download(file: string) {
+    this.requestsService.downloadFile(file, this.user)
+    .subscribe({
+      next: (res) => {
+        if(res.body) {
+          saveAs(res.body, file);
+        }
+      },
+      error: (e) => {
+        console.error(e);
+      },
+      complete: () => console.info('Downloading complete!')
+    })
   }
 
   private setUser() {

@@ -35,6 +35,15 @@
       </div>
       <span>{{email.body}}</span>
 
+      <div class="input-group-prepend">
+        <span><strong> Attachments</strong></span>
+      </div>
+      <ul class="nav flex-column">
+        <li class="nav-item" *ngFor="let file of email.attachments">
+          <button (click)="download(file)"><i class="fa fa-download"></i></button>
+        </li>
+      </ul>
+
     </div>
   </div>
 </div>
