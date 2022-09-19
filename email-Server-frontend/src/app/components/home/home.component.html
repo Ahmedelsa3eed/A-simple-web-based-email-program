@@ -1,14 +1,16 @@
 <div class="">
-    <div class="home mb-4">
-        <ul>
-          <app-nav></app-nav>
-        </ul>
+    
+    <ul>
+        <app-nav></app-nav>
+    </ul>
+
+    <div class="section">
+        <router-outlet></router-outlet>
     </div>
-  <div class="section" style="margin-left:23%;padding:1px 16px;height:1000px">
-    <router-outlet></router-outlet>
-  </div>
+
 </div>
 
+<!-- Send popup -->
 <div
     class="modal fade"
     id="exampleModal"
@@ -31,7 +33,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form>
+                <form #form="ngForm" (ngSubmit)="sendEmail()">
                     <div class="mb-3">
                         <label for="receiver-name" class="col-form-label">Recipient:</label>
                         <input
@@ -40,6 +42,7 @@
                             class="form-control"
                             id="receiver-name"
                             required
+                            pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
                             [(ngModel)]="email.receiver"
                             #receiver="ngModel">
                     </div>
@@ -50,7 +53,6 @@
                             type="text"
                             class="form-control"
                             id="subject"
-                            required
                             [(ngModel)]="email.subject"
                             #subject="ngModel">
                     </div>
@@ -64,22 +66,27 @@
                             #body="ngModel">
                         </textarea>
                     </div>
+                    <!-- Upload files -->
+                    <div class="input-group mb-3">
+                        <input type="file" class="form-control" id="inputGroupFile02" multiple>
+                        <label class="input-group-text" for="inputGroupFile02">Upload</label>
+                    </div>
+                    <!-- Form Buttons -->
+                    <div class="modal-footer">
+                        <button
+                            type="button"
+                            class="btn btn-secondary"
+                            data-bs-dismiss="modal">
+                            Close
+                        </button>
+                        <button
+                            type="submit"
+                            class="btn btn-primary"
+                            [disabled]="form.invalid">
+                            Send message
+                        </button>
+                    </div>
                 </form>
-            </div>
-            <div class="modal-footer">
-                <button
-                    type="button"
-                    class="btn btn-secondary"
-                    data-bs-dismiss="modal">
-                    Close
-                </button>
-                <button
-                    type="button"
-                    class="btn btn-primary"
-                    [disabled]="receiver.invalid"
-                    (click)="sendEmail()">
-                    Send message
-                </button>
             </div>
         </div>
     </div>

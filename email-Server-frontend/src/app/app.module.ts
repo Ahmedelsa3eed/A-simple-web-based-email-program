@@ -8,12 +8,13 @@ import { AppComponent } from './app.component';
 import { SigninComponent } from './components/signin/signin.component';
 import { HomeComponent } from './components/home/home.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
-import { NavComponent } from './components/nav/nav.component';
-import { InboxComponent } from './components/inbox/inbox.component';
+import { NavComponent } from './components/home/nav/nav.component';
+import { InboxComponent } from './components/home/inbox/inbox.component';
 import { HeaderComponent } from './components/header/header.component';
 import { EmailComponent } from './components/email/email.component';
-import { SentComponent } from './components/sent/sent.component';
-import { TrashComponent } from './components/trash/trash.component';
+import { SentComponent } from './components/home/sent/sent.component';
+import { TrashComponent } from './components/home/trash/trash.component';
+import { DraftComponent } from './components/home/draft/draft.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { TrashComponent } from './components/trash/trash.component';
     HeaderComponent,
     EmailComponent,
     SentComponent,
-    TrashComponent
+    TrashComponent,
+    DraftComponent
   ],
   imports: [
     BrowserModule,

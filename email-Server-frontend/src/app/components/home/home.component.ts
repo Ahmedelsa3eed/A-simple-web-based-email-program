@@ -26,15 +26,11 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.userService.getUser().subscribe(res => {
-      this.user = res;
-      console.log(res);
-    })
+    this.setUser();
   }
 
   sendEmail() {
     this.prepareData();
-
     this.requestService.sendEmail(this.email)
     .subscribe({
       next: (res) => {
@@ -48,16 +44,26 @@ export class HomeComponent implements OnInit {
       complete: () => console.info('complete')
     })
   }
-  
+
   prepareData() {
     this.isLoading = true;
     this.email.sender = this.user.email;
+    this.email.date = new Date();
+
+  }
+
+  private setUser() {
+    this.userService.getUser().subscribe(res => {
+      this.user = res;
+      console.log(res);
+    });
   }
 
   private handleResponse(res: HttpResponse<boolean>) {
     console.log(res);
     this.isLoading = false;
     if (res.ok) {
+      // TODO: what should we do after sending the email
       this.router.navigateByUrl('/home/inbox');
     }
     else {

@@ -39,7 +39,35 @@ export class RequestService {
     );
   }
 
-  deleteEmailFromInbox(email: Email) {
+  search(userID: string, searchString: string, folderName: string): Observable<HttpResponse<Email[]>> {
+    return this.http.get<Email[]>(`${this.url}/search`, {
+      observe: 'response',
+      params: {
+        userID: userID,
+        searchString: searchString,
+        searchPosition: folderName
+      },
+      responseType: 'json'
+    }).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  sort(by: string, folderName: string, userId: string) {
+    return this.http.get<Email[]>(`${this.url}/sort`, {
+      observe: 'response',
+      params: {
+        sortBy: by,
+        position: folderName,
+        userID: userId
+      },
+      responseType: 'json'
+    }).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  deleteEmailFromInbox(email: Email): Observable<HttpResponse<boolean>> {
     return this.http.post<boolean>(`${this.url}/deleteFromInbox`, email, {
       observe: 'response',
       responseType: 'json'
@@ -48,12 +76,12 @@ export class RequestService {
     );
   }
 
-  deleteEmailFromDB(email: Email, position: string, user: User) {
-    return this.http.get(`${this.url}/delete`,  {
+  deleteEmailFromDB(email: Email, position: string, user: User): Observable<HttpResponse<boolean>> {
+    return this.http.delete<boolean>(`${this.url}/delete`, {
       observe: 'response',
       params: {
+        userID: user._id,
         emailID: email._id,
-        userEmail: user.email,
         position: position
       },
       responseType: 'json'
@@ -62,16 +90,18 @@ export class RequestService {
     );
   }
 
-  public markAsSeen(email: Email, user: User) {
-    return this.http.get(`${this.url}/markAsSeen`,  {
+  public markAsSeen(emailID: string, userID: string): Observable<HttpResponse<boolean>> {
+    console.log("markAsSeen() called \n"+ emailID + " \\\ " + userID);
+    return this.http.delete<boolean>(`${this.url}/markAsSeen`,  {
       observe: 'response',
       params: {
-        emailID: email._id,
-        userEmail: user.email
-      }
+        emailID: emailID,
+        userID: userID
+      },
+      responseType: 'json'
     }).pipe(
       catchError(this.handleError)
-    )
+      );
   }
 
   private handleError(error: HttpErrorResponse) {
