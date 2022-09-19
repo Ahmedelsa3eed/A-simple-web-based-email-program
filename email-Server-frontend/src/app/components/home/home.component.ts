@@ -52,9 +52,22 @@ export class HomeComponent implements OnInit {
   }
 
   onFileSelect(event: any) {
+    // prepare formData
+    let attachments = new FormData();
     for(const file of event.target.files) {
-      this.email.attachments.append('files', file, file.name);
+      attachments.append('files', file, file.name);
     }
+    // uploda formData
+    this.requestService.uploadFiles(attachments)
+    .subscribe({
+      next: (res) => {
+        console.log(res);
+      },
+      error: (e) => {
+        console.error(e);
+      },
+      complete: () => console.info('Upload completeed!')
+    })
   }
 
   private setUser() {

@@ -6,7 +6,6 @@ export class Email {
   body: string;
   seen: boolean;
   date: Date;
-  attachments: FormData;
 
   constructor() {
     this._id = "";
@@ -16,7 +15,6 @@ export class Email {
     this.body = "";
     this.seen = false;
     this.date = new Date();
-    this.attachments = new FormData;
   }
 
 }
