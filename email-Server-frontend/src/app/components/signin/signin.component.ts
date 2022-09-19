@@ -20,7 +20,7 @@ export class SigninComponent implements OnInit {
     private userService: UserService) {
     this.user = new User();
   }
-  
+
   ngOnInit(): void {
   }
 
@@ -30,8 +30,8 @@ export class SigninComponent implements OnInit {
     .subscribe({
       next: (res) => {
         console.log(res);
-        if(res.ok) {
-          this.userService.setUser(this.user);
+        if(res.ok && res.body != null) {
+          this.userService.setUser(res.body);
           this.router.navigateByUrl('/home/inbox');
         }
         else {
