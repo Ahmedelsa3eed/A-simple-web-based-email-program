@@ -26,11 +26,9 @@ public class EmailsServices {
         }
         return null;
     }
-    public static void sendEmail(Email email) {
+    public static void sendEmail(Email email, String senderID) {
         System.out.println(email.getSender());
         System.out.println(email.getReceiver());
-
-        String senderID = getUserIDFromDB(email.getSender());
         String receiverID = getUserIDFromDB(email.getReceiver());
         System.out.println("The sender Id is  "+senderID);
         System.out.println("The receiver Id is"+receiverID);

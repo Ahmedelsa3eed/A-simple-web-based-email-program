@@ -14,13 +14,13 @@ public class Email {
     private String subject;
     private String body;
     private boolean seen;
-    private List<MultipartFile> attachments;
+    private String[] attachments;
 
-    public List<MultipartFile> getAttachments() {
+    public String[] getAttachments() {
         return attachments;
     }
 
-    public void setAttachments(List<MultipartFile> attachments) {
+    public void setAttachments(String[] attachments) {
         this.attachments = attachments;
     }
 
