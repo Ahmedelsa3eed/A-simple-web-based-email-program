@@ -33,7 +33,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form #form="ngForm" (ngSubmit)="sendEmail()">
+                <form #form="ngForm" (ngSubmit)="sendEmail()" enctype="multipart/form-data">
                     <div class="mb-3">
                         <label for="receiver-name" class="col-form-label">Recipient:</label>
                         <input
