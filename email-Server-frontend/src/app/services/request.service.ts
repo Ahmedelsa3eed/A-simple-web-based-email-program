@@ -1,5 +1,5 @@
 import { User } from 'src/app/models/User';
-import { HttpClient, HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpEvent, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -30,10 +30,36 @@ export class RequestService {
     );
   }
 
-  sendEmail(email: Email): Observable<HttpResponse<boolean>> {
+  sendEmail(email: Email, user: User): Observable<HttpResponse<boolean>> {
     return this.http.post<boolean>(`${this.url}/send`, email, {
       observe: 'response',
+      params: {
+        userID: user._id,
+        email: user.email
+      },
       responseType: 'json'
+    }).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  uploadFiles(attachments: FormData) {
+    return this.http.post<any>(`${this.url}/upload`, attachments, {
+      observe: 'response',
+      responseType: 'json'
+    }).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  downloadFile(fileName: string, user: User): Observable<HttpResponse<Blob>> {
+    return this.http.get(`${this.url}/download`, {
+      observe: 'response',
+      params: {
+        fileName: fileName,
+        email: user.email
+      },
+      responseType: 'blob'
     }).pipe(
       catchError(this.handleError)
     );

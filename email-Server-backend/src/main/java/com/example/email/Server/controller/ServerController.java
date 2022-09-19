@@ -1,8 +1,6 @@
 package com.example.email.Server.controller;
 
-import com.example.email.Server.DataBaseServices.EmailsServices;
-import com.example.email.Server.DataBaseServices.SearchEmails;
-import com.example.email.Server.DataBaseServices.SortService;
+import com.example.email.Server.DataBaseServices.*;
 import com.example.email.Server.logs.LogOut;
 import com.example.email.Server.logs.Register;
 import com.example.email.Server.logs.SignIn;
@@ -23,8 +21,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @CrossOrigin
 @Controller
@@ -48,25 +49,41 @@ public class ServerController {
 
     @PostMapping("/upload")
     @ResponseBody
-    public ResponseEntity<String> upload(@RequestParam("files") List<MultipartFile> multipartFiles){
+    public ResponseEntity<String> upload(@RequestParam("multipartFiles") List<MultipartFile> multipartFiles, @RequestParam("userID") String userID) {
+        //upload data to the server
+        System.out.println("uploading files" + multipartFiles.size());
+        for (MultipartFile multipartFile : multipartFiles) {
+            try {
+                System.out.println("uploading file................" + multipartFile.getOriginalFilename());
+                UploadFileToDB.uploadFile(multipartFile.getBytes(),userID,multipartFile.getOriginalFilename());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
         FileResource fileResource = new FileResource();
         server = SingleTonServer.getInstance();
         String id = fileResource.uploadFiles(multipartFiles);
         return new ResponseEntity<>(id, HttpStatus.OK);
     }
-
     @PostMapping("/send")
     @ResponseBody
-    public void send(@RequestBody Email email){
-        EmailsServices.sendEmail(email);
+    public void send(@RequestBody Email email,@RequestParam("userID") String userID){
+        System.out.println("sending email");
+        System.out.println("userID: " + userID);
+
+        EmailsServices.sendEmail(email, userID);
     }
 
     @GetMapping("/download")
-    public ResponseEntity<Resource> downloadFiles(@RequestParam String filename,
-                                                  String attachment) throws Exception{
-        System.out.println(attachment);
-        FileResource fileResource = new FileResource();
-        return fileResource.downloadFiles(filename, attachment);
+    public ResponseEntity<Blob> downloadFiles(@RequestParam String senderEmail,
+                                              String attachmentName) throws Exception{
+
+        System.out.println("downloading file");
+        String senderID = EmailsServices.getUserIDFromDB(senderEmail);
+        return DownloadFiles.downloadFile2(senderID,attachmentName);
+
+
+
     }
 
     @GetMapping("/inbox")
@@ -105,13 +122,13 @@ public class ServerController {
         return new ResponseEntity<>(server.draft, HttpStatus.OK);
     }
 
-    @PostMapping("/sendDraft")
-    @ResponseBody
-    public void sendDraft(@RequestBody Email email){
-        Delete d = new Delete();
-        d.deleteEmail(email,"draft");
-        send(email);
-    }
+//    @PostMapping("/sendDraft")
+//    @ResponseBody
+//    public void sendDraft(@RequestBody Email email){
+//        Delete d = new Delete();
+//        d.deleteEmail(email,"draft");
+//        send(email);
+//    }
 
     @PostMapping("/editDraft")
     @ResponseBody
