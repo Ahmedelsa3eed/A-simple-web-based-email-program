@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Email} from "../../models/Email";
 import {UserService} from "../../services/user.service";
 import {User} from "../../models/User";
@@ -13,6 +13,8 @@ import {NavigationEnd, Router} from "@angular/router";
 export class EmailComponent implements OnInit {
 
   @Input() email = new Email();
+  @Output() emailRemovedEvent = new EventEmitter();
+  emailsList: any;
   user = new User();
 
   constructor(private userService: UserService,
@@ -39,30 +41,21 @@ export class EmailComponent implements OnInit {
       this.requestsService.deleteEmailFromDB(this.email, "Sent", this.user)
       .subscribe((res) => {
         console.log(res);
-        this.router.navigateByUrl('/emails', { skipLocationChange: true })
-          .then(() => {
-            this.router.navigate(['/emails/sent']);
-          });      
+        this.emailRemovedEvent.emit(res.body);
       });
     }
     else if (this.router.url === '/emails/trash') {
       this.requestsService.deleteEmailFromDB(this.email,"Trash",this.user)
       .subscribe((res) => {
         console.log(res);
-        this.router.navigateByUrl('/emails', { skipLocationChange: true })
-          .then(() => {
-            this.router.navigate(['/emails/trash']);
-          });
+        this.emailRemovedEvent.emit(res.body);
       });
     }
     else if(this.router.url === '/emails/draft') {
       this.requestsService.deleteEmailFromDB(this.email,"Draft",this.user)
       .subscribe((res) => {
         console.log(res);
-        this.router.navigateByUrl('/emails', { skipLocationChange: true })
-          .then(() => {
-            this.router.navigate(['/emails/draft']);
-          });
+        this.emailRemovedEvent.emit(res.body);
       });
     }
     else{
@@ -70,10 +63,7 @@ export class EmailComponent implements OnInit {
       .subscribe((res) => {
         if (res.ok) {
           console.log(res);
-          this.router.navigateByUrl('/emails', { skipLocationChange: true })
-            .then(() => {
-              this.router.navigate(['/emails/inbox']);
-            });
+          this.emailRemovedEvent.emit(res.body);
         }
       })
     }

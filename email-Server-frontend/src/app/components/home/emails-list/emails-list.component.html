@@ -46,7 +46,11 @@
         </div>
 
         <!-- Loading Emails -->
-        <app-email *ngFor="let email of emails |async" [email]="email"></app-email>
+        <app-email
+            *ngFor="let email of emails |async"
+            [email]="email" 
+            (emailRemovedEvent)="updateEmailsList($event)">
+        </app-email>
 
     </div>
 

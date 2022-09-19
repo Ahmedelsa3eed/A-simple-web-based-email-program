@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { Email } from 'src/app/models/Email';
 import { User } from 'src/app/models/User';
@@ -25,8 +24,7 @@ export class EmailsListComponent implements OnInit {
 
   constructor(private getEmailsService: GetEmailsService,
     private userService: UserService,
-    private requestService: RequestService,
-    private route: ActivatedRoute) {
+    private requestService: RequestService) {
     this.user = new User;
   }
 
@@ -37,7 +35,6 @@ export class EmailsListComponent implements OnInit {
   getEmails($FileNameEvent: any) {
     console.log($FileNameEvent);
     this.resetFeedbackFlags();
-    // this.getFolderNameFromRoute();
     this.getEmailsService.requestEmails(this.user, $FileNameEvent)
     .subscribe({
       next: (res) => {
@@ -56,10 +53,9 @@ export class EmailsListComponent implements OnInit {
     this.emails = this.email$;
   }
 
-  // getFolderNameFromRoute() {
-  //   const routeParams = this.route.snapshot.paramMap;
-  //   this.folderName= String(routeParams.get('folderName'));
-  // }
+  updateEmailsList($event: any) {
+    this.emails = $event;
+  }
 
   search() {
     this.resetFeedbackFlags();
