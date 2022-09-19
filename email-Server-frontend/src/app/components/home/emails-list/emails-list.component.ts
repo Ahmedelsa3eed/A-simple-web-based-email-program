@@ -17,8 +17,8 @@ export class EmailsListComponent implements OnInit {
   public user: User;
   public isLoading: boolean = false;
   public isRefuesdLogin: boolean = false;
-  emails?: Observable<Email[]>;
-  email$ = new BehaviorSubject<Email[]>([]);
+  public emails?: Observable<Email[]>;
+  public email$ = new BehaviorSubject<Email[]>([]);
   public searchString: string = "";
   public selectedValue: string = "";
   public folderName: string = "";
@@ -31,25 +31,14 @@ export class EmailsListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getFolderNameFromRoute();
-    console.log(this.folderName);
     this.setUser();
-    this.emails = this.getEmails();
   }
 
-  getFolderNameFromRoute() {
-    const routeParams = this.route.snapshot.paramMap;
-    this.folderName= String(routeParams.get('folderName'));
-  }
-
-  getEmails() {
-    this.fetchEmails();
-    return this.email$;
-  }
-
-  fetchEmails() {
+  getEmails($FileNameEvent: any) {
+    console.log($FileNameEvent);
     this.resetFeedbackFlags();
-    this.getEmailsService.requestEmails(this.user, this.folderName)
+    // this.getFolderNameFromRoute();
+    this.getEmailsService.requestEmails(this.user, $FileNameEvent)
     .subscribe({
       next: (res) => {
         console.log(res);
@@ -64,7 +53,13 @@ export class EmailsListComponent implements OnInit {
       },
       complete: () => console.info('complete')
     })
+    this.emails = this.email$;
   }
+
+  // getFolderNameFromRoute() {
+  //   const routeParams = this.route.snapshot.paramMap;
+  //   this.folderName= String(routeParams.get('folderName'));
+  // }
 
   search() {
     this.resetFeedbackFlags();

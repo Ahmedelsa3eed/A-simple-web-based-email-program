@@ -9,12 +9,8 @@ import { SigninComponent } from './components/signin/signin.component';
 import { HomeComponent } from './components/home/home.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { NavComponent } from './components/home/nav/nav.component';
-import { InboxComponent } from './components/home/inbox/inbox.component';
 import { HeaderComponent } from './components/header/header.component';
 import { EmailComponent } from './components/email/email.component';
-import { SentComponent } from './components/home/sent/sent.component';
-import { TrashComponent } from './components/home/trash/trash.component';
-import { DraftComponent } from './components/home/draft/draft.component';
 import { EmailsListComponent } from './components/home/emails-list/emails-list.component';
 
 @NgModule({
@@ -24,12 +20,8 @@ import { EmailsListComponent } from './components/home/emails-list/emails-list.c
     HomeComponent,
     SignUpComponent,
     NavComponent,
-    InboxComponent,
     HeaderComponent,
     EmailComponent,
-    SentComponent,
-    TrashComponent,
-    DraftComponent,
     EmailsListComponent
   ],
   imports: [

@@ -1,11 +1,12 @@
 <div class="">
     
+    <!-- Navigation Bar -->
     <ul>
-        <app-nav></app-nav>
+        <app-nav (folderNameEvent)="emailsList.getEmails($event)"></app-nav>
     </ul>
 
     <div class="section">
-        <router-outlet></router-outlet>
+        <app-emails-list #emailsList></app-emails-list>
     </div>
 
 </div>

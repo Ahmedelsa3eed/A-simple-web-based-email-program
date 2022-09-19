@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-nav',
@@ -7,10 +7,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavComponent implements OnInit {
 
+  @Output() folderNameEvent = new EventEmitter<string>();
+
   constructor() { }
 
   ngOnInit(): void {
   }
 
-
+  sendFolderName(folderName: string) {
+    this.folderNameEvent.emit(folderName);
+  }
 }

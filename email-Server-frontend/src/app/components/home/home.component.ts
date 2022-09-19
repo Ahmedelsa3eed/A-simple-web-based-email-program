@@ -17,6 +17,7 @@ export class HomeComponent implements OnInit {
   public isRefuesdSend: boolean = false;
   public email: Email;
   public user: User;
+  public folderName: string = "";
 
   constructor(private requestService: RequestService,
     private router: Router,
