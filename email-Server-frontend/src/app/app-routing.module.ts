@@ -17,9 +17,21 @@ const routes: Routes = [
     component: HomeComponent,
     children: [
       {
-        path: 'emails/:folderName',
-        component: EmailsListComponent
-      }
+        path: 'inbox',
+        component: InboxComponent
+      },
+      {
+        path: 'sent',
+        component: SentComponent
+      },
+      {
+        path: 'trash',
+        component: TrashComponent
+      },
+      {
+        path: 'draft',
+        component: DraftComponent
+      },
     ]
   },
 ];
