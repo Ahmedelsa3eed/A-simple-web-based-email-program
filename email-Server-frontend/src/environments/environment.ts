@@ -13,7 +13,7 @@ export const environment = {
       "subject": "first mail sent to ahmed",
       "body": "hi ahmed 1 111111111111111111111111111111111111",
       "seen": true,
-      "date": "2022-09-18T00:05:17.577Z",
+      "date": new Date(),
     },
     {
       "_id": "63266135310bdf79298f3e23",
@@ -22,7 +22,7 @@ export const environment = {
       "subject": "first mail sent to ahmed",
       "body": "hi ahmed 1 2222222222222222222",
       "seen": true,
-      "date": "2022-09-18T00:05:17.577Z",
+      "date": new Date(),
     }
   ]
 };

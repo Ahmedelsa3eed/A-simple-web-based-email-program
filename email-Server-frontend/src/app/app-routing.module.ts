@@ -1,3 +1,4 @@
+import { EmailsListComponent } from './components/home/emails-list/emails-list.component';
 import { DraftComponent } from './components/home/draft/draft.component';
 import { InboxComponent } from './components/home/inbox/inbox.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
@@ -16,20 +17,8 @@ const routes: Routes = [
     component: HomeComponent,
     children: [
       {
-        path: 'inbox',
-        component: InboxComponent
-      },
-      {
-        path: 'sent',
-        component: SentComponent
-      },
-      {
-        path: 'trash',
-        component: TrashComponent
-      },
-      {
-        path: 'draft',
-        component: DraftComponent
+        path: 'emails/:folderName',
+        component: EmailsListComponent
       }
     ]
   },

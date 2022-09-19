@@ -23,7 +23,7 @@ export class SignUpComponent implements OnInit {
 
   submitForm() {
     this.isLoading = true;
-    this.requestService.request(this.user, 'register')
+    this.requestService.validateUser(this.user, 'register')
     .subscribe({
       next: (res) => {
         console.log(res);

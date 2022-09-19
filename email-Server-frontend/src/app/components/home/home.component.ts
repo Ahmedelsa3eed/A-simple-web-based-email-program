@@ -31,7 +31,6 @@ export class HomeComponent implements OnInit {
 
   sendEmail() {
     this.prepareData();
-
     this.requestService.sendEmail(this.email)
     .subscribe({
       next: (res) => {
@@ -45,10 +44,12 @@ export class HomeComponent implements OnInit {
       complete: () => console.info('complete')
     })
   }
-  
+
   prepareData() {
     this.isLoading = true;
     this.email.sender = this.user.email;
+    this.email.date = new Date();
+
   }
 
   onFileSelect(event: any) {

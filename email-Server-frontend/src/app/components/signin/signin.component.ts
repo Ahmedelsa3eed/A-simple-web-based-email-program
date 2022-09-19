@@ -26,7 +26,7 @@ export class SigninComponent implements OnInit {
 
   submitForm() {
     this.isLoading = true;
-    this.requestService.request(this.user, 'signIn')
+    this.requestService.validateUser(this.user, 'signIn')
     .subscribe({
       next: (res) => {
         console.log(res);

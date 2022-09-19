@@ -21,7 +21,7 @@ export class RequestService {
    * @param endpoint example endpoint: signIn or signUp
    * @returns Observable<HttpResponse<>>
    */
-  request(user: User, endpoint: string): Observable<HttpResponse<User>> {
+  validateUser(user: User, endpoint: string): Observable<HttpResponse<User>> {
     return this.http.post<User>(`${this.url}/${endpoint}`, user, {
       observe: 'response',
       responseType: 'json'
@@ -39,12 +39,13 @@ export class RequestService {
     );
   }
 
-  search(searchString: string, folderName: string): Observable<HttpResponse<Email[]>> {
+  search(userID: string, searchString: string, folderName: string): Observable<HttpResponse<Email[]>> {
     return this.http.get<Email[]>(`${this.url}/search`, {
       observe: 'response',
       params: {
+        userID: userID,
         searchString: searchString,
-        folderName: folderName
+        searchPosition: folderName
       },
       responseType: 'json'
     }).pipe(
@@ -56,8 +57,8 @@ export class RequestService {
     return this.http.get<Email[]>(`${this.url}/sort`, {
       observe: 'response',
       params: {
-        by: by,
-        folderName: folderName,
+        sortBy: by,
+        position: folderName,
         userID: userId
       },
       responseType: 'json'
