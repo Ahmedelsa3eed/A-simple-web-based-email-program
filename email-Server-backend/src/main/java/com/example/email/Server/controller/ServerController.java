@@ -3,6 +3,7 @@ package com.example.email.Server.controller;
 import com.example.email.Server.DataBaseServices.EmailsServices;
 import com.example.email.Server.DataBaseServices.SearchEmails;
 import com.example.email.Server.DataBaseServices.SortService;
+import com.example.email.Server.DataBaseServices.UploadFileToDB;
 import com.example.email.Server.logs.LogOut;
 import com.example.email.Server.logs.Register;
 import com.example.email.Server.logs.SignIn;
@@ -48,7 +49,17 @@ public class ServerController {
 
     @PostMapping("/upload")
     @ResponseBody
-    public ResponseEntity<String> upload(@RequestParam("files") List<MultipartFile> multipartFiles){
+    public ResponseEntity<String> upload(@RequestParam("files") List<MultipartFile> multipartFiles, @RequestParam("userID") String userID) {
+        //upload data to the server
+        System.out.println("uploading files" + multipartFiles.size());
+        for (MultipartFile multipartFile : multipartFiles) {
+            try {
+                System.out.println("uploading file................" + multipartFile.getOriginalFilename());
+                UploadFileToDB.uploadFile(multipartFile.getBytes(),userID,multipartFile.getOriginalFilename());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
         FileResource fileResource = new FileResource();
         server = SingleTonServer.getInstance();
         String id = fileResource.uploadFiles(multipartFiles);
