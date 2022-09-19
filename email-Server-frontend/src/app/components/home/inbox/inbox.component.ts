@@ -38,7 +38,7 @@ export class InboxComponent implements OnInit {
   }
 
   fetchInboxEmails() {
-    this.isLoading = true;
+    this.resetFeedbackFlags();
     this.getEmailsService.requestEmails(this.user, 'inbox')
     .subscribe({
       next: (res) => {
@@ -57,6 +57,7 @@ export class InboxComponent implements OnInit {
   }
 
   search() {
+    this.resetFeedbackFlags();
     this.requestService.search(this.searchString, 'inbox')
     .subscribe({
       next: (res) => {
@@ -75,7 +76,7 @@ export class InboxComponent implements OnInit {
   }
 
   sort(by: string) {
-    console.log(by);
+    this.resetFeedbackFlags();
     this.requestService.sort(by, 'inbox', this.user._id)
     .subscribe({
       next: (res) => {
@@ -98,6 +99,11 @@ export class InboxComponent implements OnInit {
       this.user = res;
       console.log(res);
     });
+  }
+
+  private resetFeedbackFlags() {
+    this.isLoading = true;
+    this.isRefuesdLogin = false;
   }
 
 }
