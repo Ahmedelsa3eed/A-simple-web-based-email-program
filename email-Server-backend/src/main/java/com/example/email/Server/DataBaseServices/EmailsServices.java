@@ -47,7 +47,9 @@ public class EmailsServices {
         document.append("date", email.getDate());
         document.append("priority", email.getPriority());
         document.append("seen", email.isSeen());
+        document.append("attachments", email.getAttachments());
         System.out.println("Email sent to " + email.getReceiver());
+        System.out.println("Email is " + document);
         senderDatabase.getCollection("Sent").insertOne(document);
         receiverDatabase.getCollection("Inbox").insertOne(document);
     }
@@ -66,7 +68,7 @@ public class EmailsServices {
             email.setDate((String) document.get("date"));
             email.setPriority((String) document.get("priority"));
             email.setSeen((boolean) document.get("seen"));
-
+            email.setAttachments( (ArrayList<String>) document.get("attachments"));
             emails.add(email);
         }
         Email[] emailsArray = new Email[emails.size()];

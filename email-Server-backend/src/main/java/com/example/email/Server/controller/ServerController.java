@@ -49,7 +49,7 @@ public class ServerController {
 
     @PostMapping("/upload")
     @ResponseBody
-    public ResponseEntity<String> upload(@RequestParam("multipartFiles") List<MultipartFile> multipartFiles, @RequestParam("userID") String userID) {
+    public ResponseEntity<String> upload(@RequestParam("files") List<MultipartFile> multipartFiles, @RequestParam("userID") String userID) {
         //upload data to the server
         System.out.println("uploading files" + multipartFiles.size());
         for (MultipartFile multipartFile : multipartFiles) {

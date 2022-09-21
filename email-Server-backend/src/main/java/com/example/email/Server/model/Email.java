@@ -3,6 +3,7 @@ package com.example.email.Server.model;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Email {
@@ -14,13 +15,13 @@ public class Email {
     private String subject;
     private String body;
     private boolean seen;
-    private String[] attachments;
+    private ArrayList<String> attachments;
 
-    public String[] getAttachments() {
+    public ArrayList<String> getAttachments() {
         return attachments;
     }
 
-    public void setAttachments(String[] attachments) {
+    public void setAttachments(ArrayList<String> attachments) {
         this.attachments = attachments;
     }
 
