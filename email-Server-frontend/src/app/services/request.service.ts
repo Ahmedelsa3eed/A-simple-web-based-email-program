@@ -44,8 +44,6 @@ export class RequestService {
   }
 
   uploadFiles(multipartFiles: FormData, userID: string) {
-
-    console.log("uploadFiles() called.... with "+ multipartFiles + " \\\ " + userID);
     return this.http.post<any>(`${this.url}/upload`, multipartFiles, {
       observe: 'response',
       params: {
