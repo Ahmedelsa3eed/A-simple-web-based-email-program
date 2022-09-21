@@ -60,7 +60,7 @@ export class HomeComponent implements OnInit {
       attachments.append('files', file, file.name);
     }
     // uploda formData
-    this.requestService.uploadFiles(attachments)
+    this.requestService.uploadFiles(attachments,this.user._id)
     .subscribe({
       next: (res) => {
         console.log(res);
