@@ -31,11 +31,11 @@ export class RequestService {
   }
 
   sendEmail(email: Email, user: User): Observable<HttpResponse<boolean>> {
+    console.log("sendEmail() called.... with "+ email.attachments + " \\\ " + user);
     return this.http.post<boolean>(`${this.url}/send`, email, {
       observe: 'response',
       params: {
         userID: user._id,
-        email: user.email
       },
       responseType: 'json'
     }).pipe(
@@ -43,9 +43,14 @@ export class RequestService {
     );
   }
 
-  uploadFiles(attachments: FormData) {
-    return this.http.post<any>(`${this.url}/upload`, attachments, {
+  uploadFiles(multipartFiles: FormData, userID: string) {
+
+    console.log("uploadFiles() called.... with "+ multipartFiles + " \\\ " + userID);
+    return this.http.post<any>(`${this.url}/upload`, multipartFiles, {
       observe: 'response',
+      params: {
+        userID: userID,
+      },
       responseType: 'json'
     }).pipe(
       catchError(this.handleError)
