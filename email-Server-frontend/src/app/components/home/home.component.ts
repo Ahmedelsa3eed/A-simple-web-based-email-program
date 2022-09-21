@@ -45,7 +45,7 @@ export class HomeComponent implements OnInit {
     })
   }
 
-  prepareData() {
+  private prepareData() {
     this.isLoading = true;
     this.email.sender = this.user.email;
     this.email.date = new Date();
@@ -53,8 +53,10 @@ export class HomeComponent implements OnInit {
 
   onFileSelect(event: any) {
     // prepare formData
-    let attachments = new FormData();
-    for(const file of event.target.files) {
+    const attachments = new FormData();
+    const files: File[] = event.target.files;
+
+    for(const file of files) {
       attachments.append('files', file, file.name);
     }
     // uploda formData
