@@ -14,13 +14,6 @@ export class RequestService {
 
   constructor(private http: HttpClient) { }
 
-  /**
-   * The observe option specifies how much of the response to return
-   * The responseType option specifies the format in which to return data
-   * @param user the request body
-   * @param endpoint example endpoint: signIn or signUp
-   * @returns Observable<HttpResponse<>>
-   */
   validateUser(user: User, endpoint: string): Observable<HttpResponse<User>> {
     return this.http.post<User>(`${this.url}/${endpoint}`, user, {
       observe: 'response',

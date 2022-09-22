@@ -1,4 +1,4 @@
-import { UserService } from './../../services/user.service';
+import { LocalStorageWrapper } from './../../services/localStorageWrapper.service';
 import { Router } from '@angular/router';
 import { RequestService } from './../../services/request.service';
 import { Email } from './../../models/Email';
@@ -21,7 +21,7 @@ export class HomeComponent implements OnInit {
 
   constructor(private requestService: RequestService,
     private router: Router,
-    private userService: UserService) {
+    private userService: LocalStorageWrapper) {
     this.email = new Email;
     this.user = new User;
   }
@@ -31,9 +31,7 @@ export class HomeComponent implements OnInit {
   }
 
   private setUser() {
-    this.userService.getUser().subscribe(res => {
-      this.user = res;
-    });
+    this.user = this.userService.getUser();
   }
   
   sendEmail() {
@@ -57,7 +55,7 @@ export class HomeComponent implements OnInit {
     this.email.sender = this.user.email;
     this.email.date = new Date();
   }
-  
+
   private handleResponse(res: HttpResponse<boolean>) {
     console.log(res);
     this.isLoading = false;
@@ -92,6 +90,5 @@ export class HomeComponent implements OnInit {
       complete: () => console.info('Upload completeed!')
     })
   }
-
 
 }
