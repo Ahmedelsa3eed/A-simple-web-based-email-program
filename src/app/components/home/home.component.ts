@@ -57,6 +57,19 @@ export class HomeComponent implements OnInit {
     this.email.sender = this.user.email;
     this.email.date = new Date();
   }
+  
+  private handleResponse(res: HttpResponse<boolean>) {
+    console.log(res);
+    this.isLoading = false;
+    if (res.ok) {
+      // TODO: what should we do after sending the email
+      this.router.navigateByUrl('/home/emails/inbox');
+    }
+    else {
+      window.alert(`returned status code: ${res.status}`);
+      this.isRefuesdSend = true;
+    }
+  }
 
   onFileSelect(event: any) {
     // prepare formData
@@ -80,17 +93,5 @@ export class HomeComponent implements OnInit {
     })
   }
 
-  private handleResponse(res: HttpResponse<boolean>) {
-    console.log(res);
-    this.isLoading = false;
-    if (res.ok) {
-      // TODO: what should we do after sending the email
-      this.router.navigateByUrl('/home/inbox');
-    }
-    else {
-      window.alert(`returned status code: ${res.status}`);
-      this.isRefuesdSend = true;
-    }
-  }
 
 }
