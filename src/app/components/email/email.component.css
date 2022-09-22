@@ -1,0 +1,76 @@
+a, a:hover, a:focus{outline:none; text-decoration:none;}
+
+body{
+  font-family: 'Open Sans', sans-serif;
+}
+
+h2{float:left; width:100%; color:#fff; margin-bottom:30px; font-size: 14px;}
+h2 span{font-family: 'Libre Baskerville', serif; display:block; font-size:45px; text-transform:none; margin-bottom:20px; margin-top:30px; font-weight:700}
+h2 a{color:#fff; font-weight:bold;}
+
+
+.card {
+  -moz-box-direction: normal;
+  -moz-box-orient: vertical;
+  background-color: #fff;
+  border-radius: 0.25rem;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  margin-bottom:1px;
+  border:none;
+}
+
+.card-header:first-child {
+  border-radius: 0;
+}
+
+.card-header {
+  background-color: #f7f7f9;
+  margin-bottom: 0;
+  padding: 20px 1.25rem;
+  border:none;
+
+}
+
+.card-header a i{
+  float:left;
+  font-size:25px;
+  padding:5px 0;
+  margin:0 25px 0 0px;
+  color:#195C9D;
+}
+
+.card-header i{
+  float:right;
+  font-size:30px;
+  width:1%;
+  margin-top:8px;
+  margin-right:10px;
+}
+
+.card-header a{
+  width:97%;
+  float:left;
+  color:#565656;
+}
+
+.card-header p{
+  margin:0;
+}
+
+.card-header h3{
+  margin:0 0 0px;
+  font-size:20px;
+  font-family: 'Slabo 27px', serif;
+  font-weight:bold;
+  color: #000000;
+}
+
+.remove-btn {
+  display: inline-block;
+}
+
+.remove-btn:hover {
+  cursor: pointer;
+}

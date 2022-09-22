@@ -1,0 +1,99 @@
+<div class="">
+    
+    <!-- Navigation Bar -->
+    <ul>
+        <app-nav (folderNameEvent)="emailsList.getEmails($event)"></app-nav>
+    </ul>
+
+    <div class="section">
+        <app-emails-list #emailsList></app-emails-list>
+    </div>
+
+</div>
+
+<!-- Send popup -->
+<div
+    class="modal fade"
+    id="exampleModal"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                <div *ngIf="isLoading" class="spinner-border text-success" role="status">
+                    <span class="visually-hidden"></span>
+                </div>
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body">
+                <form #form="ngForm" (ngSubmit)="sendEmail()" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label for="receiver-name" class="col-form-label">Recipient:</label>
+                        <input
+                            name="receiver"
+                            type="text"
+                            class="form-control"
+                            id="receiver-name"
+                            required
+                            pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                            [(ngModel)]="email.receiver"
+                            #receiver="ngModel">
+                    </div>
+                    <div class="mb-3">
+                        <label for="subject" class="col-form-label">Subject:</label>
+                        <input
+                            name="subject"
+                            type="text"
+                            class="form-control"
+                            id="subject"
+                            [(ngModel)]="email.subject"
+                            #subject="ngModel">
+                    </div>
+                    <div class="mb-3">
+                        <label for="message-text" class="col-form-label">Message:</label>
+                        <textarea
+                            name="body"
+                            class="form-control"
+                            id="message-text"
+                            [(ngModel)]="email.body"
+                            #body="ngModel">
+                        </textarea>
+                    </div>
+                    <!-- Upload files -->
+                    <div class="input-group mb-3">
+                        <input 
+                            type="file" 
+                            class="form-control" 
+                            id="inputGroupFile02" 
+                            multiple
+                            (change)="onFileSelect($event)">
+                        <label class="input-group-text" for="inputGroupFile02">Upload</label>
+                    </div>
+                    <!-- Form Buttons -->
+                    <div class="modal-footer">
+                        <button
+                            type="button"
+                            class="btn btn-secondary"
+                            data-bs-dismiss="modal">
+                            Close
+                        </button>
+                        <button
+                            type="submit"
+                            class="btn btn-primary"
+                            [disabled]="form.invalid">
+                            Send message
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
