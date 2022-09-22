@@ -60,12 +60,15 @@ export class HomeComponent implements OnInit {
 
   onFileSelect(event: any) {
     // prepare formData
-    let attachments = new FormData();
-    for(const file of event.target.files) {
+    const attachments = new FormData();
+    const files: File[] = event.target.files;
+    this.email.attachments = [];
+    for(const file of files) {
       attachments.append('files', file, file.name);
+      this.email.attachments.push(file.name);
     }
     // uploda formData
-    this.requestService.uploadFiles(attachments)
+    this.requestService.uploadFiles(attachments, this.user._id)
     .subscribe({
       next: (res) => {
         console.log(res);
