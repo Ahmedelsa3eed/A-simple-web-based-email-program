@@ -55,12 +55,12 @@ export class RequestService {
     );
   }
 
-  downloadFile(fileName: string, user: User): Observable<HttpResponse<Blob>> {
+  downloadFile(fileName: string, attachmentPosition:string): Observable<HttpResponse<Blob>> {
     return this.http.get(`${this.url}/download`, {
       observe: 'response',
       params: {
-        fileName: fileName,
-        email: user.email
+        attachmentName: fileName,
+        attachmentPosition : attachmentPosition
       },
       responseType: 'blob'
     }).pipe(

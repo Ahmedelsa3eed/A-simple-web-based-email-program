@@ -1,12 +1,13 @@
 <div class="col-md-10 offset-md-1" style="margin-bottom: 10px; margin-top: 10px;">
   <div class="card">
-        
+
     <div class="card-header" role="tab" id="headingOne">
       <div class="mb-0">
 
         <div class="position-relative" style="height: 30px;">
             <span class="fa fa-file-text-o fa-lg position-absolute top-0 start-0" aria-hidden="true"></span>
-            <span class="fa fa-trash-o fa-lg remove-btn position-absolute top-0 end-0 w-auto" (click)="removeEmail()"></span>
+            <span *ngIf="!removeLoading" class="fa fa-trash-o fa-lg remove-btn position-absolute top-0 end-0 w-auto" (click)="removeEmail()"></span>
+            <div  *ngIf="removeLoading" class="spinner-border text-danger top-0 end-0 w-auto" role="status"></div>
         </div>
         <a href="" (click)="markAsSeen()" data-bs-toggle="collapse" [attr.data-bs-target]="'#collapse'+email._id" aria-expanded="false" aria-controls="flush-collapseOne">
           <h3 *ngIf="email.sender != user.email && !email.seen " class="alert alert-success">From: {{email.sender}}</h3>
@@ -19,7 +20,7 @@
     </div>
 
     <div [id]="'collapse'+email._id" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-      
+
       <div class="input-group-prepend">
         <span style="margin-left: 2px"><strong> From:</strong> </span>
       </div>
