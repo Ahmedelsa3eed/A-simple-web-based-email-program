@@ -30,7 +30,7 @@ export class EmailsListComponent implements OnInit {
 
   ngOnInit(): void {
     this.setUser();
-    this.getEmails('inobx');
+    this.getEmails('inbox');
   }
 
   getEmails($FileNameEvent: any) {
@@ -39,7 +39,6 @@ export class EmailsListComponent implements OnInit {
     this.getEmailsService.requestEmails(this.user, $FileNameEvent)
     .subscribe({
       next: (res) => {
-        console.log(res);
         this.isLoading = false;
         // @ts-ignore
         this.email$.next(res.body);

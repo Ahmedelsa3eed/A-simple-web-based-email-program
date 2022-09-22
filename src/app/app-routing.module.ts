@@ -1,4 +1,4 @@
-import { EmailsListComponent } from './components/home/emails-list/emails-list.component';
+import { EmailsListComponent } from './components/emails-list/emails-list.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { HomeComponent } from './components/home/home.component';
 import { NgModule} from '@angular/core';

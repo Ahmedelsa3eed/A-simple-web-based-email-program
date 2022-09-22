@@ -16,23 +16,13 @@ export class EmailComponent implements OnInit {
   @Input() email = new Email();
   @Output() emailRemovedEvent = new EventEmitter();
   emailsList: any;
-  user = new User();
-
+  @Input() user = new User();
+  
   constructor(private userService: UserService,
     private requestsService: RequestService,
     private router: Router) { }
-
+    
   ngOnInit(): void {
-    this.setUser();
-    this.handleRouterEvent();
-  }
-
-  handleRouterEvent() {
-    this.router.events.subscribe((e) => {
-      if (e instanceof NavigationEnd) {
-        console.log(e.url);
-      }
-    });
   }
 
   removeEmail() {
@@ -94,11 +84,5 @@ export class EmailComponent implements OnInit {
     })
   }
 
-  private setUser() {
-    this.userService.getUser().subscribe(res => {
-      this.user = res;
-      console.log(res);
-    });
-  }
 
 }
