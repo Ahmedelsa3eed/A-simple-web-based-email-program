@@ -26,7 +26,6 @@ export class SignUpComponent implements OnInit {
     this.requestService.validateUser(this.user, 'register')
     .subscribe({
       next: (res) => {
-        console.log(res);
         if(res.ok) {
           this.router.navigateByUrl('/');
         }
