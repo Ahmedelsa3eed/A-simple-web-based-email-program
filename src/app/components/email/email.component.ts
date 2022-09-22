@@ -5,7 +5,6 @@ import {User} from "../../models/User";
 import {RequestService} from "../../services/request.service";
 import {NavigationEnd, Router} from "@angular/router";
 import { saveAs } from 'file-saver';
-import {ignoreElements} from "rxjs";
 
 @Component({
   selector: 'app-email',

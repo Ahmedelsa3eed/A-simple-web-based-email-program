@@ -24,7 +24,7 @@ export class EmailsListComponent implements OnInit {
 
   constructor(private getEmailsService: GetEmailsService,
     private userService: UserService,
-    private requestService: RequestService,) {
+    private requestService: RequestService) {
     this.user = new User;
   }
 
