@@ -30,6 +30,7 @@ export class EmailsListComponent implements OnInit {
 
   ngOnInit(): void {
     this.setUser();
+    this.getEmails('inobx');
   }
 
   getEmails($FileNameEvent: any) {
@@ -48,7 +49,7 @@ export class EmailsListComponent implements OnInit {
         this.isRefuesdLogin = true;
         console.error(e);
       },
-      complete: () => console.info('complete')
+      complete: () => console.info('Emails fetched successfully!')
     })
     this.emails = this.email$;
   }

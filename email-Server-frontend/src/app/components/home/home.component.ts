@@ -30,6 +30,12 @@ export class HomeComponent implements OnInit {
     this.setUser();
   }
 
+  private setUser() {
+    this.userService.getUser().subscribe(res => {
+      this.user = res;
+    });
+  }
+  
   sendEmail() {
     this.prepareData();
     this.requestService.sendEmail(this.email, this.user)
@@ -46,7 +52,7 @@ export class HomeComponent implements OnInit {
     })
   }
 
-  prepareData() {
+  private prepareData() {
     this.isLoading = true;
     this.email.sender = this.user.email;
     this.email.date = new Date();
@@ -69,13 +75,6 @@ export class HomeComponent implements OnInit {
       },
       complete: () => console.info('Upload completeed!')
     })
-  }
-
-  private setUser() {
-    this.userService.getUser().subscribe(res => {
-      this.user = res;
-      console.log(res);
-    });
   }
 
   private handleResponse(res: HttpResponse<boolean>) {
