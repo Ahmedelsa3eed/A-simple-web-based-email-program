@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="e4b32cf2-ba36-4c0f-903f-2e05736a9c89" name="Changes" comment="download and upload files">
+      <change beforePath="$PROJECT_DIR$/../email-Server-backend/src/main/java/com/example/email/Server/DataBaseServices/EmailsServices.java" beforeDir="false" afterPath="$PROJECT_DIR$/../email-Server-backend/src/main/java/com/example/email/Server/DataBaseServices/EmailsServices.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../email-Server-backend/src/main/java/com/example/email/Server/controller/ServerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../email-Server-backend/src/main/java/com/example/email/Server/controller/ServerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../email-Server-backend/src/main/java/com/example/email/Server/model/Email.java" beforeDir="false" afterPath="$PROJECT_DIR$/../email-Server-backend/src/main/java/com/example/email/Server/model/Email.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CodeStyleSettingsInfer">
+    <option name="done" value="true" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$/.." value="refactor/rafactoring-emailFolders" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="Use Maven wrapper" />
+        <option name="useMavenConfig" value="true" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectCodeStyleSettingsMigration">
+    <option name="version" value="2" />
+  </component>
+  <component name="ProjectId" id="2EkzcYwPM2Cdk0MLcp8du6vTtlD" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="RequestMappingsPanelOrder0" value="0" />
+    <property name="RequestMappingsPanelOrder1" value="1" />
+    <property name="RequestMappingsPanelWidth0" value="75" />
+    <property name="RequestMappingsPanelWidth1" value="75" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_directory_selection" value="$PROJECT_DIR$/src/test/java" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../EmailServer/EmailServerNewBackEnd" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+    <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\IntelliJ IDEA 2021.3.2\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
+  </component>
+  <component name="RunManager" selected="Spring Boot.EmailServerApplication (1)">
+    <configuration name="DataBase" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.example.email.Server.DataBaseServices.DataBase" />
+      <module name="email-Server" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.email.Server.DataBaseServices.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DownloadFiles" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.example.email.Server.DataBaseServices.DownloadFiles" />
+      <module name="email-Server" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.email.Server.DataBaseServices.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UploadFile" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.example.email.Server.DataBaseServices.UploadFile" />
+      <module name="email-Server" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.email.Server.DataBaseServices.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UploadFileToDB" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.example.email.Server.DataBaseServices.UploadFileToDB" />
+      <module name="email-Server" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.email.Server.DataBaseServices.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="User" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.example.email.Server.model.User" />
+      <module name="email-Server" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.email.Server.model.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EmailServerApplication (1)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <module name="EmailServerNewBackEnd" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="controller.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="SPRING_BOOT_MAIN_CLASS" value="controller.EmailServerApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EmailServerApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="email-Server" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.email.Server.controller.EmailServerApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Spring Boot.EmailServerApplication (1)" />
+        <item itemvalue="Application.UploadFileToDB" />
+        <item itemvalue="Application.User" />
+        <item itemvalue="Application.UploadFile" />
+        <item itemvalue="Application.DownloadFiles" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="e4b32cf2-ba36-4c0f-903f-2e05736a9c89" name="Changes" comment="" />
+      <created>1663154459764</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1663154459764</updated>
+      <workItem from="1663154463945" duration="11107000" />
+      <workItem from="1663172683591" duration="1968000" />
+      <workItem from="1663179987166" duration="14750000" />
+      <workItem from="1663254171498" duration="8105000" />
+      <workItem from="1663366343413" duration="4786000" />
+      <workItem from="1663427560167" duration="25104000" />
+      <workItem from="1663517709463" duration="36860000" />
+      <workItem from="1663606007544" duration="9751000" />
+      <workItem from="1663697658206" duration="6264000" />
+      <workItem from="1663790429483" duration="865000" />
+      <workItem from="1663799085334" duration="6056000" />
+      <workItem from="1663805912567" duration="3257000" />
+      <workItem from="1663841119927" duration="5772000" />
+      <workItem from="1663848374971" duration="1108000" />
+    </task>
+    <task id="LOCAL-00001" summary="MongoDB for SignIn">
+      <created>1663166695666</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1663166695666</updated>
+    </task>
+    <task id="LOCAL-00002" summary="MongoDB for Register">
+      <created>1663180390699</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1663180390699</updated>
+    </task>
+    <task id="LOCAL-00003" summary="MongoDB for send Email">
+      <created>1663188907906</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1663188907906</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Database services update">
+      <created>1663366608147</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1663366608147</updated>
+    </task>
+    <task id="LOCAL-00005" summary="SignUp Back front connection">
+      <created>1663428300256</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1663428300256</updated>
+    </task>
+    <task id="LOCAL-00006" summary="remove from inbox">
+      <created>1663450742350</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1663450742350</updated>
+    </task>
+    <task id="LOCAL-00007" summary="remove from sent">
+      <created>1663453910962</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1663453910962</updated>
+    </task>
+    <task id="LOCAL-00008" summary="remove from sent">
+      <created>1663517840253</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1663517840253</updated>
+    </task>
+    <task id="LOCAL-00009" summary="search logic">
+      <created>1663587755434</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1663587755434</updated>
+    </task>
+    <task id="LOCAL-00010" summary="sorting front and back connection">
+      <created>1663593644093</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1663593644093</updated>
+    </task>
+    <task id="LOCAL-00011" summary="searching optimization :)">
+      <created>1663597884012</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1663597884012</updated>
+    </task>
+    <task id="LOCAL-00012" summary="uploading attachment with pug">
+      <created>1663606735076</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1663606735076</updated>
+    </task>
+    <task id="LOCAL-00013" summary="uploading attachment with pug">
+      <created>1663610294737</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1663610294737</updated>
+    </task>
+    <task id="LOCAL-00014" summary="download and upload files">
+      <created>1663805318067</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1663805318067</updated>
+    </task>
+    <task id="LOCAL-00015" summary="download and upload files">
+      <created>1663807136507</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1663807136507</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="CUSTOM_BOOLEAN_PROPERTIES">
+                <map>
+                  <entry key="Show.Git.Branches" value="true" />
+                </map>
+              </option>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="origin/feat/build-frontend-from-scratch" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="MongoDB for SignIn" />
+    <MESSAGE value="MongoDB for Register" />
+    <MESSAGE value="MongoDB for send Email" />
+    <MESSAGE value="Database services update" />
+    <MESSAGE value="SignUp Back front connection" />
+    <MESSAGE value="remove from inbox" />
+    <MESSAGE value="remove from sent" />
+    <MESSAGE value="search logic" />
+    <MESSAGE value="sorting front and back connection" />
+    <MESSAGE value="searching optimization :)" />
+    <MESSAGE value="uploading attachment with pug" />
+    <MESSAGE value="download and upload files" />
+    <option name="LAST_COMMIT_MESSAGE" value="download and upload files" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.NoSuchMethodError" package="java.lang" />
+          <option name="timeStamp" value="1" />
+        </breakpoint>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="com.mongodb.MongoCommandException" package="com.mongodb" />
+          <option name="timeStamp" value="5" />
+        </breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/com/example/email/Server/DataBaseServices/DataBase.java</url>
+          <line>29</line>
+          <properties class="com.example.email.Server.DataBaseServices.DataBase">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/Contact/AddContact.java</url>
+          <line>8</line>
+          <properties class="Contact.AddContact">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/Contact/AddContact.java</url>
+          <line>17</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>
