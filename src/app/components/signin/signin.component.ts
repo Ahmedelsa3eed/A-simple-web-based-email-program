@@ -29,10 +29,9 @@ export class SigninComponent implements OnInit {
     this.requestService.validateUser(this.user, 'signIn')
     .subscribe({
       next: (res) => {
-        console.log(res);
         if(res.ok && res.body != null) {
           this.userService.setUser(res.body);
-          this.router.navigateByUrl('/home/inbox');
+          this.router.navigateByUrl('/home/emails/inbox');
         }
         else {
           window.alert(`returned status code: ${res.status}`);
@@ -45,7 +44,7 @@ export class SigninComponent implements OnInit {
         this.isRefuesdLogin = true;
         console.error(e);
       },
-      complete: () => console.info('complete')
+      complete: () => console.info('Sign in completed successfully!')
     })
   }
 
