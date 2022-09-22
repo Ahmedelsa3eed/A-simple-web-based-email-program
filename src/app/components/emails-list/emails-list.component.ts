@@ -36,7 +36,7 @@ export class EmailsListComponent implements OnInit {
   private setUser() {
     this.user = this.userService.getUser();
   }
-  
+
   getEmails($FileNameEvent: any) {
     console.log($FileNameEvent);
     this.resetFeedbackFlags();
