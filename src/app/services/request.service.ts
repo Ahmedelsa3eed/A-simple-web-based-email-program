@@ -44,7 +44,7 @@ export class RequestService {
   }
 
   uploadFiles(multipartFiles: FormData, userID: string) {
-    return this.http.post<any>(`${this.url}/upload`, multipartFiles, {
+    return this.http.post<boolean>(`${this.url}/upload`, multipartFiles, {
       observe: 'response',
       params: {
         userID: userID,
