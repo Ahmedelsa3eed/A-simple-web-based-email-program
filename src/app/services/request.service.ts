@@ -61,13 +61,13 @@ export class RequestService {
     );
   }
 
-  search(userID: string, searchString: string, folderName: string): Observable<HttpResponse<Email[]>> {
+  search(userID: string, searchString: string, searchPosition: string): Observable<HttpResponse<Email[]>> {
     return this.http.get<Email[]>(`${this.url}/search`, {
       observe: 'response',
       params: {
         userID: userID,
         searchString: searchString,
-        searchPosition: folderName
+        searchPosition: searchPosition
       },
       responseType: 'json'
     }).pipe(

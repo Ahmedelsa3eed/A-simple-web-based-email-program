@@ -67,7 +67,7 @@ export class EmailComponent implements OnInit {
   }
 
   public markAsSeen() {
-    if (!this.email.seen) {
+    if (!this.email.seen && this.router.url === '/home/emails/inbox') {
       this.email.seen = true;
       this.requestsService.markAsSeen(this.email._id, this.user._id).subscribe(res => {
         console.log(res);
@@ -79,11 +79,7 @@ export class EmailComponent implements OnInit {
     let attachmentPosition ="";
     console.log(this.router.url)
     this.downloadLoading = true;
-    if (this.router.url == '/home/emails/inbox' || this.router.url == '/home/emails/draft') {
-      attachmentPosition = this.email.sender
-    }else {
-      attachmentPosition = this.email.receiver;
-    }
+    attachmentPosition = this.email.sender
     this.requestsService.downloadFile(file, attachmentPosition)
     .subscribe({
       next: (res) => {

@@ -14,7 +14,8 @@ import { HttpResponse } from '@angular/common/http';
 export class HomeComponent implements OnInit {
 
   public isLoading: boolean = false;
-  public isRefuesdSend: boolean = false;
+  public isRefuesdSend: boolean = false
+  public sendSuccess: boolean = false;
   public email: Email;
   public user: User;
   public folderName: string = "";
@@ -33,17 +34,27 @@ export class HomeComponent implements OnInit {
   private setUser() {
     this.user = this.userService.getUser();
   }
-  
+
   sendEmail() {
     this.prepareData();
     this.requestService.sendEmail(this.email, this.user)
     .subscribe({
       next: (res) => {
-        this.handleResponse(res);
+        if (res.ok) {
+          this.isRefuesdSend = false;
+          this.sendSuccess = true;
+          this.handleResponse(res);
+        }else {
+          this.isRefuesdSend = true;
+          this.sendSuccess = false;
+        }
+        this.isLoading = false;
       },
       error: (e) => {
         this.isLoading = false;
         this.isRefuesdSend = true;
+        this.sendSuccess = false;
+
         console.error(e);
       },
       complete: () => console.info('complete')

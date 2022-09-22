@@ -5,6 +5,7 @@ import { Email } from 'src/app/models/Email';
 import { User } from 'src/app/models/User';
 import { GetEmailsService } from 'src/app/services/get-emails.service';
 import { RequestService } from 'src/app/services/request.service';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-emails-list',
@@ -23,8 +24,9 @@ export class EmailsListComponent implements OnInit {
   public folderName: string = "";
 
   constructor(private getEmailsService: GetEmailsService,
-    private userService: LocalStorageWrapper,
-    private requestService: RequestService) {
+              private userService: LocalStorageWrapper,
+              private requestService: RequestService,
+              private router: Router) {
     this.user = new User;
   }
 
@@ -63,6 +65,9 @@ export class EmailsListComponent implements OnInit {
 
   search() {
     this.resetFeedbackFlags();
+    this.folderName = this.router.url.split('/')[3];
+    this.folderName = this.folderName.charAt(0).toUpperCase() + this.folderName.slice(1);
+    console.log(this.folderName);
     this.requestService.search(this.user._id, this.searchString, this.folderName)
     .subscribe({
       next: (res) => {
@@ -82,6 +87,9 @@ export class EmailsListComponent implements OnInit {
 
   sort(by: string) {
     this.resetFeedbackFlags();
+    this.folderName = this.router.url.split('/')[3];
+    this.folderName = this.folderName.charAt(0).toUpperCase() + this.folderName.slice(1);
+    console.log(this.folderName);
     this.requestService.sort(by, this.folderName, this.user._id)
     .subscribe({
       next: (res) => {
