@@ -36,6 +36,7 @@
             </div>
         </div>
 
+      <div *ngIf="!isLoading">
         <!-- Request Feedback -->
         <div class="position-relative">
             <div class="position-absolute top-0 start-50 translate-middle">
@@ -52,6 +53,8 @@
             [email]="email"
             (emailRemovedEvent)="updateEmailsList($event)">
         </app-email>
+
+        </div>
 
     </div>
 
