@@ -64,7 +64,7 @@ export class EmailsListComponent implements OnInit {
     this.isLoading = true;
     this.isRefuesdLogin = false;
   }
-  
+
   updateEmailsList($event: any) {
     console.log(`update ${$event} email list`);
     this.getEmails($event);
@@ -72,8 +72,6 @@ export class EmailsListComponent implements OnInit {
 
   search() {
     this.resetFeedbackFlags();
-    this.folderName = this.router.url.split('/')[3];
-    this.folderName = this.folderName.charAt(0).toUpperCase() + this.folderName.slice(1);
     console.log(this.folderName);
     this.requestService.search(this.user._id, this.searchString, this.folderName)
     .subscribe({
@@ -94,8 +92,6 @@ export class EmailsListComponent implements OnInit {
 
   sort(by: string) {
     this.resetFeedbackFlags();
-    this.folderName = this.router.url.split('/')[3];
-    this.folderName = this.folderName.charAt(0).toUpperCase() + this.folderName.slice(1);
     console.log(this.folderName);
     this.requestService.sort(by, this.folderName, this.user._id)
     .subscribe({
