@@ -36,31 +36,6 @@ export class RequestService {
     );
   }
 
-  uploadFiles(multipartFiles: FormData, userID: string) {
-    return this.http.post<boolean>(`${this.url}/upload`, multipartFiles, {
-      observe: 'response',
-      params: {
-        userID: userID,
-      },
-      responseType: 'json'
-    }).pipe(
-      catchError(this.handleError)
-    );
-  }
-
-  downloadFile(fileName: string, attachmentPosition:string): Observable<HttpResponse<Blob>> {
-    return this.http.get(`${this.url}/download`, {
-      observe: 'response',
-      params: {
-        attachmentName: fileName,
-        attachmentPosition : attachmentPosition
-      },
-      responseType: 'blob'
-    }).pipe(
-      catchError(this.handleError)
-    );
-  }
-
   search(userID: string, searchString: string, searchPosition: string): Observable<HttpResponse<Email[]>> {
     return this.http.get<Email[]>(`${this.url}/search`, {
       observe: 'response',
@@ -89,16 +64,7 @@ export class RequestService {
     );
   }
 
-  deleteEmailFromInbox(email: Email): Observable<HttpResponse<boolean>> {
-    return this.http.post<boolean>(`${this.url}/deleteFromInbox`, email, {
-      observe: 'response',
-      responseType: 'json'
-    }).pipe(
-      catchError(this.handleError)
-    );
-  }
-
-  deleteEmailFromDB(email: Email, position: string, user: User): Observable<HttpResponse<boolean>> {
+  deleteEmail(email: Email, position: string, user: User): Observable<HttpResponse<boolean>> {
     return this.http.delete<boolean>(`${this.url}/delete`, {
       observe: 'response',
       params: {

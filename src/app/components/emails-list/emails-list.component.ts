@@ -5,7 +5,7 @@ import { Email } from 'src/app/models/Email';
 import { User } from 'src/app/models/User';
 import { GetEmailsService } from 'src/app/services/get-emails.service';
 import { RequestService } from 'src/app/services/request.service';
-import {Router} from "@angular/router";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-emails-list',
@@ -24,9 +24,9 @@ export class EmailsListComponent implements OnInit {
   public folderName: string = "";
 
   constructor(private getEmailsService: GetEmailsService,
-              private userService: LocalStorageWrapper,
-              private requestService: RequestService,
-              private router: Router) {
+    private userService: LocalStorageWrapper,
+    private requestService: RequestService,
+    private router: Router) {
     this.user = new User;
   }
 
@@ -40,7 +40,8 @@ export class EmailsListComponent implements OnInit {
   }
 
   getEmails($FileNameEvent: any) {
-    console.log($FileNameEvent);
+    console.log(`get emails from ${$FileNameEvent}`);
+    this.folderName = $FileNameEvent;
     this.resetFeedbackFlags();
     this.getEmailsService.requestEmails(this.user, $FileNameEvent)
     .subscribe({
@@ -59,8 +60,14 @@ export class EmailsListComponent implements OnInit {
     this.emails = this.email$;
   }
 
+  private resetFeedbackFlags() {
+    this.isLoading = true;
+    this.isRefuesdLogin = false;
+  }
+  
   updateEmailsList($event: any) {
-    this.emails = $event;
+    console.log(`update ${$event} email list`);
+    this.getEmails($event);
   }
 
   search() {
@@ -107,9 +114,6 @@ export class EmailsListComponent implements OnInit {
     })
   }
 
-  private resetFeedbackFlags() {
-    this.isLoading = true;
-    this.isRefuesdLogin = false;
-  }
+
 
 }

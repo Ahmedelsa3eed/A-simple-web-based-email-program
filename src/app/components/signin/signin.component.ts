@@ -42,6 +42,7 @@ export class SigninComponent implements OnInit {
 
   private handleSignInResponse(res: HttpResponse<User>): void {
     if (res.ok && res.body != null) {
+      this.userService.clearUser();
       this.userService.saveUser(res.body);
       this.router.navigateByUrl('/home/emails/inbox');
     }

@@ -1,10 +1,10 @@
+import { AttachmentService } from './../../services/attachment.service';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Email } from "../../models/Email";
 import { User } from "../../models/User";
 import { RequestService } from "../../services/request.service";
 import { Router } from "@angular/router";
 import { saveAs } from 'file-saver';
-import {ignoreElements} from "rxjs";
 
 @Component({
   selector: 'app-email',
@@ -14,53 +14,55 @@ import {ignoreElements} from "rxjs";
 export class EmailComponent implements OnInit {
 
   @Input() email = new Email();
-  @Output() emailRemovedEvent = new EventEmitter();
+  @Output() emailRemovedEvent = new EventEmitter<String>();
   emailsList: any;
   @Input() user = new User();
   removeLoading: boolean = false;
   downloadLoading: boolean = false;
 
   constructor(private requestsService: RequestService,
-    private router: Router) { }
+    private router: Router,
+    private attachmentService: AttachmentService) { }
 
   ngOnInit(): void {
   }
 
   removeEmail() {
     this.removeLoading = true;
-    console.log("you are asking to delete"+this.email._id);
+    console.log("you are asking to delete" + this.email._id);
     console.log(this.router.url);
-    if (this.router.url === 'home/emails/sent') {
-      this.requestsService.deleteEmailFromDB(this.email, "Sent", this.user)
+    if (this.router.url === '/home/emails/sent') {
+      this.requestsService.deleteEmail(this.email, 'sent', this.user)
       .subscribe((res) => {
         this.removeLoading = false;
         console.log(res);
-        this.emailRemovedEvent.emit(res.body);
+        this.emailRemovedEvent.emit('sent');
       });
     }
-    else if (this.router.url === 'home/emails/trash') {
-      this.requestsService.deleteEmailFromDB(this.email,"Trash",this.user)
+    else if (this.router.url === '/home/emails/trash') {
+      this.requestsService.deleteEmail(this.email, 'trash', this.user)
       .subscribe((res) => {
         this.removeLoading = false;
         console.log(res);
-        this.emailRemovedEvent.emit(res.body);
+        this.emailRemovedEvent.emit('trash');
       });
     }
-    else if(this.router.url === 'home/emails/draft') {
-      this.requestsService.deleteEmailFromDB(this.email,"Draft",this.user)
+    else if (this.router.url === '/home/emails/draft') {
+      this.requestsService.deleteEmail(this.email, 'draft', this.user)
       .subscribe((res) => {
         this.removeLoading = false;
         console.log(res);
-        this.emailRemovedEvent.emit(res.body);
+        this.emailRemovedEvent.emit('draft');
       });
     }
-    else{
-      this.requestsService.deleteEmailFromInbox(this.email)
+    else if (this.router.url === '/home/emails/inbox'){
+      console.log("delete from inbox");
+      this.requestsService.deleteEmail(this.email, 'inbox', this.user)
       .subscribe((res) => {
         this.removeLoading = false;
         if (res.ok) {
           console.log(res);
-          this.emailRemovedEvent.emit(res.body);
+          this.emailRemovedEvent.emit('inbox');
         }
       })
     }
@@ -80,7 +82,7 @@ export class EmailComponent implements OnInit {
     console.log(this.router.url)
     this.downloadLoading = true;
     attachmentPosition = this.email.sender
-    this.requestsService.downloadFile(file, attachmentPosition)
+    this.attachmentService.downloadFile(file, attachmentPosition)
     .subscribe({
       next: (res) => {
         if(res.body) {
