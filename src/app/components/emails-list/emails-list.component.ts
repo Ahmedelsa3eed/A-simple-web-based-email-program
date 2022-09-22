@@ -1,10 +1,10 @@
+import { LocalStorageWrapper } from './../../services/localStorageWrapper.service';
 import { Component, OnInit } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { Email } from 'src/app/models/Email';
 import { User } from 'src/app/models/User';
 import { GetEmailsService } from 'src/app/services/get-emails.service';
 import { RequestService } from 'src/app/services/request.service';
-import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-emails-list',
@@ -23,7 +23,7 @@ export class EmailsListComponent implements OnInit {
   public folderName: string = "";
 
   constructor(private getEmailsService: GetEmailsService,
-    private userService: UserService,
+    private userService: LocalStorageWrapper,
     private requestService: RequestService) {
     this.user = new User;
   }
@@ -33,6 +33,10 @@ export class EmailsListComponent implements OnInit {
     this.getEmails('inbox');
   }
 
+  private setUser() {
+    this.user = this.userService.getUser();
+  }
+  
   getEmails($FileNameEvent: any) {
     console.log($FileNameEvent);
     this.resetFeedbackFlags();
@@ -93,13 +97,6 @@ export class EmailsListComponent implements OnInit {
       },
       complete: () => console.info('complete')
     })
-  }
-
-  private setUser() {
-    this.userService.getUser().subscribe(res => {
-      this.user = res;
-      console.log(res);
-    });
   }
 
   private resetFeedbackFlags() {

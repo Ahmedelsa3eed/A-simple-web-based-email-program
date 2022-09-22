@@ -1,9 +1,8 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Email} from "../../models/Email";
-import {UserService} from "../../services/user.service";
-import {User} from "../../models/User";
-import {RequestService} from "../../services/request.service";
-import {NavigationEnd, Router} from "@angular/router";
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Email } from "../../models/Email";
+import { User } from "../../models/User";
+import { RequestService } from "../../services/request.service";
+import { Router } from "@angular/router";
 import { saveAs } from 'file-saver';
 
 @Component({
@@ -18,8 +17,7 @@ export class EmailComponent implements OnInit {
   emailsList: any;
   @Input() user = new User();
   
-  constructor(private userService: UserService,
-    private requestsService: RequestService,
+  constructor(private requestsService: RequestService,
     private router: Router) { }
     
   ngOnInit(): void {
@@ -83,6 +81,5 @@ export class EmailComponent implements OnInit {
       complete: () => console.info('Downloading complete!')
     })
   }
-
 
 }
