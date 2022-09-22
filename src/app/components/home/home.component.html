@@ -92,17 +92,16 @@
                         </button>
                     </div>
                 </form>
-              <div *ngIf="isRefuesdSend" class="alert alert-danger alert-dismissible fade show" role="alert">
-                <strong>Failed to send the email</strong>
-                <br/>
-                You should check if the receiver email exists.
-              </div>
-              <div *ngIf="sendSuccess" class="alert alert-success alert-dismissible fade show" role="alert">
-                <strong>Email sent successfully</strong>
-                <br/>
-                You can check it in the sent folder.
-
-              </div>
+                <div *ngIf="isRefuesdSend" class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>Failed to send the email</strong>
+                    <br/>
+                    You should check if the receiver email exists.
+                </div>
+                <div *ngIf="sendSuccess" class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>Email sent successfully</strong>
+                    <br/>
+                    You can check it in the sent folder.
+                </div>
             </div>
         </div>
     </div>

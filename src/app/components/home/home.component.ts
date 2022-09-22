@@ -1,3 +1,4 @@
+import { AttachmentService } from './../../services/attachment.service';
 import { LocalStorageWrapper } from './../../services/localStorageWrapper.service';
 import { Router } from '@angular/router';
 import { RequestService } from './../../services/request.service';
@@ -22,7 +23,8 @@ export class HomeComponent implements OnInit {
 
   constructor(private requestService: RequestService,
     private router: Router,
-    private userService: LocalStorageWrapper) {
+    private userService: LocalStorageWrapper,
+    private attachmentService: AttachmentService) {
     this.email = new Email;
     this.user = new User;
   }
@@ -44,7 +46,8 @@ export class HomeComponent implements OnInit {
           this.isRefuesdSend = false;
           this.sendSuccess = true;
           this.handleResponse(res);
-        }else {
+        }
+        else {
           this.isRefuesdSend = true;
           this.sendSuccess = false;
         }
@@ -54,7 +57,6 @@ export class HomeComponent implements OnInit {
         this.isLoading = false;
         this.isRefuesdSend = true;
         this.sendSuccess = false;
-
         console.error(e);
       },
       complete: () => console.info('complete')
@@ -81,16 +83,9 @@ export class HomeComponent implements OnInit {
   }
 
   onFileSelect(event: any) {
-    // prepare formData
-    const attachments = new FormData();
-    const files: File[] = event.target.files;
-    this.email.attachments = [];
-    for(const file of files) {
-      attachments.append('files', file, file.name);
-      this.email.attachments.push(file.name);
-    }
+    const attachments = this.prepareAttachments(event);
     // uploda formData
-    this.requestService.uploadFiles(attachments, this.user._id)
+    this.attachmentService.uploadFiles(attachments, this.user._id)
     .subscribe({
       next: (res) => {
         console.log(res);
@@ -102,4 +97,14 @@ export class HomeComponent implements OnInit {
     })
   }
 
+  private prepareAttachments(event: any) {
+    const attachments = new FormData();
+    const files: File[] = event.target.files;
+    this.email.attachments = [];
+    for (const file of files) {
+      attachments.append('files', file, file.name);
+      this.email.attachments.push(file.name);
+    }
+    return attachments;
+  }
 }
