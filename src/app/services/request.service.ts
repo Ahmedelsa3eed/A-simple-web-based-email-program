@@ -35,6 +35,17 @@ export class RequestService {
       catchError(this.handleError)
     );
   }
+  addToDraft(email: Email, user: User): Observable<HttpResponse<boolean>> {
+    return this.http.post<boolean>(`${this.url}/addToDrafts`, email, {
+      observe: 'response',
+      params: {
+        userID: user._id,
+      },
+      responseType: 'json'
+    }).pipe(
+      catchError(this.handleError)
+    );
+  }
 
   search(userID: string, searchString: string, searchPosition: string): Observable<HttpResponse<Email[]>> {
     return this.http.get<Email[]>(`${this.url}/search`, {

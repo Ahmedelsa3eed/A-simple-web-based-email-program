@@ -20,6 +20,7 @@ export class HomeComponent implements OnInit {
   public sendSuccess: boolean = false;
   public uploadSuccess: boolean = false;
   public uploadError: boolean = false;
+  public addingToDraft: boolean = false;
   public email: Email;
   public user: User;
   public folderName: string = "";
@@ -43,6 +44,7 @@ export class HomeComponent implements OnInit {
   sendEmail() {
 
     this.prepareData();
+    this.isLoading = true;
     this.requestService.sendEmail(this.email, this.user)
     .subscribe({
       next: (res) => {
@@ -66,9 +68,25 @@ export class HomeComponent implements OnInit {
       complete: () => console.info('complete')
     })
   }
+  addToDraft(){
+    this.prepareData();
+    this.addingToDraft = true;
+    this.requestService.addToDraft(this.email, this.user)
+    .subscribe({
+      next: (res) => {
+
+          this.handleResponse(res);
+          this.addingToDraft = false;
+          },
+      error: (e) => {
+        this.addingToDraft = false;
+        console.error(e);
+      },
+      complete: () => console.info('complete')
+    })
+  }
 
   private prepareData() {
-    this.isLoading = true;
     this.email.sender = this.user.email;
     this.email.date = new Date();
   }

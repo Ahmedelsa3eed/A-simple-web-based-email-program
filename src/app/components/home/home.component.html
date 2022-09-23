@@ -88,9 +88,18 @@
                     <div class="modal-footer">
                         <button
                             type="button"
-                            class="btn btn-secondary"
+                            class="btn btn-danger"
                             data-bs-dismiss="modal">
                             Close
+                        </button>
+                        <button
+                          type="button"
+                          class="btn btn-secondary"
+                            [disabled]="form.invalid"
+                            (click)=addToDraft()
+                         >
+                          <span *ngIf="addingToDraft" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                            Add to draft
                         </button>
                         <button
                             type="submit"
