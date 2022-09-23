@@ -1,4 +1,7 @@
+import { HeaderService } from './../../services/header.service';
+import { LocalStorageWrapper } from './../../services/localStorageWrapper.service';
 import { Component, OnInit } from '@angular/core';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-header',
@@ -7,9 +10,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  isSignedIn: boolean = false;
+
+  constructor(private localStorageWrapper: LocalStorageWrapper,
+              private headerService: HeaderService,
+              public router:Router) { }
 
   ngOnInit(): void {
+    console.log(this.router.url);
+    console.log(this.isSignedIn);
+  }
+
+  logout(): void {
+    this.localStorageWrapper.clear();
+    this.isSignedIn = false;
   }
 
 }
