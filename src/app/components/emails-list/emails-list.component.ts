@@ -110,6 +110,4 @@ export class EmailsListComponent implements OnInit {
     })
   }
 
-
-
 }

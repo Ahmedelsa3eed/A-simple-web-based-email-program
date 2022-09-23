@@ -21,8 +21,12 @@ export class LocalStorageWrapper {
     localStorage.removeItem('user');
   }
 
-  public clearUser() {
+  public clear() {
     localStorage.clear();
+  }
+
+  public isUserDefined(): boolean {
+    return localStorage.getItem('user') !== null;
   }
 
 }

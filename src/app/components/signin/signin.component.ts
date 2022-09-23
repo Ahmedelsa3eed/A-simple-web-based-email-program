@@ -1,3 +1,4 @@
+import { HeaderService } from './../../services/header.service';
 import { LocalStorageWrapper } from './../../services/localStorageWrapper.service';
 import { RequestService } from '../../services/request.service';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
@@ -18,7 +19,8 @@ export class SigninComponent implements OnInit {
 
   constructor(private requestService: RequestService,
     private router: Router,
-    private userService: LocalStorageWrapper) {
+    private userService: LocalStorageWrapper,
+    private headerService: HeaderService) {
     this.user = new User();
   }
 
@@ -42,8 +44,9 @@ export class SigninComponent implements OnInit {
 
   private handleSignInResponse(res: HttpResponse<User>): void {
     if (res.ok && res.body != null) {
-      this.userService.clearUser();
+      this.userService.clear();
       this.userService.saveUser(res.body);
+      this.headerService.setSignedInResults(true);
       this.router.navigateByUrl('/home/emails/inbox');
     }
     else {
