@@ -7,7 +7,9 @@
         <div class="position-relative" style="height: 30px;">
             <span class="fa fa-file-text-o fa-lg position-absolute top-0 start-0" aria-hidden="true"></span>
             <span *ngIf="!removeLoading" class="fa fa-trash-o fa-lg remove-btn position-absolute top-0 end-0 w-auto" (click)="removeEmail()"></span>
-            <div  *ngIf="removeLoading" class="spinner-border text-danger position-absolute top-0 end-0" role="status"></div>
+            <span *ngIf="router.url== '/home/emails/trash'  " class="fa fa-undo fa-lg btn-link position-absolute top-0 end-0 w-auto" style="margin-right: 3%;" aria-hidden="true" (click)="undoRemoveFromInbox()"></span>
+
+          <div  *ngIf="removeLoading" class="spinner-border text-danger position-absolute  end-0" role="status"></div>
         </div>
         <a href="" (click)="markAsSeen()" data-bs-toggle="collapse" [attr.data-bs-target]="'#collapse'+email._id" aria-expanded="false" aria-controls="flush-collapseOne">
           <h3 *ngIf="email.sender != user.email && !email.seen " class="alert alert-success">From: {{email.sender}}</h3>

@@ -91,6 +91,18 @@ export class RequestService {
       catchError(this.handleError)
       );
   }
+  public undoRemoveFromInbox(emailID:string, userID:string): Observable<HttpResponse<boolean>> {
+    return this.http.delete<boolean>(`${this.url}/undoRemoveFromInbox`, {
+      observe: 'response',
+      params: {
+        emailID: emailID,
+        userID: userID
+      },
+      responseType: 'json'
+    }).pipe(
+      catchError(this.handleError)
+    );
+  }
 
   private handleError(error: HttpErrorResponse) {
     if (error.status === 0) {
@@ -105,5 +117,6 @@ export class RequestService {
     // Return an observable with a user-facing error message.
     return throwError(() => new Error('Something bad happened; please try again later.'));
   }
+
 
 }

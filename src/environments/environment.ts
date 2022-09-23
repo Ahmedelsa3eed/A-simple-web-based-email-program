@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  baseUrl: 'https://email-server-backend57.herokuapp.com'
+  baseUrl: 'http://localhost:8080'
 };
 
 /*
