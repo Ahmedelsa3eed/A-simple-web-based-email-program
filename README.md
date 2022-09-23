@@ -1,5 +1,5 @@
 # Mail Server App
-[![SonarCloud](https://sonarcloud.io/images/project_badges/sonarcloud-orange.svg)](https://sonarcloud.io/summary/new_code?id=Ahmedelsa3eed_A-simple-web-based-email-program)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Ahmedelsa3eed_A-simple-web-based-email-program&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Ahmedelsa3eed_A-simple-web-based-email-program)
 
 ## Accosiated with Alexandria University
 
