@@ -7,12 +7,18 @@
                 <li><a href="#" class="nav-link px-2 text-white">About</a></li>
             </ul>
 
-            <div class="text-end">
+            <div *ngIf="!isSignedIn" class="text-end">
                 <a routerLink="/">
                     <button type="button" class="btn btn-outline-light me-2">Login</button>
                 </a>
                 <a routerLink="/signUp">
                     <button type="button" class="btn btn-warning">Sign-up</button>
+                </a>
+            </div>
+
+            <div *ngIf="isSignedIn" class="text-end">
+                <a routerLink="/">
+                    <button type="button" class="btn btn-warning" (click)="logout()">LogOut</button>
                 </a>
             </div>
         </div>
