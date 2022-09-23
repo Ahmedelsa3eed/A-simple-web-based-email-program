@@ -75,7 +75,16 @@
                             (change)="onFileSelect($event)">
                         <label class="input-group-text" for="inputGroupFile02">Upload</label>
                     </div>
-                    <!-- Form Buttons -->
+                    <span *ngIf="uploadLoading" class="col-md spinner-border  text-secondary" role="status" aria-hidden="true"></span>
+                    <p *ngIf="uploadLoading"  >File is uploading pleas wait </p>
+                    <div *ngIf="uploadSuccess"  class="alert alert-success" role="alert">
+                      <strong>File uploaded successfully</strong>
+                    </div>
+                    <div *ngIf="uploadError"  class="alert alert-danger" role="alert">
+                      <strong>File upload failed</strong>
+                    </div>
+
+                  <!-- Form Buttons -->
                     <div class="modal-footer">
                         <button
                             type="button"
