@@ -20,11 +20,3 @@ The aim of the project is to implement the basic functionalities of a mail serve
 ### Façade DP:
 - We applied the façade design pattern on the “ServerController” class, it
 simplifies a-ccess to a related set of objects by providing one object that all objects outside the set use to communicate with the set.
-
-## Sample Runs
-
-![1](https://user-images.githubusercontent.com/73740339/164770403-7bb517db-3979-485e-9e7a-0015843cc774.png)
-
-![22](https://user-images.githubusercontent.com/73740339/164770931-5cfc927e-db70-4757-9ae6-b958466735d6.png)
-
-![3](https://user-images.githubusercontent.com/73740339/164771532-dd6071c0-faf9-475d-8570-3ffd23571a12.png)
