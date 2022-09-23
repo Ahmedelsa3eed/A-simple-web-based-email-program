@@ -21,7 +21,7 @@ export class EmailComponent implements OnInit {
   downloadLoading: boolean = false;
 
   constructor(private requestsService: RequestService,
-    private router: Router,
+    public router: Router,
     private attachmentService: AttachmentService) { }
 
   ngOnInit(): void {
@@ -97,5 +97,12 @@ export class EmailComponent implements OnInit {
     })
   }
 
+  undoRemoveFromInbox() {
+    this.requestsService.undoRemoveFromInbox(this.email._id, this.user._id)
+    .subscribe((res) => {
+      console.log(res);
+      this.emailRemovedEvent.emit('trash');
+    })
+  }
 
 }
