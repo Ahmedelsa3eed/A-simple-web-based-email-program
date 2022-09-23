@@ -15,8 +15,11 @@ import { HttpResponse } from '@angular/common/http';
 export class HomeComponent implements OnInit {
 
   public isLoading: boolean = false;
-  public isRefuesdSend: boolean = false
+  public isRefuesdSend: boolean = false;
+  public uploadLoading: boolean = false;
   public sendSuccess: boolean = false;
+  public uploadSuccess: boolean = false;
+  public uploadError: boolean = false;
   public email: Email;
   public user: User;
   public folderName: string = "";
@@ -38,6 +41,7 @@ export class HomeComponent implements OnInit {
   }
 
   sendEmail() {
+
     this.prepareData();
     this.requestService.sendEmail(this.email, this.user)
     .subscribe({
@@ -85,15 +89,30 @@ export class HomeComponent implements OnInit {
   onFileSelect(event: any) {
     const attachments = this.prepareAttachments(event);
     // uploda formData
+    this.uploadLoading = true;
     this.attachmentService.uploadFiles(attachments, this.user._id)
     .subscribe({
       next: (res) => {
+        if (res.ok) {
+          this.uploadSuccess = true;
+          this.uploadError = false;
+        }else {
+          this.email.attachments = [];
+
+          this.uploadError = true;
+          this.uploadSuccess = false;
+        }
+        this.uploadLoading = false;
         console.log(res);
       },
       error: (e) => {
+        this.email.attachments = [];
+        this.uploadError = true;
+        this.uploadLoading = false;
+        this.uploadSuccess = false;
         console.error(e);
       },
-      complete: () => console.info('Upload completeed!')
+      complete: () => console.info('Upload completed!')
     })
   }
 
