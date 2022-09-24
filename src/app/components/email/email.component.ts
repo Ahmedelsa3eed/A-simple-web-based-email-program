@@ -85,8 +85,10 @@ export class EmailComponent implements OnInit {
   }
 
   undoRemoveFromInbox() {
+    this.removeLoading = true;
     this.requestsService.undoRemoveFromInbox(this.email._id, this.user._id)
     .subscribe((res) => {
+      this.removeLoading = false;
       if(res.body) {
         console.info('undo remove from inbox is done!');
         this.emailRemovedEvent.emit('trash');

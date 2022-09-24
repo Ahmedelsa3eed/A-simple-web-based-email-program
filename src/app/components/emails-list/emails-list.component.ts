@@ -6,6 +6,7 @@ import { User } from 'src/app/models/User';
 import { GetEmailsService } from 'src/app/services/get-emails.service';
 import { RequestService } from 'src/app/services/request.service';
 import { HttpResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-emails-list',
@@ -25,13 +26,15 @@ export class EmailsListComponent implements OnInit {
 
   constructor(private getEmailsService: GetEmailsService,
     private userService: LocalStorageWrapper,
-    private requestService: RequestService) {
+    private requestService: RequestService,
+    private router: Router) {
       this.user = new User;
   }
 
   ngOnInit(): void {
     this.user = this.userService.getUser();
-    this.getEmails('inbox');
+    this.folderName = this.router.url.split('/')[3];
+    this.getEmails(this.folderName);
   }
 
   getEmails($FileNameEvent: any) {
