@@ -42,7 +42,6 @@ export class HomeComponent implements OnInit {
   }
 
   sendEmail() {
-
     this.prepareData();
     this.isLoading = true;
     this.requestService.sendEmail(this.email, this.user)
@@ -92,7 +91,6 @@ export class HomeComponent implements OnInit {
   }
 
   private handleResponse(res: HttpResponse<boolean>) {
-    console.log(res);
     this.isLoading = false;
     if (res.ok) {
       // TODO: what should we do after sending the email

@@ -19,6 +19,7 @@ export class EmailComponent implements OnInit {
   @Input() user = new User();
   removeLoading: boolean = false;
   downloadLoading: boolean = false;
+  exampleModal = document.getElementById('exampleModal');
 
   constructor(private requestsService: RequestService,
     public router: Router,
@@ -105,4 +106,17 @@ export class EmailComponent implements OnInit {
     })
   }
 
+  updateModalContent() {
+    const modalBodyInput = this.exampleModal?.querySelector('#receiver-name') as HTMLInputElement;
+    modalBodyInput.value = this.email.receiver;
+    const modalBodySubject = this.exampleModal?.querySelector('#subject') as HTMLInputElement;
+    modalBodySubject.value = this.email.subject;
+    const modalBodyMessage = this.exampleModal?.querySelector('#message-text') as HTMLTextAreaElement;
+    modalBodyMessage.value = this.email.body;
+  }
+
+  updateReceiverModalContent() {
+    const modalBodyInput = this.exampleModal?.querySelector('#receiver-name') as HTMLInputElement;
+    modalBodyInput.value = this.email.sender;
+  }
 }

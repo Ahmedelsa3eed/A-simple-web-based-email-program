@@ -25,8 +25,7 @@ export class EmailsListComponent implements OnInit {
 
   constructor(private getEmailsService: GetEmailsService,
     private userService: LocalStorageWrapper,
-    private requestService: RequestService,
-    private router: Router) {
+    private requestService: RequestService) {
     this.user = new User;
   }
 
@@ -40,7 +39,6 @@ export class EmailsListComponent implements OnInit {
   }
 
   getEmails($FileNameEvent: any) {
-    console.log(`get emails from ${$FileNameEvent}`);
     this.folderName = $FileNameEvent;
     this.resetFeedbackFlags();
     this.getEmailsService.requestEmails(this.user, $FileNameEvent)
@@ -66,17 +64,14 @@ export class EmailsListComponent implements OnInit {
   }
 
   updateEmailsList($event: any) {
-    console.log(`update ${$event} email list`);
     this.getEmails($event);
   }
 
   search() {
     this.resetFeedbackFlags();
-    console.log(this.folderName);
     this.requestService.search(this.user._id, this.searchString, this.folderName)
     .subscribe({
       next: (res) => {
-        console.log(res);
         this.isLoading = false;
         // @ts-ignore
         this.email$.next(res.body);
@@ -92,11 +87,9 @@ export class EmailsListComponent implements OnInit {
 
   sort(by: string) {
     this.resetFeedbackFlags();
-    console.log(this.folderName);
     this.requestService.sort(by, this.folderName, this.user._id)
     .subscribe({
       next: (res) => {
-        console.log(res);
         this.isLoading = false;
         // @ts-ignore
         this.email$.next(res.body);

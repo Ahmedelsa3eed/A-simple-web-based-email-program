@@ -67,10 +67,10 @@ h2 a{color:#fff; font-weight:bold;}
   color: #000000;
 }
 
-.remove-btn {
+.my-btn {
   display: inline-block;
 }
 
-.remove-btn:hover {
+.my-btn:hover {
   cursor: pointer;
 }
