@@ -78,38 +78,39 @@
                     <span *ngIf="uploadLoading" class="col-md spinner-border  text-secondary" role="status" aria-hidden="true"></span>
                     <p *ngIf="uploadLoading"  >File is uploading pleas wait </p>
                     <div *ngIf="uploadSuccess"  class="alert alert-success" role="alert">
-                      <strong>File uploaded successfully</strong>
+                        <strong>File uploaded successfully</strong>
                     </div>
                     <div *ngIf="uploadError"  class="alert alert-danger" role="alert">
-                      <strong>File upload failed</strong>
+                        <strong>File upload failed</strong>
                     </div>
 
-                  <!-- Form Buttons -->
+                    <!-- Form Buttons -->
                     <div class="modal-footer">
                         <button
                             type="button"
                             class="btn btn-danger"
-                            data-bs-dismiss="modal">
+                            data-bs-dismiss="modal"
+                            (click)="onClose(form)">
                             Close
                         </button>
                         <button
-                          type="button"
-                          class="btn btn-secondary"
+                            type="button"
+                            class="btn btn-secondary"
                             [disabled]="form.invalid"
-                            (click)=addToDraft()
-                         >
-                          <span *ngIf="addingToDraft" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                            (click)=addToDraft()>
+                            <span *ngIf="addingToDraft" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                             Add to draft
                         </button>
                         <button
                             type="submit"
                             class="btn btn-primary"
                             [disabled]="form.invalid">
-                          <span *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                            <span *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                             Send message
                         </button>
                     </div>
                 </form>
+                <!-- Form Validation -->
                 <div *ngIf="isRefuesdSend" class="alert alert-danger alert-dismissible fade show" role="alert">
                     <strong>Failed to send the email</strong>
                     <br/>

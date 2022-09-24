@@ -6,6 +6,7 @@ import { Email } from './../../models/Email';
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/models/User';
 import { HttpResponse } from '@angular/common/http';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-home',
@@ -67,6 +68,28 @@ export class HomeComponent implements OnInit {
       complete: () => console.info('complete')
     })
   }
+  
+  private prepareData() {
+    this.email.sender = this.user.email;
+    this.email.date = new Date();
+  }
+  
+  private handleResponse(res: HttpResponse<boolean>) {
+    this.isLoading = false;
+    if (res.ok) {
+      // TODO: what should we do after sending the email
+      this.router.navigateByUrl('/home/emails/inbox');
+    }
+    else {
+      window.alert(`returned status code: ${res.status}`);
+      this.isRefuesdSend = true;
+    }
+  }
+
+  onClose(form: NgForm) {
+    form.resetForm();
+  }
+
   addToDraft(){
     this.prepareData();
     this.addingToDraft = true;
@@ -83,23 +106,6 @@ export class HomeComponent implements OnInit {
       },
       complete: () => console.info('complete')
     })
-  }
-
-  private prepareData() {
-    this.email.sender = this.user.email;
-    this.email.date = new Date();
-  }
-
-  private handleResponse(res: HttpResponse<boolean>) {
-    this.isLoading = false;
-    if (res.ok) {
-      // TODO: what should we do after sending the email
-      this.router.navigateByUrl('/home/emails/inbox');
-    }
-    else {
-      window.alert(`returned status code: ${res.status}`);
-      this.isRefuesdSend = true;
-    }
   }
 
   onFileSelect(event: any) {
