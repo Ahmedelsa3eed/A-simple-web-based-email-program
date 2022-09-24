@@ -1,6 +1,5 @@
 import { AttachmentService } from './../../services/attachment.service';
 import { LocalStorageWrapper } from './../../services/localStorageWrapper.service';
-import { Router } from '@angular/router';
 import { RequestService } from './../../services/request.service';
 import { Email } from './../../models/Email';
 import { Component, OnInit } from '@angular/core';
@@ -15,6 +14,9 @@ import { NgForm } from '@angular/forms';
 })
 export class HomeComponent implements OnInit {
 
+  public user: User;
+  public email: Email;
+  public folderName: string = "";
   public isLoading: boolean = false;
   public isRefuesdSend: boolean = false;
   public uploadLoading: boolean = false;
@@ -22,16 +24,12 @@ export class HomeComponent implements OnInit {
   public uploadSuccess: boolean = false;
   public uploadError: boolean = false;
   public addingToDraft: boolean = false;
-  public email: Email;
-  public user: User;
-  public folderName: string = "";
 
   constructor(private requestService: RequestService,
-    private router: Router,
     private userService: LocalStorageWrapper,
     private attachmentService: AttachmentService) {
-    this.email = new Email;
-    this.user = new User;
+      this.user = new User;
+      this.email = new Email;
   }
 
   ngOnInit(): void {
@@ -47,25 +45,9 @@ export class HomeComponent implements OnInit {
     this.isLoading = true;
     this.requestService.sendEmail(this.email, this.user)
     .subscribe({
-      next: (res) => {
-        if (res.ok) {
-          this.isRefuesdSend = false;
-          this.sendSuccess = true;
-          this.handleResponse(res);
-        }
-        else {
-          this.isRefuesdSend = true;
-          this.sendSuccess = false;
-        }
-        this.isLoading = false;
-      },
-      error: (e) => {
-        this.isLoading = false;
-        this.isRefuesdSend = true;
-        this.sendSuccess = false;
-        console.error(e);
-      },
-      complete: () => console.info('complete')
+      next: (res) => this.emailResponseHandler(res),
+      error: (e) => this.emailResponseErrorHandler(e),
+      complete: () => console.info('sent successfully!')
     })
   }
   
@@ -74,64 +56,55 @@ export class HomeComponent implements OnInit {
     this.email.date = new Date();
   }
   
-  private handleResponse(res: HttpResponse<boolean>) {
+  private emailResponseHandler(res: HttpResponse<boolean>) {
     this.isLoading = false;
     if (res.ok) {
-      // TODO: what should we do after sending the email
-      this.router.navigateByUrl('/home/emails/inbox');
+      this.isRefuesdSend = false;
+      this.sendSuccess = true;
     }
     else {
-      window.alert(`returned status code: ${res.status}`);
       this.isRefuesdSend = true;
+      this.sendSuccess = false;
     }
+  }
+
+  private emailResponseErrorHandler(err: any) {
+    this.isLoading = false;
+    this.isRefuesdSend = true;
+    this.sendSuccess = false;
+    console.error(err);
+  }
+
+  addToDraft() {
+    this.prepareData();
+    this.addingToDraft = true;
+    this.requestService.addToDraft(this.email, this.user)
+    .subscribe({
+      next: (res) => {
+        this.addingToDraft = false;
+        this.emailResponseHandler(res);
+      },
+      error: (e) => {
+        this.addingToDraft = false;
+        this.emailResponseErrorHandler(e);
+      },
+      complete: () => console.info('added to draft successfully!')
+    })
   }
 
   onClose(form: NgForm) {
     form.resetForm();
   }
 
-  addToDraft(){
-    this.prepareData();
-    this.addingToDraft = true;
-    this.requestService.addToDraft(this.email, this.user)
-    .subscribe({
-      next: (res) => {
-
-          this.handleResponse(res);
-          this.addingToDraft = false;
-          },
-      error: (e) => {
-        this.addingToDraft = false;
-        console.error(e);
-      },
-      complete: () => console.info('complete')
-    })
-  }
-
   onFileSelect(event: any) {
     const attachments = this.prepareAttachments(event);
-    // uploda formData
     this.uploadLoading = true;
     this.attachmentService.uploadFiles(attachments, this.user._id)
     .subscribe({
-      next: (res) => {
-        if (res.ok) {
-          this.uploadSuccess = true;
-          this.uploadError = false;
-        }else {
-          this.email.attachments = [];
-
-          this.uploadError = true;
-          this.uploadSuccess = false;
-        }
-        this.uploadLoading = false;
-        console.log(res);
-      },
+      next: (res) => this.uploadResponseHandler(res),
       error: (e) => {
-        this.email.attachments = [];
-        this.uploadError = true;
         this.uploadLoading = false;
-        this.uploadSuccess = false;
+        this.wrongUploadResponseHandler();
         console.error(e);
       },
       complete: () => console.info('Upload completed!')
@@ -148,4 +121,22 @@ export class HomeComponent implements OnInit {
     }
     return attachments;
   }
+
+  private uploadResponseHandler(res: HttpResponse<boolean>) {
+    this.uploadLoading = false;
+    if (res.ok) {
+      this.uploadSuccess = true;
+      this.uploadError = false;
+    }
+    else {
+      this.wrongUploadResponseHandler();
+    } 
+  }
+
+  private wrongUploadResponseHandler() {
+    this.email.attachments = [];
+    this.uploadError = true;
+    this.uploadSuccess = false;
+  }
+
 }
