@@ -5,7 +5,7 @@ import { Email } from 'src/app/models/Email';
 import { User } from 'src/app/models/User';
 import { GetEmailsService } from 'src/app/services/get-emails.service';
 import { RequestService } from 'src/app/services/request.service';
-import { Router } from "@angular/router";
+import { HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-emails-list',
@@ -26,16 +26,12 @@ export class EmailsListComponent implements OnInit {
   constructor(private getEmailsService: GetEmailsService,
     private userService: LocalStorageWrapper,
     private requestService: RequestService) {
-    this.user = new User;
+      this.user = new User;
   }
 
   ngOnInit(): void {
-    this.setUser();
-    this.getEmails('inbox');
-  }
-
-  private setUser() {
     this.user = this.userService.getUser();
+    this.getEmails('inbox');
   }
 
   getEmails($FileNameEvent: any) {
@@ -43,16 +39,8 @@ export class EmailsListComponent implements OnInit {
     this.resetFeedbackFlags();
     this.getEmailsService.requestEmails(this.user, $FileNameEvent)
     .subscribe({
-      next: (res) => {
-        this.isLoading = false;
-        // @ts-ignore
-        this.email$.next(res.body);
-      },
-      error: (e) => {
-        this.isLoading = false;
-        this.isRefuesdLogin = true;
-        console.error(e);
-      },
+      next: (res) => this.handleRespone(res),
+      error: (e) => this.handleResponseError(e),
       complete: () => console.info('Emails fetched successfully!')
     })
     this.emails = this.email$;
@@ -63,6 +51,18 @@ export class EmailsListComponent implements OnInit {
     this.isRefuesdLogin = false;
   }
 
+  private handleRespone(res: HttpResponse<Email[]>) {
+    this.isLoading = false;
+    // @ts-ignore
+    this.email$.next(res.body);
+  }
+
+  private handleResponseError(err: any) {
+    this.isLoading = false;
+    this.isRefuesdLogin = true;
+    console.error(err); 
+  }
+
   updateEmailsList($event: any) {
     this.getEmails($event);
   }
@@ -71,17 +71,9 @@ export class EmailsListComponent implements OnInit {
     this.resetFeedbackFlags();
     this.requestService.search(this.user._id, this.searchString, this.folderName)
     .subscribe({
-      next: (res) => {
-        this.isLoading = false;
-        // @ts-ignore
-        this.email$.next(res.body);
-      },
-      error: (e) => {
-        this.isLoading = false;
-        this.isRefuesdLogin = true;
-        console.error(e);
-      },
-      complete: () => console.info('complete')
+      next: (res) => this.handleRespone(res),
+      error: (e) => this.handleResponseError(e),
+      complete: () => console.info('search completed!')
     })
   }
 
@@ -89,17 +81,9 @@ export class EmailsListComponent implements OnInit {
     this.resetFeedbackFlags();
     this.requestService.sort(by, this.folderName, this.user._id)
     .subscribe({
-      next: (res) => {
-        this.isLoading = false;
-        // @ts-ignore
-        this.email$.next(res.body);
-      },
-      error: (e) => {
-        this.isLoading = false;
-        this.isRefuesdLogin = true;
-        console.error(e);
-      },
-      complete: () => console.info('complete')
+      next: (res) => this.handleRespone(res),
+      error: (e) => this.handleResponseError(e),
+      complete: () => console.info('sort completed!')
     })
   }
 

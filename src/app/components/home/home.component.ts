@@ -33,10 +33,6 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.setUser();
-  }
-
-  private setUser() {
     this.user = this.userService.getUser();
   }
 
