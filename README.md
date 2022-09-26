@@ -1,22 +1,28 @@
 # Mail Server App
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Ahmedelsa3eed_A-simple-web-based-email-program&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Ahmedelsa3eed_A-simple-web-based-email-program)
 
-## Accosiated with Alexandria University
+## Backend repo
+[Email Server Backend](https://github.com/AhmedElemary57/Email-Server-Backend)
 
 ## Objective
-The aim of the project is to implement the basic functionalities of a mail server, including manipulation of mails, attachments and contacts.
+- Implementing the basic functionalities of a mail server, including manipulation of mails, and attachments.
+- Applying the learned desing patterns.
+- To be more familiar with Angular.
 
-## UML Diagram
-![fasad-Page-1 drawio](https://user-images.githubusercontent.com/73740339/163716486-1710a2bf-ebaa-48ce-9acc-1e97e02c7eae.png)
+## User Guide
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.0.1.
 
-## Used Design Patterns
+### Development server
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-### Singleton DP:
-- We have applied the singleton design pattern on the “SingletonServer” class, it is unique for the user that is login in the server at that time. It has arrays of emails for (inbox, sent, trash, draft, contacts). We save to the database “to our hdd” only when refresh or logout happen, we reset the server after each logout.
+### SignUp and SignIn
+- navigate to signUp page and fill out your info.
+- you will be reported with user friendly messeages if any thing goes wrong.
+- you will be redirected to the sign-in page.
 
-### Criteria DP:
-- We used the criteria -filter- design pattern to filter the emails according to subject, sender, body, date, or receiver and direct them to a specific mail folder.
+### home page
+- After you successfully signed in you will be redireced to the inbox page.
+- navigate to different folders from the side bar.
+- reply to an email from your inbox and also you can delete it.
+- add an email to draft while writing it.
 
-### Façade DP:
-- We applied the façade design pattern on the “ServerController” class, it
-simplifies a-ccess to a related set of objects by providing one object that all objects outside the set use to communicate with the set.
