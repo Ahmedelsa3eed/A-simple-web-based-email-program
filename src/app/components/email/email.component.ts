@@ -1,3 +1,4 @@
+import { HttpResponse } from '@angular/common/http';
 import { AttachmentService } from './../../services/attachment.service';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Email } from "../../models/Email";
@@ -19,6 +20,7 @@ export class EmailComponent implements OnInit {
   @Input() user = new User();
   removeLoading: boolean = false;
   downloadLoading: boolean = false;
+  exampleModal = document.getElementById('exampleModal');
 
   constructor(private requestsService: RequestService,
     public router: Router,
@@ -29,59 +31,46 @@ export class EmailComponent implements OnInit {
 
   removeEmail() {
     this.removeLoading = true;
-    console.log("you are asking to delete" + this.email._id);
-    console.log(this.router.url);
     if (this.router.url === '/home/emails/sent') {
       this.requestsService.deleteEmail(this.email, 'sent', this.user)
-      .subscribe((res) => {
-        this.removeLoading = false;
-        console.log(res);
-        this.emailRemovedEvent.emit('sent');
-      });
+      .subscribe((res) => this.handleRemoveResponse(res, 'sent'));
     }
     else if (this.router.url === '/home/emails/trash') {
       this.requestsService.deleteEmail(this.email, 'trash', this.user)
-      .subscribe((res) => {
-        this.removeLoading = false;
-        console.log(res);
-        this.emailRemovedEvent.emit('trash');
-      });
+      .subscribe((res) => this.handleRemoveResponse(res, 'trash'));
     }
     else if (this.router.url === '/home/emails/draft') {
       this.requestsService.deleteEmail(this.email, 'draft', this.user)
-      .subscribe((res) => {
-        this.removeLoading = false;
-        console.log(res);
-        this.emailRemovedEvent.emit('draft');
-      });
+      .subscribe((res) => this.handleRemoveResponse(res, 'draft'));
     }
     else if (this.router.url === '/home/emails/inbox'){
-      console.log("delete from inbox");
       this.requestsService.deleteEmail(this.email, 'inbox', this.user)
-      .subscribe((res) => {
-        this.removeLoading = false;
-        if (res.ok) {
-          console.log(res);
-          this.emailRemovedEvent.emit('inbox');
-        }
-      })
+      .subscribe((res) => this.handleRemoveResponse(res, 'inbox'))
+    }
+  }
+
+  private handleRemoveResponse(res: HttpResponse<boolean>, folderName: string) {
+    this.removeLoading = false;
+    if (res.body) {
+      this.emailRemovedEvent.emit(folderName);
+      console.info('email is removed successfully!');
+    }
+    else {
+      console.info('email can\'t be removed!');
     }
   }
 
   public markAsSeen() {
     if (!this.email.seen && this.router.url === '/home/emails/inbox') {
       this.email.seen = true;
-      this.requestsService.markAsSeen(this.email._id, this.user._id).subscribe(res => {
-        console.log(res);
-      })
+      this.requestsService.markAsSeen(this.email._id, this.user._id)
+      .subscribe(res => console.log(`Marked: ${res.body}`))
     }
   }
 
   download(file: string) {
-    let attachmentPosition ="";
-    console.log(this.router.url)
     this.downloadLoading = true;
-    attachmentPosition = this.email.sender
+    let attachmentPosition = this.email.sender;
     this.attachmentService.downloadFile(file, attachmentPosition)
     .subscribe({
       next: (res) => {
@@ -90,19 +79,34 @@ export class EmailComponent implements OnInit {
         }
         this.downloadLoading = false;
       },
-      error: (e) => {
-        console.error(e);
-      },
+      error: (e) => console.error(e),
       complete: () => console.info('Downloading complete!')
     })
   }
 
   undoRemoveFromInbox() {
+    this.removeLoading = true;
     this.requestsService.undoRemoveFromInbox(this.email._id, this.user._id)
     .subscribe((res) => {
-      console.log(res);
-      this.emailRemovedEvent.emit('trash');
+      this.removeLoading = false;
+      if(res.body) {
+        console.info('undo remove from inbox is done!');
+        this.emailRemovedEvent.emit('trash');
+      }
     })
   }
 
+  updateModalContent() {
+    const modalBodyInput = this.exampleModal?.querySelector('#receiver-name') as HTMLInputElement;
+    modalBodyInput.value = this.email.receiver;
+    const modalBodySubject = this.exampleModal?.querySelector('#subject') as HTMLInputElement;
+    modalBodySubject.value = this.email.subject;
+    const modalBodyMessage = this.exampleModal?.querySelector('#message-text') as HTMLTextAreaElement;
+    modalBodyMessage.value = this.email.body;
+  }
+
+  updateReceiverModalContent() {
+    const modalBodyInput = this.exampleModal?.querySelector('#receiver-name') as HTMLInputElement;
+    modalBodyInput.value = this.email.sender;
+  }
 }

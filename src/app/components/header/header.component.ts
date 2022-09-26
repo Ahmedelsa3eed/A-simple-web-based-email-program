@@ -13,12 +13,9 @@ export class HeaderComponent implements OnInit {
   isSignedIn: boolean = false;
 
   constructor(private localStorageWrapper: LocalStorageWrapper,
-              private headerService: HeaderService,
-              public router:Router) { }
+    public router:Router) { }
 
   ngOnInit(): void {
-    console.log(this.router.url);
-    console.log(this.isSignedIn);
   }
 
   logout(): void {
