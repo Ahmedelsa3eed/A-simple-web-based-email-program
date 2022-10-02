@@ -1,3 +1,4 @@
+import { ModalService } from './../../services/modal.service';
 import { HttpResponse } from '@angular/common/http';
 import { AttachmentService } from './../../services/attachment.service';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
@@ -24,7 +25,8 @@ export class EmailComponent implements OnInit {
 
   constructor(private requestsService: RequestService,
     public router: Router,
-    private attachmentService: AttachmentService) { }
+    private attachmentService: AttachmentService,
+    private modalService: ModalService) { }
 
   ngOnInit(): void {
   }
@@ -97,16 +99,12 @@ export class EmailComponent implements OnInit {
   }
 
   updateModalContent() {
-    const modalBodyInput = this.exampleModal?.querySelector('#receiver-name') as HTMLInputElement;
-    modalBodyInput.value = this.email.receiver;
-    const modalBodySubject = this.exampleModal?.querySelector('#subject') as HTMLInputElement;
-    modalBodySubject.value = this.email.subject;
-    const modalBodyMessage = this.exampleModal?.querySelector('#message-text') as HTMLTextAreaElement;
-    modalBodyMessage.value = this.email.body;
+    this.modalService.setReceiver(this.email.sender);
+    this.modalService.setSubject(this.email.subject);
+    this.modalService.setBody(this.email.body);
   }
 
   updateReceiverModalContent() {
-    const modalBodyInput = this.exampleModal?.querySelector('#receiver-name') as HTMLInputElement;
-    modalBodyInput.value = this.email.sender;
+    this.modalService.setReceiver(this.email.sender);
   }
 }

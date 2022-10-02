@@ -1,7 +1,7 @@
 import { HeaderService } from './../../services/header.service';
 import { LocalStorageWrapper } from './../../services/localStorageWrapper.service';
 import { RequestService } from '../../services/request.service';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from 'src/app/models/User';
 import { HttpResponse } from '@angular/common/http';
@@ -21,7 +21,7 @@ export class SigninComponent implements OnInit {
     private router: Router,
     private userService: LocalStorageWrapper,
     private headerService: HeaderService) {
-    this.user = new User();
+      this.user = new User();
   }
 
   ngOnInit(): void {

@@ -1,5 +1,5 @@
 import { User } from 'src/app/models/User';
-import { HttpClient, HttpErrorResponse, HttpEvent, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
