@@ -1,5 +1,6 @@
 # Mail Server App
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Ahmedelsa3eed_A-simple-web-based-email-program&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Ahmedelsa3eed_A-simple-web-based-email-program)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/ec4eef65-d8f4-428d-b7ef-fb36f1d5d39e/deploy-status)](https://app.netlify.com/sites/simple-email-server/deploys)
 
 ## Backend repo
 [Email Server Backend](https://github.com/AhmedElemary57/Email-Server-Backend)
