@@ -1,3 +1,4 @@
+import { ModalService } from './../../services/modal.service';
 import { AttachmentService } from './../../services/attachment.service';
 import { LocalStorageWrapper } from './../../services/localStorageWrapper.service';
 import { RequestService } from './../../services/request.service';
@@ -27,13 +28,39 @@ export class HomeComponent implements OnInit {
 
   constructor(private requestService: RequestService,
     private userService: LocalStorageWrapper,
-    private attachmentService: AttachmentService) {
+    private attachmentService: AttachmentService,
+    private modalService: ModalService) {
       this.user = new User;
       this.email = new Email;
   }
 
   ngOnInit(): void {
     this.user = this.userService.getUser();
+    this.modalSync();
+  }
+  
+  private modalSync() {
+    this.receiverSync();
+    this.subjectSync();
+    this.bodySync();
+  }
+
+  private receiverSync() {
+    this.modalService.getReceiver().subscribe(res => {
+      this.email.receiver = res;
+    })
+  }
+
+  private subjectSync() {
+    this.modalService.getSubject().subscribe(res => {
+      this.email.subject = res;
+    })
+  }
+
+  private bodySync() {
+    this.modalService.getBody().subscribe(res => {
+      this.email.body = res;
+    })
   }
 
   sendEmail() {
